@@ -1,0 +1,2605 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-MX" xml:lang="es-MX"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jonathan V. Solórzano">
+
+<title>2.ManejoDatos – CursoRbook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./3.AcomodoDatos.html" rel="next">
+<link href="./1.IntroducciónR.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2.ManejoDatos.html"><span class="chapter-title">2.ManejoDatos</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CursoRbook</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ciencia de datos con R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./0.Inicio.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">0.Inicio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./1.IntroducciónR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">1.Introducción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2.ManejoDatos.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">2.ManejoDatos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3.AcomodoDatos.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3.AcomodoDatos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4.AnálisisEstad.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">4.AnálisisEstad</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./5.Ggplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">5.Ggplot</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./6.Diversidad.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6.Diversidad</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./7.Modelos.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">7.Modelos</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./8.CierreyQuarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8.CierreyQuarto</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#flujo-de-trabajo-en-proyectos-de-ciencia-de-datos" id="toc-flujo-de-trabajo-en-proyectos-de-ciencia-de-datos" class="nav-link active" data-scroll-target="#flujo-de-trabajo-en-proyectos-de-ciencia-de-datos">Flujo de trabajo en proyectos de ciencia de datos</a></li>
+  <li><a href="#paquetes" id="toc-paquetes" class="nav-link" data-scroll-target="#paquetes">Paquetes</a></li>
+  <li><a href="#lectura-y-escritura" id="toc-lectura-y-escritura" class="nav-link" data-scroll-target="#lectura-y-escritura">Lectura y escritura</a>
+  <ul class="collapse">
+  <li><a href="#funciones-base" id="toc-funciones-base" class="nav-link" data-scroll-target="#funciones-base">Funciones base</a>
+  <ul class="collapse">
+  <li><a href="#lectura" id="toc-lectura" class="nav-link" data-scroll-target="#lectura">Lectura</a></li>
+  <li><a href="#escritura" id="toc-escritura" class="nav-link" data-scroll-target="#escritura">Escritura</a></li>
+  <li><a href="#problemas-comunes-encoding" id="toc-problemas-comunes-encoding" class="nav-link" data-scroll-target="#problemas-comunes-encoding">Problemas comunes: encoding</a></li>
+  </ul></li>
+  <li><a href="#paquete-readr" id="toc-paquete-readr" class="nav-link" data-scroll-target="#paquete-readr">Paquete readr</a></li>
+  <li><a href="#paquete-readxl" id="toc-paquete-readxl" class="nav-link" data-scroll-target="#paquete-readxl">Paquete readxl</a>
+  <ul class="collapse">
+  <li><a href="#problemas-comunes-líneas-espurio" id="toc-problemas-comunes-líneas-espurio" class="nav-link" data-scroll-target="#problemas-comunes-líneas-espurio">Problemas comunes: líneas espurio</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#manejo-de-un-data-frame-hoja-de-datos" id="toc-manejo-de-un-data-frame-hoja-de-datos" class="nav-link" data-scroll-target="#manejo-de-un-data-frame-hoja-de-datos">Manejo de un data frame (hoja de datos)</a></li>
+  <li><a href="#gráficas-básicas" id="toc-gráficas-básicas" class="nav-link" data-scroll-target="#gráficas-básicas">Gráficas básicas</a></li>
+  <li><a href="#manejo-de-errores-comunes" id="toc-manejo-de-errores-comunes" class="nav-link" data-scroll-target="#manejo-de-errores-comunes">Manejo de errores comunes</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">2.ManejoDatos</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jonathan V. Solórzano </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Fecha de publicación</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">3 de octubre de 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="flujo-de-trabajo-en-proyectos-de-ciencia-de-datos" class="level1">
+<h1>Flujo de trabajo en proyectos de ciencia de datos</h1>
+<ol type="1">
+<li>Lectura de datos</li>
+<li>Revisión y análisis descriptivo.</li>
+<li>Preprocesamiento</li>
+<li>Análisis estadísticos o ajuste de modelos</li>
+<li>Exportación y presentación de resultados.</li>
+</ol>
+</section>
+<section id="paquetes" class="level1">
+<h1>Paquetes</h1>
+<p>Un paso más allá: uso de paquetes</p>
+<ul>
+<li>Los paquetes son conjuntos de funciones que vienen en un paquete.</li>
+<li>Para usar las funciones contenidas en un paquete hay que descargarlas</li>
+<li>Y luego cargarlas en el espacio de trabajo</li>
+<li>¿Cómo?:
+<ul>
+<li>Instala el paquete en el disco local (TX mirror recomendado)
+<ul>
+<li><code>install.packages(“nombre del paquete”)</code></li>
+</ul></li>
+<li>Una vez instalado
+<ul>
+<li><code>library(“nombre del paquete”)</code></li>
+</ul></li>
+<li>Así queda cargado en el espacio de trabajo y ya podemos usar las funciones</li>
+</ul></li>
+</ul>
+<p>Recordar: cada vez que se abre R de nuevo, hay que cargar los paquetes deseados.</p>
+<p>Instalar paquetes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("vegan")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Instalar vegan Cargar vegan</p>
+<p><code>??vegan</code> para sacar la ayuda y ver qué hace</p>
+<p>Paquetes personalizados</p>
+<ul>
+<li>Uno puede crear su propio paquete de funciones</li>
+<li>Distribuirlo para otros usuarios</li>
+<li>Sólo se requiere seguir una documentación para informar sobre lo que hace el paquete, cada función, el desarrollador, el tipo de licencia, etc.</li>
+<li>Estos paquetes se pueden subir en github.com</li>
+<li>De este sitio también se pueden descargar otros paquetes desarrollados por usuarios .</li>
+</ul>
+<p>Otros paquetes</p>
+<ul>
+<li>vegan: Community Ecology Package.</li>
+<li>terra.</li>
+<li>ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics.</li>
+<li>sf .</li>
+<li>tidyverse.</li>
+<li>landscapemetrics.</li>
+<li>iNext.</li>
+<li>tidymodels.</li>
+</ul>
+<p>consultar: https://cran.r-project.org/web/packages/available_packages_by_name.html</p>
+<p>Muchos paquetes traen algunos datos de ejemplo que pueden servir para saber cómo se tienen que meter los datos a ciertas funciones.</p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(dune)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(BCI)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(dun.env)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in data(dun.env): data set 'dun.env' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="lectura-y-escritura" class="level1">
+<h1>Lectura y escritura</h1>
+<section id="funciones-base" class="level2">
+<h2 class="anchored" data-anchor-id="funciones-base">Funciones base</h2>
+<p>Hasta ahora todo ha sido dentro de R</p>
+<ul>
+<li>Importar tablas de Excel
+<ul>
+<li>Guardar la tabla como csv</li>
+<li>Importarlo mediante el comando read.csv(“Ruta del archivo.csv”)</li>
+<li>Las rutas deben de contener únicamente / y no &nbsp;(default de Windows).</li>
+<li>Meter la tabla a un objeto</li>
+</ul></li>
+<li>Exportar tablas de Excel
+<ul>
+<li>Guardar la tabla en un objeto</li>
+<li>Exportar objeto mediante el comando write.csv(obj_resul,”Ruta del archivo.csv”)</li>
+</ul></li>
+</ul>
+<p>Normalmente las variables se acomodan en las columnas, mientras que en los renglones cada observación.</p>
+<section id="lectura" class="level3">
+<h3 class="anchored" data-anchor-id="lectura">Lectura</h3>
+<p>Revisar el directorio de trabajo utilizando <code>getwd()</code> Escribir el nombre del archivo con todo y extensión Abrir BD. El archivo está disponible en la siguiente liga: https://github.com/JonathanVSV/JonathanVSV.github.io/blob/master/Curso_basico_R/BD.csv</p>
+<p>Al entrar a la página presionar la tecla Alt y dar click en el botón de “Raw” para descargarlo a su disco duro.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Individuos_InFys.csv"</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header=</span>T,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">encoding =</span> <span class="st">"utf-8"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Id_parcela                                         DESCRIP_S7_C3
+1       4165 VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO
+2       4165 VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO
+3       4165 VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO
+4       4165 VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO
+5       4165 VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO
+6       4165 VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO
+  NombreComun_C3 Familia_APG_C3 Genero_APG_C3 Especie_APG_C3
+1       Mezquite       Fabaceae      Prosopis      juliflora
+2       Mezquite       Fabaceae      Prosopis           NULL
+3       Mezquite       Fabaceae      Prosopis      juliflora
+4       Mezquite       Fabaceae      Prosopis      juliflora
+5       Mezquite       Fabaceae      Prosopis      juliflora
+6       Mezquite       Fabaceae      Prosopis      juliflora
+  NombreCientifico_APG_C3 Forma_Biologica_Cat_C3        Condicion_C3
+1      Prosopis juliflora                Arbusto          Arbol vivo
+2                Prosopis          Indeterminada Arbol muerto en pie
+3      Prosopis juliflora                Arbusto          Arbol vivo
+4      Prosopis juliflora                Arbusto          Arbol vivo
+5      Prosopis juliflora                Arbusto          Arbol vivo
+6      Prosopis juliflora                Arbusto          Arbol vivo
+  AlturaTotal_C3 AreaBasal_C3 biomasa_kg_C3
+1            4.0     0.009161     16.249382
+2            1.6     0.006221      2.464664
+3            2.8     0.013273     25.276389
+4            4.2     0.022698     47.901356
+5            3.0     0.008495     14.851779
+6            3.1     0.016286     32.252683</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   394828 obs. of  12 variables:
+ $ Id_parcela             : int  4165 4165 4165 4165 4165 4165 4165 4165 4165 4165 ...
+ $ DESCRIP_S7_C3          : chr  "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" ...
+ $ NombreComun_C3         : chr  "Mezquite" "Mezquite" "Mezquite" "Mezquite" ...
+ $ Familia_APG_C3         : chr  "Fabaceae" "Fabaceae" "Fabaceae" "Fabaceae" ...
+ $ Genero_APG_C3          : chr  "Prosopis" "Prosopis" "Prosopis" "Prosopis" ...
+ $ Especie_APG_C3         : chr  "juliflora" "NULL" "juliflora" "juliflora" ...
+ $ NombreCientifico_APG_C3: chr  "Prosopis juliflora" "Prosopis" "Prosopis juliflora" "Prosopis juliflora" ...
+ $ Forma_Biologica_Cat_C3 : chr  "Arbusto" "Indeterminada" "Arbusto" "Arbusto" ...
+ $ Condicion_C3           : chr  "Arbol vivo" "Arbol muerto en pie" "Arbol vivo" "Arbol vivo" ...
+ $ AlturaTotal_C3         : num  4 1.6 2.8 4.2 3 3.1 4.1 3.6 4.3 3.4 ...
+ $ AreaBasal_C3           : num  0.00916 0.00622 0.01327 0.0227 0.0085 ...
+ $ biomasa_kg_C3          : num  16.25 2.46 25.28 47.9 14.85 ...</code></pre>
+</div>
+</div>
+<p>Otra opción útil para fijar rutas de trabajo es setwd(“Ruta a la que quieres cambiar”)</p>
+<p>Recomendación para leer archivos</p>
+<ul>
+<li>Por default R lee las columnas con caracteres como factores.</li>
+<li>Recuerden el problema de hacer conversión de factores a números.</li>
+<li>Recomendación: añadan stringsAsFactors= F como último argumento de read.csv.</li>
+</ul>
+</section>
+<section id="escritura" class="level3">
+<h3 class="anchored" data-anchor-id="escritura">Escritura</h3>
+<p>Escribir el nombre del archivo con todo y extensión.</p>
+<p>Escribir en csv</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(datos,<span class="st">"Resul/Individuos_InFys_proc.csv"</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">row.names =</span> F,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">encoding =</span> <span class="st">"utf-8"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in utils::write.table(datos, "Resul/Individuos_InFys_proc.csv", : el argumento no fue usado (encoding = "utf-8")</code></pre>
+</div>
+</div>
+<p>Otra opción guardarlo en objeto de tipo rds.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(datos,<span class="st">"Resul/Individuos_InFys_proc.rds"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in gzfile(file, mode): cannot open compressed file
+'Resul/Individuos_InFys_proc.rds', probable reason 'No such file or directory'</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in gzfile(file, mode): no se puede abrir la conexión</code></pre>
+</div>
+</div>
+<p>Leer RDS</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRDS</span>(datos,<span class="st">"Resul/Individuos_InFys_proc.rds"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in readRDS(datos, "Resul/Individuos_InFys_proc.rds"): bad 'file' argument</code></pre>
+</div>
+</div>
+</section>
+<section id="problemas-comunes-encoding" class="level3">
+<h3 class="anchored" data-anchor-id="problemas-comunes-encoding">Problemas comunes: encoding</h3>
+<p>Problemas comunes con la importación y exportación de datos: encoding. R suele usar utf-8, a veces excel tiene otra codificación A veces al abrir los datos en excel y guardarlos, se cambia el encoding de los archivos o el formato de la información (p.ej., fechas).</p>
+<p>Ver los acentos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Individuos_InFys_latin1.csv"</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header=</span>T,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">encoding =</span> <span class="st">"utf-8"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Id_parcela                                               DESCRIP_S7_C3
+1       4165 VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO
+2       4165 VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO
+3       4165 VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO
+4       4165 VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO
+5       4165 VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO
+6       4165 VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO
+  NombreComun_C3 Familia_APG_C3 Genero_APG_C3 Especie_APG_C3
+1       Mezquite       Fabaceae      Prosopis      juliflora
+2       Mezquite       Fabaceae      Prosopis           NULL
+3       Mezquite       Fabaceae      Prosopis      juliflora
+4       Mezquite       Fabaceae      Prosopis      juliflora
+5       Mezquite       Fabaceae      Prosopis      juliflora
+6       Mezquite       Fabaceae      Prosopis      juliflora
+  NombreCientifico_APG_C3 Forma_Biologica_Cat_C3        Condicion_C3
+1      Prosopis juliflora                Arbusto          Arbol vivo
+2                Prosopis          Indeterminada Arbol muerto en pie
+3      Prosopis juliflora                Arbusto          Arbol vivo
+4      Prosopis juliflora                Arbusto          Arbol vivo
+5      Prosopis juliflora                Arbusto          Arbol vivo
+6      Prosopis juliflora                Arbusto          Arbol vivo
+  AlturaTotal_C3 AreaBasal_C3 biomasa_kg_C3
+1            4.0     0.009161     16.249382
+2            1.6     0.006221      2.464664
+3            2.8     0.013273     25.276389
+4            4.2     0.022698     47.901356
+5            3.0     0.008495     14.851779
+6            3.1     0.016286     32.252683</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   394828 obs. of  12 variables:
+ $ Id_parcela             : int  4165 4165 4165 4165 4165 4165 4165 4165 4165 4165 ...
+ $ DESCRIP_S7_C3          : chr  "VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO" "VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO" "VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO" "VEGETACI\xd3N SECUNDARIA ARBUSTIVA DE MEZQUITAL XER\xd3FILO" ...
+ $ NombreComun_C3         : chr  "Mezquite" "Mezquite" "Mezquite" "Mezquite" ...
+ $ Familia_APG_C3         : chr  "Fabaceae" "Fabaceae" "Fabaceae" "Fabaceae" ...
+ $ Genero_APG_C3          : chr  "Prosopis" "Prosopis" "Prosopis" "Prosopis" ...
+ $ Especie_APG_C3         : chr  "juliflora" "NULL" "juliflora" "juliflora" ...
+ $ NombreCientifico_APG_C3: chr  "Prosopis juliflora" "Prosopis" "Prosopis juliflora" "Prosopis juliflora" ...
+ $ Forma_Biologica_Cat_C3 : chr  "Arbusto" "Indeterminada" "Arbusto" "Arbusto" ...
+ $ Condicion_C3           : chr  "Arbol vivo" "Arbol muerto en pie" "Arbol vivo" "Arbol vivo" ...
+ $ AlturaTotal_C3         : num  4 1.6 2.8 4.2 3 3.1 4.1 3.6 4.3 3.4 ...
+ $ AreaBasal_C3           : num  0.00916 0.00622 0.01327 0.0227 0.0085 ...
+ $ biomasa_kg_C3          : num  16.25 2.46 25.28 47.9 14.85 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Individuos_InFys_latin1.csv"</span>,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header=</span>T,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">encoding =</span> <span class="st">"latin1"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="paquete-readr" class="level2">
+<h2 class="anchored" data-anchor-id="paquete-readr">Paquete readr</h2>
+<p>Paquete para importar y exportar datos más fácilmente</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Individuos_InFys.csv"</span>, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">na =</span> <span class="st">""</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 394828 Columns: 12
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (8): DESCRIP_S7_C3, NombreComun_C3, Familia_APG_C3, Genero_APG_C3, Espec...
+dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 12
+  Id_parcela DESCRIP_S7_C3           NombreComun_C3 Familia_APG_C3 Genero_APG_C3
+       &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;        
+1       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+2       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+3       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+4       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+5       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+6       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+# ℹ 7 more variables: Especie_APG_C3 &lt;chr&gt;, NombreCientifico_APG_C3 &lt;chr&gt;,
+#   Forma_Biologica_Cat_C3 &lt;chr&gt;, Condicion_C3 &lt;chr&gt;, AlturaTotal_C3 &lt;dbl&gt;,
+#   AreaBasal_C3 &lt;dbl&gt;, biomasa_kg_C3 &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [394,828 × 12] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id_parcela             : num [1:394828] 4165 4165 4165 4165 4165 ...
+ $ DESCRIP_S7_C3          : chr [1:394828] "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" ...
+ $ NombreComun_C3         : chr [1:394828] "Mezquite" "Mezquite" "Mezquite" "Mezquite" ...
+ $ Familia_APG_C3         : chr [1:394828] "Fabaceae" "Fabaceae" "Fabaceae" "Fabaceae" ...
+ $ Genero_APG_C3          : chr [1:394828] "Prosopis" "Prosopis" "Prosopis" "Prosopis" ...
+ $ Especie_APG_C3         : chr [1:394828] "juliflora" "NULL" "juliflora" "juliflora" ...
+ $ NombreCientifico_APG_C3: chr [1:394828] "Prosopis juliflora" "Prosopis" "Prosopis juliflora" "Prosopis juliflora" ...
+ $ Forma_Biologica_Cat_C3 : chr [1:394828] "Arbusto" "Indeterminada" "Arbusto" "Arbusto" ...
+ $ Condicion_C3           : chr [1:394828] "Arbol vivo" "Arbol muerto en pie" "Arbol vivo" "Arbol vivo" ...
+ $ AlturaTotal_C3         : num [1:394828] 4 1.6 2.8 4.2 3 3.1 4.1 3.6 4.3 3.4 ...
+ $ AreaBasal_C3           : num [1:394828] 0.00916 0.00622 0.01327 0.0227 0.0085 ...
+ $ biomasa_kg_C3          : num [1:394828] 16.25 2.46 25.28 47.9 14.85 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id_parcela = col_double(),
+  ..   DESCRIP_S7_C3 = col_character(),
+  ..   NombreComun_C3 = col_character(),
+  ..   Familia_APG_C3 = col_character(),
+  ..   Genero_APG_C3 = col_character(),
+  ..   Especie_APG_C3 = col_character(),
+  ..   NombreCientifico_APG_C3 = col_character(),
+  ..   Forma_Biologica_Cat_C3 = col_character(),
+  ..   Condicion_C3 = col_character(),
+  ..   AlturaTotal_C3 = col_double(),
+  ..   AreaBasal_C3 = col_double(),
+  ..   biomasa_kg_C3 = col_double()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+</div>
+</section>
+<section id="paquete-readxl" class="level2">
+<h2 class="anchored" data-anchor-id="paquete-readxl">Paquete readxl</h2>
+<p>Para importar datos directamente desde un archivo de excel</p>
+<p>Descarga de datos: https://snmf.cnf.gob.mx/datos-del-inventario/ Descarga de datos -&gt; Ciclo 2015 - 2020 -&gt; base de datos por estado -&gt; Michoacán</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting numeric in BW19313 / R19313C75: got 'NULL'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting numeric in BX19313 / R19313C76: got 'NULL'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 76
+  UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
+  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+1 40277          67761        801985    2019            16 Michoacá…          14
+2 40277          67761        802033    2019            16 Michoacá…          14
+3 40277          67761        802948    2019            16 Michoacá…          14
+4 40279          67762        135014    2015            16 Michoacá…          14
+5 40279          67762        135029    2015            16 Michoacá…          14
+6 40279          67762        135035    2015            16 Michoacá…          14
+# ℹ 69 more variables: CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;,
+#   DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
+#   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
+#   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
+#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;,
+#   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
+#   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [26,035 × 76] (S3: tbl_df/tbl/data.frame)
+ $ UPMID                         : num [1:26035] 40277 40277 40277 40279 40279 ...
+ $ IdConglomerado                : num [1:26035] 67761 67761 67761 67762 67762 ...
+ $ ArboladoID_C3                 : num [1:26035] 801985 802033 802948 135014 135029 ...
+ $ Anio_C3                       : num [1:26035] 2019 2019 2019 2015 2015 ...
+ $ Cve_Estado_C3                 : num [1:26035] 16 16 16 16 16 16 16 16 16 16 ...
+ $ Estado_C3                     : chr [1:26035] "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" ...
+ $ CVEECON1_C3                   : num [1:26035] 14 14 14 14 14 14 14 14 14 14 ...
+ $ CVEECON2_C3                   : num [1:26035] 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 ...
+ $ CVEECON3_C3                   : chr [1:26035] "14.5.2" "14.5.2" "14.5.2" "14.5.2" ...
+ $ CVEECON4_C3                   : chr [1:26035] "14.5.2.3" "14.5.2.3" "14.5.2.3" "14.5.2.3" ...
+ $ DESECON1_C3                   : chr [1:26035] "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" ...
+ $ DESECON2_C3                   : chr [1:26035] "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" ...
+ $ DESECON3_C3                   : chr [1:26035] "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" ...
+ $ DESECON4_C3                   : chr [1:26035] "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" ...
+ $ Region_Hidrologica_C3         : chr [1:26035] "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" ...
+ $ CVE_S7_C3                     : chr [1:26035] "BPQ" "BPQ" "BPQ" "VSA/BPQ" ...
+ $ X_C3                          : num [1:26035] -103 -103 -103 -102 -102 ...
+ $ Y_C3                          : num [1:26035] 18.2 18.2 18.2 18.2 18.2 ...
+ $ DESCRIP_S7_C3                 : chr [1:26035] "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "VEGETACIÓN SECUNDARIA ARBÓREA DE BOSQUE DE PINO-ENCINO" ...
+ $ FORM_S7_C3                    : chr [1:26035] "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" ...
+ $ FAO_S7_C3                     : logi [1:26035] NA NA NA NA NA NA ...
+ $ ECO_S7_C3                     : chr [1:26035] "Bosques" "Bosques" "Bosques" "Bosques" ...
+ $ Sitio_C3                      : num [1:26035] 1 3 4 1 1 1 1 2 2 3 ...
+ $ Consecutivo_C3                : num [1:26035] 9 19 13 1 14 20 22 12 8 2 ...
+ $ NoIndividuo_C3                : num [1:26035] 9 10 8 1 14 20 22 12 8 2 ...
+ $ NoRama_C3                     : num [1:26035] 9 19 13 1 16 22 24 12 8 2 ...
+ $ Azimut_C3                     : num [1:26035] 44 276 202 16 178 239 281 223 116 135 ...
+ $ Distancia_C3                  : num [1:26035] 9.5 8.5 1 9.5 4.4 5.7 8.2 8.5 11.2 3.8 ...
+ $ NombreComun_C3                : chr [1:26035] "temezquite" "tocon" "ambula" "encino" ...
+ $ Familia_APG_C3                : chr [1:26035] "Fabaceae" "ZZ Familia Desconocida" "Hernandiaceae" "Pinaceae" ...
+ $ Genero_APG_C3                 : chr [1:26035] "Lysiloma" "ZZ Genero Desconocido" "Gyrocarpus" "Pinus" ...
+ $ Especie_APG_C3                : chr [1:26035] "divaricatum" "NULL" "jatrophifolius" "oocarpa" ...
+ $ Categoria_APG_C3              : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
+ $ Infraespecie_APG_C3           : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
+ $ NombreCientifico_APG_C3       : chr [1:26035] "Lysiloma divaricatum" "ZZ Genero Desconocido" "Gyrocarpus jatrophifolius" "Pinus oocarpa" ...
+ $ Forma_Biologica_Cat_C3        : chr [1:26035] "Arbol" "Indeterminada" "Arbol" "Arbol" ...
+ $ FormaFuste_C3                 : chr [1:26035] "Individuo curvo con dos o más fustes" "No capturado" "Individuo curvo con dos o más fustes" "individuo recto con un fuste" ...
+ $ Condicion_C3                  : chr [1:26035] "Arbol vivo" "Tocon sin marca" "Arbol vivo" "Arbol vivo" ...
+ $ MuertoPie_C3                  : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ GradoPutrefaccion_C3          : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TipoTocon_C3                  : chr [1:26035] "No capturado" "Tocón madera seca (madera dura sin evidencias de descomposición)" "No capturado" "No capturado" ...
+ $ DiametroNormal_C3             : num [1:26035] 7.9 41.2 11.2 16.4 8.7 17.8 25.4 17.4 27.5 36.4 ...
+ $ AlturaTotal_C3                : num [1:26035] 8.5 0.97 4.65 8.8 4.5 10.2 13.8 11 15 8.7 ...
+ $ AnguloInclinacion_C3          : num [1:26035] 999993 999993 999993 -1 -1 ...
+ $ AlturaFusteLimpio_C3          : num [1:26035] 4.3 1.0e+06 1.4 6.7 2.4 ...
+ $ AlturaComercial_C3            : num [1:26035] 1.0e+06 1.0e+06 1.4 5.0 1.0e+06 ...
+ $ DiametroCopaNS_C3             : num [1:26035] 4.2 1.0e+06 3.2 2.8 3.0 ...
+ $ DiametroCopaEO_C3             : num [1:26035] 3.4 1.0e+06 2.9 2.6 2.7 ...
+ $ DiametroCopa_C3               : num [1:26035] 3.80 1.00e+06 3.05 2.70 2.85 ...
+ $ ProporcionCopaViva_C3         : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ ExposicionCopa_C3             : chr [1:26035] "No capturado" "No capturado" "No capturado" "SI" ...
+ $ PosicionCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "Suprimido" ...
+ $ DensidadCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ MuerteRegresiva_C3            : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TransparenciaFollaje_C3       : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ VigorEtapa_C3                 : chr [1:26035] "Árbol joven" "No capturado" "Árbol joven" "Árbol joven" ...
+ $ NivelVigor_C3                 : chr [1:26035] "Moderado" "No capturado" "Moderado" "No aplica" ...
+ $ AreaBasal_C3                  : num [1:26035] 0.0049 0.13332 0.00985 0.02112 0.00594 ...
+ $ AreaCopa_C3                   : num [1:26035] 1.13e+01 1.00e+06 7.30 5.73 6.38 ...
+ $ AgenteDanio1_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ AgenteDanio1_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ Severidad1_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ AgenteDanio2_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ AgenteDanio2_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ Severidad2_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ EsSubmuestra_C3               : num [1:26035] 0 0 0 0 0 0 0 0 0 0 ...
+ $ DiametroBasalSub_validacion_C3: num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ Edad_C3                       : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ NumeroAnillos25_C3            : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ LongitudAnillos10_C3          : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ GrosorCorteza_C3              : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ es_para_estimacion_Volumen_C3 : num [1:26035] 1 0 1 1 1 1 1 1 1 1 ...
+ $ VolumenVRTA_m3_C3             : num [1:26035] 2.64e-02 1.00e+06 2.75e-02 1.26e-01 1.24e-02 ...
+ $ es_para_estimacion_ByC        : num [1:26035] 1 1 1 1 1 1 1 1 1 1 ...
+ $ biomasa_kg_C3                 : num [1:26035] 21 35.3 10.5 72.1 18.2 ...
+ $ carbono_kg_C3                 : num [1:26035] 9.22 15.76 4.7 35.29 8.05 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/DivBosqInund_long.xlsx"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="problemas-comunes-líneas-espurio" class="level3">
+<h3 class="anchored" data-anchor-id="problemas-comunes-líneas-espurio">Problemas comunes: líneas espurio</h3>
+<p>Problemas comunes con la importación y exportación de datos: encoding. R suele usar utf-8, a veces excel tiene otra codificación A veces al abrir los datos en excel y guardarlos, se cambia el encoding de los archivos o el formato de la información (p.ej., fechas).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/INFyS_2015_2020_Michoacan_de_Ocampo_skip.xlsx"</span>,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">skip =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting numeric in BW19315 / R19315C75: got 'NULL'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting numeric in BX19315 / R19315C76: got 'NULL'</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="manejo-de-un-data-frame-hoja-de-datos" class="level1">
+<h1>Manejo de un data frame (hoja de datos)</h1>
+<p>Consultar datos del INFyS</p>
+<p>Ver archivos y ver de qué se trata ¿Qué nos interesa? Seleccionar por lo menos 3 variables. Acomodar datos para importar desde Excel Guardar como separado por comas (.csv) Importar una hoja de datos Guardarlo en un objeto Ver su estructura Describir la hoja de datos</p>
+<p>Para ello podemos usar el paquete skimr</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Name</td>
+<td style="text-align: left;">datos</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Number of rows</td>
+<td style="text-align: left;">26035</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of columns</td>
+<td style="text-align: left;">76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">_______________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Column type frequency:</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">39</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">logical</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">________________________</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Group variables</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">empty</th>
+<th style="text-align: right;">n_unique</th>
+<th style="text-align: right;">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Estado_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CVEECON3_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CVEECON4_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DESECON1_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DESECON2_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DESECON3_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DESECON4_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Region_Hidrologica_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CVE_S7_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DESCRIP_S7_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FORM_S7_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ECO_S7_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NombreComun_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1113</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Familia_APG_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Genero_APG_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">176</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Especie_APG_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">294</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Categoria_APG_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Infraespecie_APG_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NombreCientifico_APG_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">401</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Forma_Biologica_Cat_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FormaFuste_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Condicion_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MuertoPie_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GradoPutrefaccion_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TipoTocon_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ProporcionCopaViva_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ExposicionCopa_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PosicionCopa_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DensidadCopa_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MuerteRegresiva_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TransparenciaFollaje_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">VigorEtapa_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NivelVigor_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgenteDanio1_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgenteDanio1_EST_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Severidad1_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgenteDanio2_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgenteDanio2_EST_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Severidad2_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: logical</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: left;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">FAO_S7_C3</td>
+<td style="text-align: right;">26035</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: left;">:</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">skim_variable</th>
+<th style="text-align: right;">n_missing</th>
+<th style="text-align: right;">complete_rate</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">p0</th>
+<th style="text-align: right;">p25</th>
+<th style="text-align: right;">p50</th>
+<th style="text-align: right;">p75</th>
+<th style="text-align: right;">p100</th>
+<th style="text-align: left;">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">UPMID</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">66822.59</td>
+<td style="text-align: right;">11201.92</td>
+<td style="text-align: right;">34257.00</td>
+<td style="text-align: right;">61347.00</td>
+<td style="text-align: right;">69522.00</td>
+<td style="text-align: right;">74589.00</td>
+<td style="text-align: right;">87690.00</td>
+<td style="text-align: left;">▁▂▃▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IdConglomerado</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">61210.60</td>
+<td style="text-align: right;">2767.09</td>
+<td style="text-align: right;">56011.00</td>
+<td style="text-align: right;">59280.00</td>
+<td style="text-align: right;">60556.00</td>
+<td style="text-align: right;">62584.00</td>
+<td style="text-align: right;">69266.00</td>
+<td style="text-align: left;">▃▇▃▂▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ArboladoID_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">445904.05</td>
+<td style="text-align: right;">255726.18</td>
+<td style="text-align: right;">99751.00</td>
+<td style="text-align: right;">140751.50</td>
+<td style="text-align: right;">446643.00</td>
+<td style="text-align: right;">638423.50</td>
+<td style="text-align: right;">836076.00</td>
+<td style="text-align: left;">▇▁▇▃▆</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Anio_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2016.44</td>
+<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">2015.00</td>
+<td style="text-align: right;">2015.00</td>
+<td style="text-align: right;">2016.00</td>
+<td style="text-align: right;">2017.00</td>
+<td style="text-align: right;">2019.00</td>
+<td style="text-align: left;">▇▇▃▁▅</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cve_Estado_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">16.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">16.00</td>
+<td style="text-align: right;">16.00</td>
+<td style="text-align: right;">16.00</td>
+<td style="text-align: right;">16.00</td>
+<td style="text-align: right;">16.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CVEECON1_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13.23</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: left;">▂▁▇▁▅</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CVEECON2_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13.62</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">12.20</td>
+<td style="text-align: right;">13.40</td>
+<td style="text-align: right;">13.40</td>
+<td style="text-align: right;">14.40</td>
+<td style="text-align: right;">14.50</td>
+<td style="text-align: left;">▂▁▇▁▅</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">X_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-101.49</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">-103.48</td>
+<td style="text-align: right;">-102.05</td>
+<td style="text-align: right;">-101.53</td>
+<td style="text-align: right;">-100.86</td>
+<td style="text-align: right;">-100.09</td>
+<td style="text-align: left;">▁▅▇▇▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Y_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">19.35</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">17.97</td>
+<td style="text-align: right;">19.10</td>
+<td style="text-align: right;">19.47</td>
+<td style="text-align: right;">19.69</td>
+<td style="text-align: right;">20.28</td>
+<td style="text-align: left;">▁▂▅▇▃</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sitio_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.43</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: left;">▇▇▁▇▆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Consecutivo_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15.49</td>
+<td style="text-align: right;">13.39</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">22.00</td>
+<td style="text-align: right;">332.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NoIndividuo_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">13.34</td>
+<td style="text-align: right;">11.96</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5.00</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">19.00</td>
+<td style="text-align: right;">341.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoRama_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">16.57</td>
+<td style="text-align: right;">13.98</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">23.00</td>
+<td style="text-align: right;">332.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Azimut_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1097.76</td>
+<td style="text-align: right;">30342.93</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">85.00</td>
+<td style="text-align: right;">175.00</td>
+<td style="text-align: right;">267.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Distancia_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5423.21</td>
+<td style="text-align: right;">73392.67</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5.60</td>
+<td style="text-align: right;">7.90</td>
+<td style="text-align: right;">9.80</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DiametroNormal_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">24022.46</td>
+<td style="text-align: right;">153067.41</td>
+<td style="text-align: right;">7.60</td>
+<td style="text-align: right;">10.10</td>
+<td style="text-align: right;">13.80</td>
+<td style="text-align: right;">21.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AlturaTotal_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6998.69</td>
+<td style="text-align: right;">83317.33</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">5.00</td>
+<td style="text-align: right;">7.20</td>
+<td style="text-align: right;">10.10</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AnguloInclinacion_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">577645.56</td>
+<td style="text-align: right;">493935.59</td>
+<td style="text-align: right;">-1.00</td>
+<td style="text-align: right;">-1.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▆▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AlturaFusteLimpio_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">130057.92</td>
+<td style="text-align: right;">336367.34</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">1.90</td>
+<td style="text-align: right;">2.90</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AlturaComercial_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">362436.04</td>
+<td style="text-align: right;">480706.10</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">3.50</td>
+<td style="text-align: right;">7.90</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▅</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DiametroCopaNS_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">129904.96</td>
+<td style="text-align: right;">336198.01</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">4.20</td>
+<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DiametroCopaEO_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">129559.28</td>
+<td style="text-align: right;">335817.07</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">4.20</td>
+<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DiametroCopa_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">131249.29</td>
+<td style="text-align: right;">337672.01</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">4.25</td>
+<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AreaBasal_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7297.85</td>
+<td style="text-align: right;">85116.14</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AreaCopa_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">131263.03</td>
+<td style="text-align: right;">337666.67</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">7.07</td>
+<td style="text-align: right;">14.18</td>
+<td style="text-align: right;">37.39</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">EsSubmuestra_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DiametroBasalSub_validacion_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">956513.05</td>
+<td style="text-align: right;">203929.51</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Edad_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">957972.69</td>
+<td style="text-align: right;">200629.73</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NumeroAnillos25_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">956627.17</td>
+<td style="text-align: right;">203676.55</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LongitudAnillos10_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">956589.47</td>
+<td style="text-align: right;">203759.30</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GrosorCorteza_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">956589.11</td>
+<td style="text-align: right;">203760.99</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999993.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">es_para_estimacion_Volumen_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VolumenVRTA_m3_C3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">114806.11</td>
+<td style="text-align: right;">318792.07</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.07</td>
+<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">es_para_estimacion_ByC</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">biomasa_kg_C3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">147.04</td>
+<td style="text-align: right;">450.75</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">19.11</td>
+<td style="text-align: right;">40.76</td>
+<td style="text-align: right;">108.23</td>
+<td style="text-align: right;">22319.79</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">carbono_kg_C3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">66.90</td>
+<td style="text-align: right;">206.96</td>
+<td style="text-align: right;">0.09</td>
+<td style="text-align: right;">8.66</td>
+<td style="text-align: right;">18.37</td>
+<td style="text-align: right;">48.92</td>
+<td style="text-align: right;">9976.95</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Ver tabla completa en RStudio</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>¿Qué fijarse?</p>
+<ul>
+<li>Tipos de variables.</li>
+<li>Valores faltantes.</li>
+<li>Valores máx y min (errores de dedo).</li>
+<li>Niveles disponibles.</li>
+<li>Homogeneización de nombres (Especies, tipos de vegetación, sitios de muestreo, etc).</li>
+</ul>
+<p>Hagámoslo con R base</p>
+<p>Estructura de datos y tipo de variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [26,035 × 76] (S3: tbl_df/tbl/data.frame)
+ $ UPMID                         : num [1:26035] 40277 40277 40277 40279 40279 ...
+ $ IdConglomerado                : num [1:26035] 67761 67761 67761 67762 67762 ...
+ $ ArboladoID_C3                 : num [1:26035] 801985 802033 802948 135014 135029 ...
+ $ Anio_C3                       : num [1:26035] 2019 2019 2019 2015 2015 ...
+ $ Cve_Estado_C3                 : num [1:26035] 16 16 16 16 16 16 16 16 16 16 ...
+ $ Estado_C3                     : chr [1:26035] "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" ...
+ $ CVEECON1_C3                   : num [1:26035] 14 14 14 14 14 14 14 14 14 14 ...
+ $ CVEECON2_C3                   : num [1:26035] 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 ...
+ $ CVEECON3_C3                   : chr [1:26035] "14.5.2" "14.5.2" "14.5.2" "14.5.2" ...
+ $ CVEECON4_C3                   : chr [1:26035] "14.5.2.3" "14.5.2.3" "14.5.2.3" "14.5.2.3" ...
+ $ DESECON1_C3                   : chr [1:26035] "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" ...
+ $ DESECON2_C3                   : chr [1:26035] "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" ...
+ $ DESECON3_C3                   : chr [1:26035] "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" ...
+ $ DESECON4_C3                   : chr [1:26035] "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" ...
+ $ Region_Hidrologica_C3         : chr [1:26035] "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" ...
+ $ CVE_S7_C3                     : chr [1:26035] "BPQ" "BPQ" "BPQ" "VSA/BPQ" ...
+ $ X_C3                          : num [1:26035] -103 -103 -103 -102 -102 ...
+ $ Y_C3                          : num [1:26035] 18.2 18.2 18.2 18.2 18.2 ...
+ $ DESCRIP_S7_C3                 : chr [1:26035] "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "VEGETACIÓN SECUNDARIA ARBÓREA DE BOSQUE DE PINO-ENCINO" ...
+ $ FORM_S7_C3                    : chr [1:26035] "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" ...
+ $ FAO_S7_C3                     : logi [1:26035] NA NA NA NA NA NA ...
+ $ ECO_S7_C3                     : chr [1:26035] "Bosques" "Bosques" "Bosques" "Bosques" ...
+ $ Sitio_C3                      : num [1:26035] 1 3 4 1 1 1 1 2 2 3 ...
+ $ Consecutivo_C3                : num [1:26035] 9 19 13 1 14 20 22 12 8 2 ...
+ $ NoIndividuo_C3                : num [1:26035] 9 10 8 1 14 20 22 12 8 2 ...
+ $ NoRama_C3                     : num [1:26035] 9 19 13 1 16 22 24 12 8 2 ...
+ $ Azimut_C3                     : num [1:26035] 44 276 202 16 178 239 281 223 116 135 ...
+ $ Distancia_C3                  : num [1:26035] 9.5 8.5 1 9.5 4.4 5.7 8.2 8.5 11.2 3.8 ...
+ $ NombreComun_C3                : chr [1:26035] "temezquite" "tocon" "ambula" "encino" ...
+ $ Familia_APG_C3                : chr [1:26035] "Fabaceae" "ZZ Familia Desconocida" "Hernandiaceae" "Pinaceae" ...
+ $ Genero_APG_C3                 : chr [1:26035] "Lysiloma" "ZZ Genero Desconocido" "Gyrocarpus" "Pinus" ...
+ $ Especie_APG_C3                : chr [1:26035] "divaricatum" "NULL" "jatrophifolius" "oocarpa" ...
+ $ Categoria_APG_C3              : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
+ $ Infraespecie_APG_C3           : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
+ $ NombreCientifico_APG_C3       : chr [1:26035] "Lysiloma divaricatum" "ZZ Genero Desconocido" "Gyrocarpus jatrophifolius" "Pinus oocarpa" ...
+ $ Forma_Biologica_Cat_C3        : chr [1:26035] "Arbol" "Indeterminada" "Arbol" "Arbol" ...
+ $ FormaFuste_C3                 : chr [1:26035] "Individuo curvo con dos o más fustes" "No capturado" "Individuo curvo con dos o más fustes" "individuo recto con un fuste" ...
+ $ Condicion_C3                  : chr [1:26035] "Arbol vivo" "Tocon sin marca" "Arbol vivo" "Arbol vivo" ...
+ $ MuertoPie_C3                  : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ GradoPutrefaccion_C3          : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TipoTocon_C3                  : chr [1:26035] "No capturado" "Tocón madera seca (madera dura sin evidencias de descomposición)" "No capturado" "No capturado" ...
+ $ DiametroNormal_C3             : num [1:26035] 7.9 41.2 11.2 16.4 8.7 17.8 25.4 17.4 27.5 36.4 ...
+ $ AlturaTotal_C3                : num [1:26035] 8.5 0.97 4.65 8.8 4.5 10.2 13.8 11 15 8.7 ...
+ $ AnguloInclinacion_C3          : num [1:26035] 999993 999993 999993 -1 -1 ...
+ $ AlturaFusteLimpio_C3          : num [1:26035] 4.3 1.0e+06 1.4 6.7 2.4 ...
+ $ AlturaComercial_C3            : num [1:26035] 1.0e+06 1.0e+06 1.4 5.0 1.0e+06 ...
+ $ DiametroCopaNS_C3             : num [1:26035] 4.2 1.0e+06 3.2 2.8 3.0 ...
+ $ DiametroCopaEO_C3             : num [1:26035] 3.4 1.0e+06 2.9 2.6 2.7 ...
+ $ DiametroCopa_C3               : num [1:26035] 3.80 1.00e+06 3.05 2.70 2.85 ...
+ $ ProporcionCopaViva_C3         : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ ExposicionCopa_C3             : chr [1:26035] "No capturado" "No capturado" "No capturado" "SI" ...
+ $ PosicionCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "Suprimido" ...
+ $ DensidadCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ MuerteRegresiva_C3            : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TransparenciaFollaje_C3       : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ VigorEtapa_C3                 : chr [1:26035] "Árbol joven" "No capturado" "Árbol joven" "Árbol joven" ...
+ $ NivelVigor_C3                 : chr [1:26035] "Moderado" "No capturado" "Moderado" "No aplica" ...
+ $ AreaBasal_C3                  : num [1:26035] 0.0049 0.13332 0.00985 0.02112 0.00594 ...
+ $ AreaCopa_C3                   : num [1:26035] 1.13e+01 1.00e+06 7.30 5.73 6.38 ...
+ $ AgenteDanio1_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ AgenteDanio1_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ Severidad1_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ AgenteDanio2_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ AgenteDanio2_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ Severidad2_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ EsSubmuestra_C3               : num [1:26035] 0 0 0 0 0 0 0 0 0 0 ...
+ $ DiametroBasalSub_validacion_C3: num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ Edad_C3                       : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ NumeroAnillos25_C3            : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ LongitudAnillos10_C3          : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ GrosorCorteza_C3              : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ es_para_estimacion_Volumen_C3 : num [1:26035] 1 0 1 1 1 1 1 1 1 1 ...
+ $ VolumenVRTA_m3_C3             : num [1:26035] 2.64e-02 1.00e+06 2.75e-02 1.26e-01 1.24e-02 ...
+ $ es_para_estimacion_ByC        : num [1:26035] 1 1 1 1 1 1 1 1 1 1 ...
+ $ biomasa_kg_C3                 : num [1:26035] 21 35.3 10.5 72.1 18.2 ...
+ $ carbono_kg_C3                 : num [1:26035] 9.22 15.76 4.7 35.29 8.05 ...</code></pre>
+</div>
+</div>
+<p>Ver muestras de datos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 76
+  UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
+  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+1 40277          67761        801985    2019            16 Michoacá…          14
+2 40277          67761        802033    2019            16 Michoacá…          14
+3 40277          67761        802948    2019            16 Michoacá…          14
+4 40279          67762        135014    2015            16 Michoacá…          14
+5 40279          67762        135029    2015            16 Michoacá…          14
+6 40279          67762        135035    2015            16 Michoacá…          14
+# ℹ 69 more variables: CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;,
+#   DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
+#   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
+#   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
+#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;,
+#   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
+#   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 76
+  UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
+  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+1 82692          57274        475769    2016            16 Michoacá…          12
+2 82692          57274        475800    2016            16 Michoacá…          12
+3 82692          57274        475807    2016            16 Michoacá…          12
+4 82692          57274        475813    2016            16 Michoacá…          12
+5 82692          57274        475825    2016            16 Michoacá…          12
+6 82692          57274        475830    2016            16 Michoacá…          12
+# ℹ 69 more variables: CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;,
+#   DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
+#   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
+#   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
+#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;,
+#   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
+#   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Hacer algunas pruebas:</p>
+<p>Valores min/max</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>biomasa_kg_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]     0.180181 22319.794310</code></pre>
+</div>
+</div>
+<p>Ver los valores con NA</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3))</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>biomasa_kg_C3[indices]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Valores faltantes</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>datos[<span class="fu">which</span>(<span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3)),]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 76
+  UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
+  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+1 79703          58050        832887    2019            16 Michoacá…          12
+# ℹ 69 more variables: CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;,
+#   DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
+#   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
+#   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
+#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;,
+#   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
+#   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>Valores extremos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]      7.6 999993.0</code></pre>
+</div>
+</div>
+<p>Valores demasiado altos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>datos[datos<span class="sc">$</span>DiametroNormal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>,]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 625 × 76
+   UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3          
+   &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;              
+ 1 48449          65760        197636    2015            16 Michoacán de Ocampo
+ 2 40287          67766        802997    2019            16 Michoacán de Ocampo
+ 3 40289          67767        134939    2015            16 Michoacán de Ocampo
+ 4 44863          66591        405491    2016            16 Michoacán de Ocampo
+ 5 46036          66301        406677    2016            16 Michoacán de Ocampo
+ 6 46132          66349        128928    2015            16 Michoacán de Ocampo
+ 7 41362          67481        141665    2015            16 Michoacán de Ocampo
+ 8 40287          67766        802966    2019            16 Michoacán de Ocampo
+ 9 40287          67766        802967    2019            16 Michoacán de Ocampo
+10 38204          68270        143190    2015            16 Michoacán de Ocampo
+# ℹ 615 more rows
+# ℹ 70 more variables: CVEECON1_C3 &lt;dbl&gt;, CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;,
+#   CVEECON4_C3 &lt;chr&gt;, DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;,
+#   DESECON4_C3 &lt;chr&gt;, Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;,
+#   X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;, DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;,
+#   FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;, Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;,
+#   NoIndividuo_C3 &lt;dbl&gt;, NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>Sustituir por NA</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>DiametroNormal_C3[datos<span class="sc">$</span>DiametroNormal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  7.6 60.0</code></pre>
+</div>
+</div>
+<p>Ya más lógico. Habría que hacer lo mismo con varias variables, pero lo dejaremos para después.</p>
+<p>Ver algunos datos</p>
+<p>subset(datos, seleccionar los datos que cumplan con esta condición) datos2&lt;-subset(datos,datos$var1==x)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>sbc <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos,</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>       datos<span class="sc">$</span>CVE_S7_C3<span class="sc">==</span><span class="st">"SBC"</span>)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>sbc</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,171 × 76
+   UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3          
+   &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;              
+ 1 41382          67491        135203    2015            16 Michoacán de Ocampo
+ 2 41382          67491        135236    2015            16 Michoacán de Ocampo
+ 3 41382          67491        135250    2015            16 Michoacán de Ocampo
+ 4 41382          67491        135301    2015            16 Michoacán de Ocampo
+ 5 41382          67491        135340    2015            16 Michoacán de Ocampo
+ 6 41382          67491        135358    2015            16 Michoacán de Ocampo
+ 7 41382          67491        135361    2015            16 Michoacán de Ocampo
+ 8 41382          67491        135379    2015            16 Michoacán de Ocampo
+ 9 41382          67491        135408    2015            16 Michoacán de Ocampo
+10 41386          67493        402761    2016            16 Michoacán de Ocampo
+# ℹ 2,161 more rows
+# ℹ 70 more variables: CVEECON1_C3 &lt;dbl&gt;, CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;,
+#   CVEECON4_C3 &lt;chr&gt;, DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;,
+#   DESECON4_C3 &lt;chr&gt;, Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;,
+#   X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;, DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;,
+#   FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;, Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;,
+#   NoIndividuo_C3 &lt;dbl&gt;, NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>Ver los valores únicos hay en una variable</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "BPQ"     "VSA/BPQ" "BQ"      "VSa/SBC" "VSA/SMS" "SBC"     "VM"     
+ [8] "VSa/BQ"  "PC"      "VSa/BPQ" "VSa/BP"  "BP"      "VSA/SBC" "VSA/BQ" 
+[15] "VSA/BP"  "BQP"     "VSa/BQP" "TAP"     "RAP"     "TA"      "AH"     
+[22] "BA"      "BC"      "VSa/BA"  "BM"      "VSA/BA"  "VSA/BM"  "PI"     
+[29] "RP"      "VSA/BQP" "RA"      "TP"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.88959</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6998.692</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 83317.33</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(datos<span class="sc">$</span>CVE_S7_C3)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "BPQ"     "BPQ"     "BPQ"     "VSA/BPQ" "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"
+ [8] "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"</code></pre>
+</div>
+</div>
+<p>Hay algo mal.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "BPQ"     "VSA/BPQ" "BQ"      "VSa/SBC" "VSA/SMS" "SBC"     "VM"     
+ [8] "VSa/BQ"  "PC"      "VSa/BPQ" "VSa/BP"  "BP"      "VSA/SBC" "VSA/BQ" 
+[15] "VSA/BP"  "BQP"     "VSa/BQP" "TAP"     "RAP"     "TA"      "AH"     
+[22] "BA"      "BC"      "VSa/BA"  "BM"      "VSA/BA"  "VSA/BM"  "PI"     
+[29] "RP"      "VSA/BQP" "RA"      "TP"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.88959</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>AlturaTotal_C3[datos<span class="sc">$</span>AlturaTotal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.2088</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(datos<span class="sc">$</span>AlturaTotal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.498026</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(datos<span class="sc">$</span>CVE_S7_C3)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "BPQ"     "BPQ"     "BPQ"     "VSA/BPQ" "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"
+ [8] "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"</code></pre>
+</div>
+</div>
+<p>Ordenar</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>temp2<span class="ot">&lt;-</span><span class="fu">order</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(temp2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> int [1:26035] 10697 132 4799 5000 5809 6065 6092 6793 6794 7420 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(datos<span class="sc">$</span>AlturaTotal_C3[temp2])</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> num [1:26035] 0.09 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="gráficas-básicas" class="level1">
+<h1>Gráficas básicas</h1>
+<p>Gráficas básicas</p>
+<ul>
+<li>plot(variable de eje x, variable de eje y)</li>
+<li>Type</li>
+<li>Col</li>
+<li>Xlim</li>
+<li>Ylim</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>DiametroNormal_C3,datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2.ManejoDatos_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>AlturaTotal_C3,datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2.ManejoDatos_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>DiametroNormal_C3,datos<span class="sc">$</span>biomasa_kg_C3,</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>),</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2.ManejoDatos_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ayuda a ver posibles patrones y comportamientos entre variables.</p>
+<p>Histograma</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(datos<span class="sc">$</span>DiametroNormal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2.ManejoDatos_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Barplot</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>sitios <span class="ot">&lt;-</span> <span class="fu">by</span>(datos<span class="sc">$</span>IdConglomerado, </span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>              datos<span class="sc">$</span>CVE_S7_C3, </span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))</span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>sitios <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sitios)</span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(sitios<span class="sc">$</span>x,</span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">rownames</span>(sitios))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="2.ManejoDatos_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pie</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">by</span>(datos, datos<span class="sc">$</span>CVE_S7_C3, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">nrow</span>(x))</span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(arboles)</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(arboles<span class="sc">$</span>x,<span class="at">labels=</span><span class="fu">rownames</span>(arboles))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="2.ManejoDatos_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Boxplot</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>subdf <span class="ot">&lt;-</span> datos[<span class="sc">!</span><span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3),]</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(subdf<span class="sc">$</span>biomasa_kg_C3 <span class="sc">~</span> subdf<span class="sc">$</span>CVE_S7_C3,</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2.ManejoDatos_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="manejo-de-errores-comunes" class="level1">
+<h1>Manejo de errores comunes</h1>
+<p>No existe la función o el objeto Error: object ‘X’ not found</p>
+<ul>
+<li>Revisar que el objeto o función esté bien escrita, con mayúsculas, minúsculas, _, etc.</li>
+<li>Revisar que el objeto o la función haya sido declarada en el espacio de trabajo.</li>
+<li>Revisar que se haya cargado el paquete en el que viene la función a utilizar, en el espacio de trabajo.</li>
+</ul>
+<p>Warnings</p>
+<ul>
+<li><p>Escribir warnings() para ver de qué se tratan las advertencias.</p></li>
+<li><p>Normalmente no se tratan de errores críticos, pero pueden avisar sobre detalles importantes a considerar en el análisis (pueden sugerir cambios en el análisis).</p></li>
+<li><p>No existe el archivo Error in file(file, “rt”) : cannot open the connection In addition: Warning message: cannot open file ‘X’: No such file or directory</p></li>
+<li><p>Revisar que la ruta esté escrita correctamente, utilizando:</p>
+<ul>
+<li>Extensión del archivo (.csv)</li>
+<li>/ en lugar de<br>
+</li>
+<li>Algunas veces hay problemas con caracteres especiales (acentos o espacios). Sugerencia: utilizar _ para espacios y evitar acentos.</li>
+</ul></li>
+<li><p>Error de asignación de dimensiones<br>
+Error in X : subscript out of bounds</p></li>
+<li><p>Revisar que el objeto sea del tipo y dimensiones que se piensa (p.ej. data frame y con x renglones y columnas)</p></li>
+<li><p>Revisar la estructura del objeto</p></li>
+<li><p>Error de asignación de dimensiones</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-page-right">
+  <div class="nav-page nav-page-previous">
+      <a href="./1.IntroducciónR.html" class="pagination-link" aria-label="1.Introducción">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">1.Introducción</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./3.AcomodoDatos.html" class="pagination-link" aria-label="3.AcomodoDatos">
+        <span class="nav-page-text"><span class="chapter-title">3.AcomodoDatos</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
