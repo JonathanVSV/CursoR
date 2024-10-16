@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="es-MX" xml:lang="es-MX"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jonathan V. Solórzano">
+<meta name="author" content="JVS">
 
-<title>8.CierreyQuarto – CursoRbook</title>
+<title>Tarea1 – CursoRbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -31,8 +65,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./9.TareasResueltas.html" rel="next">
-<link href="./7.Modelos.html" rel="prev">
+<link href="./8.CierreyQuarto.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -56,17 +89,17 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
-    "search-matching-documents-text": "documentos encontrados",
-    "search-copy-link-title": "Copiar el enlace en la búsqueda",
-    "search-hide-matches-text": "Ocultar resultados adicionales",
-    "search-more-match-text": "resultado adicional en este documento",
-    "search-more-matches-text": "resultados adicionales en este documento",
-    "search-clear-button-title": "Borrar",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancelar",
-    "search-submit-button-title": "Enviar",
-    "search-label": "Buscar"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -79,20 +112,20 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./8.CierreyQuarto.html"><span class="chapter-title">8.CierreyQuarto</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./9.TareasResueltas.html"><span class="chapter-title">Tarea1</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
@@ -102,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Buscar"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -155,53 +188,47 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./8.CierreyQuarto.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">8.CierreyQuarto</span></a>
+  <a href="./8.CierreyQuarto.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">8.CierreyQuarto</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./9.TareasResueltas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Tarea1</span></a>
+  <a href="./9.TareasResueltas.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Tarea1</span></a>
   </div>
 </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Tabla de contenidos</h2>
-   
-  <ul>
-  <li><a href="#quarto" id="toc-quarto" class="nav-link active" data-scroll-target="#quarto">Quarto</a></li>
-  </ul>
-</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#tarea-1-resuelta" id="toc-tarea-1-resuelta" class="nav-link active" data-scroll-target="#tarea-1-resuelta">Tarea 1 resuelta</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">8.CierreyQuarto</span></h1>
+<h1 class="title"><span class="chapter-title">Tarea1</span></h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Jonathan V. Solórzano </p>
+             <p>JVS </p>
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Fecha de publicación</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">3 de octubre de 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -211,173 +238,112 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="quarto" class="level1">
-<h1>Quarto</h1>
-<p>Es un paquete para automatizar la creación de reportes.</p>
-<ul>
-<li>Html.</li>
-<li>Pdf (requiere instalación de tinytex).</li>
-<li>Word (requiere paquetería ofimática).</li>
-<li>ePub.</li>
-</ul>
-<p>Quarto está pensado para trabajar con muchos lenguajes.</p>
-<ul>
-<li><ol start="18" type="A">
-<li></li>
-</ol></li>
-<li>Python.</li>
-<li>Julia.</li>
-<li>Observable.</li>
-</ul>
-<p>La idea es que un mismo texto sirva para generar el reporte en el formato que se quiera y estilo que se quiera. Por ejemplo, quarto también se puede usar para generar:</p>
-<ul>
-<li>Archivos de texto.</li>
-<li>Presentaciones.</li>
-<li>Páginas web.</li>
-<li>Libros.</li>
-<li>Manuscritos.</li>
-</ul>
-<p>El flujo de trabajo:</p>
-<div class="![](imgs/quartowf.png)">
-<p>Permite el manejo de referencias con bib.</p>
-<p>Una alternativa muy similar es RMarkdown.</p>
-<ol start="0" type="1">
-<li>Cómo crear un nuevo archivo quarto en Rstudio <a href="https://quarto.org/docs/tools/rstudio.html">Crear archivo</a></li>
-</ol>
-<p>Veamos las partes básicas de un archivo Quarto.</p>
+<section id="tarea-1-resuelta" class="level1">
+<h1>Tarea 1 resuelta</h1>
 <ol type="1">
-<li><p>Encabezado: YAML <a href="https://quarto.org/docs/reference/formats/html.html">Formato html</a></p></li>
-<li><p>Cuerpo: Markdown <a href="https://quarto.org/docs/authoring/markdown-basics.html">Básico de Markdown</a></p></li>
-<li><p>Chunk de código: <a href="https://quarto.org/docs/computations/r.html">Escritura de chunks</a></p></li>
+<li>Cuál es el resultado de la siguiente operación: <code>(3+5)/2</code></li>
 </ol>
-<p>Veamos el archivo Quarto de muestra</p>
-<p>Ver algunos temas: <a href="https://quarto.org/docs/output-formats/html-themes.html">Temas</a></p>
-<section id="trabajo-final" class="level1">
-<h1>Trabajo final</h1>
-<p>La idea es que apliquen los conocimientos adquiridos con un conjunto de datos que les interese. Este conjunto de datos puede ser uno suyo o uno públicamente disponible.</p>
-<p>Estructura de artículo, pero muy resumido todo. Piensen en 1-2 párrafos por sección.</p>
-<ol type="1">
-<li>Introducción.</li>
-<li>Método.</li>
-<li>Resultados.</li>
-<li>Discusión.</li>
-<li>Referencias.</li>
-</ol>
-<p>Recordemos lo que vimos en este curso.</p>
-<ol type="1">
-<li>Introducción a R.</li>
-<li>Lectura, limpieza y análisis preliminares.</li>
-<li>Acomodo de datos.</li>
-<li>Análisis estadísticos.</li>
-<li>Visualización.</li>
-<li>Análisis diversidad.</li>
-<li>Modelos.</li>
-<li>Reportes automatizables.</li>
-</ol>
-<p>Los pasos principales para realizar ciencia de datos en R.</p>
-<p>Tidymodels permite usar muchos algoritmos de aprendizaje automatizado usando la misma sintáxis vista en el curso.</p>
-</section>
-<section id="otras-cosas-que-no-vimos" class="level1">
-<h1>Otras cosas que no vimos</h1>
-<p>Otros paquetes que no vimos por cuestiones de tiempo, pero que pueden ser útiles:</p>
-<ul>
-<li>Manejo de datos espaciales:
-<ul>
-<li>sf: información vectorial.</li>
-<li>terra y stars: información ráster.</li>
-</ul></li>
-<li>Otros paquetes del tidyverse o relacionados:
-<ul>
-<li>purrr: ciclos.</li>
-<li>stringr: manejo de cadenas de caracteres.</li>
-<li>lubridate: fechas.</li>
-<li>furrr: ciclos con procesamiento en paralelo.</li>
-<li>tidyterra: Usar expresiones tidy con terra</li>
-</ul></li>
-<li>Modelación de nicho <a href="https://www.sciencedirect.com/science/article/pii/S0304380022003404">Sillero et al., 2023</a>:
-<ul>
-<li>ENMTools: Cálculo de modelos.</li>
-<li>biomod2: Cálculo de modelos.</li>
-<li>sdm: Cálculo de modelos.</li>
-<li>ENMeval: Evaluación y validación.</li>
-</ul></li>
-<li>Datos GBIF:
-<ul>
-<li>rgbif: Conexión, búsqueda y descarga de datos del gbif.</li>
-</ul></li>
-<li>Creación de mapas
-<ul>
-<li>tmap: Creación de mapas para datos vectoriales y ráster.</li>
-</ul></li>
-<li>Manejo datos LiDAR:
-<ul>
-<li>lidR</li>
-</ul></li>
-<li>Métricas del paisaje
-<ul>
-<li>landscapemetrics</li>
-<li>makurhini</li>
-</ul></li>
-<li>Googledrive
-<ul>
-<li>googledrive</li>
-</ul></li>
-<li>Manejo de entornos y control de versiones de paquetes
-<ul>
-<li>renv</li>
-</ul></li>
-<li>Metalenguaje
-<ul>
-<li>rlang</li>
-</ul></li>
-<li>Llamada de python
-<ul>
-<li>reticulate</li>
-</ul></li>
-<li>Aprendizaje profundo
-<ul>
-<li>yardstick: Métricas de evaluación.</li>
-<li>keras: Interfaz para el uso de algún backend para hacer Aprendizaje profundo (Tensorflow, PyTorch, JAX).</li>
-</ul></li>
-<li>Mapas interactivos
-<ul>
-<li>mapview</li>
-<li>leaflet</li>
-</ul></li>
-<li>Cálculo de biomasa
-<ul>
-<li>BIOMASS</li>
-</ul></li>
-<li>Web scraping y conexión a API
-<ul>
-<li>rvest</li>
-<li>httr2</li>
-</ul></li>
-<li>Presentaciones
-<ul>
-<li>Xaringan</li>
-</ul></li>
-<li>Análisis de audios
-<ul>
-<li>tuneR</li>
-<li>seewave</li>
-<li>audio</li>
-<li>phonTools</li>
-<li>soundecology</li>
-<li>warblR</li>
-</ul></li>
-<li>Cálculo de Textura de imágenes
-<ul>
-<li>glcm</li>
-<li>GLCMTextures</li>
-<li>FOTO</li>
-</ul></li>
-</ul>
-<p>Más muchos otros paquetes que yo no he utilizado. La gran ventaja, es que usando un lenguaje común, es fácil entender y utilizar funciones programadas por alguien más.</p>
-
-
-</section>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  (<span class="dv">3</span><span class="sc">+</span><span class="dv">5</span>)<span class="sc">/</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
 </div>
+</div>
+<ol start="2" type="1">
+<li>Calcula 10 a la (potencia) 5 y a ese resultado súmale 5 y luego multiplica ese resultado por 3</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  ((<span class="dv">10</span><span class="sc">^</span><span class="dv">5</span>)<span class="sc">+</span><span class="dv">5</span>)<span class="sc">*</span><span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 300015</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Evalúa si 5 es mayor que 1. Pon tal cuál la respuesta de la consola de R (TRUE o FALSE).</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="dv">5</span><span class="sc">&gt;</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Evalúa si la palabra “variable” es igual a la palabra “variable2”. Pon tal cual la respuesta de la consola de R (TRUE o FALSE).</li>
+</ol>
+<p>Aquí recuerden que <code>=</code> sirve para guardar algo dentro de un objeto, <code>==</code> es para comparar si el objeto del lado izquierdo es igual al del lado derecho.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>  <span class="st">"variable"</span> <span class="sc">==</span> <span class="st">"variable2"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Crea un objeto con <code>a &lt;- data.frame(a = 1:3, b = 2:4)</code>. ¿Qué tipo de objeto es <code>a</code>?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Crea un objeto <code>b &lt;- list(a, a)</code>. Cuál es el valor del primer renglón, de la segunda columna de la primera entrada de la lista? Recuerda cómo se accede a las entradas de una lista y de un data.frame</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">list</span>(a, a)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>b[[<span class="dv">1</span>]][<span class="dv">1</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<ol start="7" type="1">
+<li>Qué tipo de objeto es <code>z &lt;- matrix(1:4, nrow = 2)</code>. En R salen dos tipos de objetos, pon el primero que sale.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "matrix" "array" </code></pre>
+</div>
+</div>
+<ol start="8" type="1">
+<li>Crea un objeto <code>y</code> que contenga una secuencia de 100 al 1000 en intervalos de 1 y calcula el promedio de ese objeto. La función para calcular el promedio se llama <code>mean</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">:</span><span class="dv">1000</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 550</code></pre>
+</div>
+</div>
+<ol start="9" type="1">
+<li>Crea una funcion llamada <code>mifunc</code> que le sume 8 al número que tenga como entrada. Después aplica esa función sobre la entrada 100 del objeto <code>y</code> (creado en la pregunta anterior). ¿Cuál es el resultado?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mifunc <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  resul <span class="ot">&lt;-</span> x<span class="sc">+</span><span class="dv">8</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(resul)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mifunc</span>(y[<span class="dv">100</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 207</code></pre>
+</div>
+</div>
+<ol start="10" type="1">
+<li>Crea un ciclo con <code>for</code> que le sume 100 a cada entrada del objeto <code>y</code>. ¿Cuál es el valor de la entrada 200 del resulado?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y)){</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  y[i] <span class="ot">&lt;-</span> y[i] <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">200</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 399</code></pre>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -424,12 +390,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copiado");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copiado");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -801,16 +767,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation column-page-right">
+<nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./7.Modelos.html" class="pagination-link" aria-label="7.Modelos">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">7.Modelos</span></span>
+      <a href="./8.CierreyQuarto.html" class="pagination-link" aria-label="8.CierreyQuarto">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">8.CierreyQuarto</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./9.TareasResueltas.html" class="pagination-link" aria-label="Tarea1">
-        <span class="nav-page-text"><span class="chapter-title">Tarea1</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
