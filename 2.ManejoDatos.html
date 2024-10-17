@@ -381,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Al entrar a la página dar clic en cada archivo y descargar (download raw file).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Individuos_InFys.csv"</span>,</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Individuos_InFys.csv"</span>,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header=</span>T,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">encoding =</span> <span class="st">"utf-8"</span>,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">stringsAsFactors=</span> <span class="cn">FALSE</span>)</span>
@@ -732,7 +732,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Recomendación: Revisar el encoding nativo de su R con <code>Sys.getlocale()</code> y si existe la opción de guardar desde excel con codificación utf-8, usarla.</p>
 <p>Ver los acentos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Individuos_InFys_latin1.csv"</span>,</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Individuos_InFys_latin1.csv"</span>,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header=</span>T,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">encoding =</span> <span class="st">"utf-8"</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
@@ -784,7 +784,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ AreaBasal_C3           : num  0.00916 0.00622 0.01327 0.0227 0.0085 ...
  $ biomasa_kg_C3          : num  16.25 2.46 25.28 47.9 14.85 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Data/Individuos_InFys_latin1.csv"</span>,</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"Individuos_InFys_latin1.csv"</span>,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">header=</span>T,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">encoding =</span> <span class="st">"latin1"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -795,7 +795,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Paquete para importar y exportar datos más fácilmente</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Data/Individuos_InFys.csv"</span>, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Individuos_InFys.csv"</span>, </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">na =</span> <span class="st">""</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 65 Columns: 12
@@ -864,126 +864,74 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>De los datos que descargaron</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Expecting numeric in BW19313 / R19313C75: got 'NULL'</code></pre>
+<div class="cell-output cell-output-error">
+<pre><code>Error: `path` does not exist: 'INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx'</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Expecting numeric in BX19313 / R19313C76: got 'NULL'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 76
-  UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
-  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
-1 40277          67761        801985    2019            16 Michoacá…          14
-2 40277          67761        802033    2019            16 Michoacá…          14
-3 40277          67761        802948    2019            16 Michoacá…          14
-4 40279          67762        135014    2015            16 Michoacá…          14
-5 40279          67762        135029    2015            16 Michoacá…          14
-6 40279          67762        135035    2015            16 Michoacá…          14
-# ℹ 69 more variables: CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;,
-#   DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
-#   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
-#   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
-#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;,
-#   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
-#   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
+<pre><code># A tibble: 6 × 12
+  Id_parcela DESCRIP_S7_C3           NombreComun_C3 Familia_APG_C3 Genero_APG_C3
+       &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;        
+1       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+2       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+3       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+4       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+5       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+6       4165 VEGETACIÓN SECUNDARIA … Mezquite       Fabaceae       Prosopis     
+# ℹ 7 more variables: Especie_APG_C3 &lt;chr&gt;, NombreCientifico_APG_C3 &lt;chr&gt;,
+#   Forma_Biologica_Cat_C3 &lt;chr&gt;, Condicion_C3 &lt;chr&gt;, AlturaTotal_C3 &lt;dbl&gt;,
+#   AreaBasal_C3 &lt;dbl&gt;, biomasa_kg_C3 &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [26,035 × 76] (S3: tbl_df/tbl/data.frame)
- $ UPMID                         : num [1:26035] 40277 40277 40277 40279 40279 ...
- $ IdConglomerado                : num [1:26035] 67761 67761 67761 67762 67762 ...
- $ ArboladoID_C3                 : num [1:26035] 801985 802033 802948 135014 135029 ...
- $ Anio_C3                       : num [1:26035] 2019 2019 2019 2015 2015 ...
- $ Cve_Estado_C3                 : num [1:26035] 16 16 16 16 16 16 16 16 16 16 ...
- $ Estado_C3                     : chr [1:26035] "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" ...
- $ CVEECON1_C3                   : num [1:26035] 14 14 14 14 14 14 14 14 14 14 ...
- $ CVEECON2_C3                   : num [1:26035] 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 ...
- $ CVEECON3_C3                   : chr [1:26035] "14.5.2" "14.5.2" "14.5.2" "14.5.2" ...
- $ CVEECON4_C3                   : chr [1:26035] "14.5.2.3" "14.5.2.3" "14.5.2.3" "14.5.2.3" ...
- $ DESECON1_C3                   : chr [1:26035] "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" ...
- $ DESECON2_C3                   : chr [1:26035] "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" ...
- $ DESECON3_C3                   : chr [1:26035] "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" ...
- $ DESECON4_C3                   : chr [1:26035] "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" ...
- $ Region_Hidrologica_C3         : chr [1:26035] "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" ...
- $ CVE_S7_C3                     : chr [1:26035] "BPQ" "BPQ" "BPQ" "VSA/BPQ" ...
- $ X_C3                          : num [1:26035] -103 -103 -103 -102 -102 ...
- $ Y_C3                          : num [1:26035] 18.2 18.2 18.2 18.2 18.2 ...
- $ DESCRIP_S7_C3                 : chr [1:26035] "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "VEGETACIÓN SECUNDARIA ARBÓREA DE BOSQUE DE PINO-ENCINO" ...
- $ FORM_S7_C3                    : chr [1:26035] "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" ...
- $ FAO_S7_C3                     : logi [1:26035] NA NA NA NA NA NA ...
- $ ECO_S7_C3                     : chr [1:26035] "Bosques" "Bosques" "Bosques" "Bosques" ...
- $ Sitio_C3                      : num [1:26035] 1 3 4 1 1 1 1 2 2 3 ...
- $ Consecutivo_C3                : num [1:26035] 9 19 13 1 14 20 22 12 8 2 ...
- $ NoIndividuo_C3                : num [1:26035] 9 10 8 1 14 20 22 12 8 2 ...
- $ NoRama_C3                     : num [1:26035] 9 19 13 1 16 22 24 12 8 2 ...
- $ Azimut_C3                     : num [1:26035] 44 276 202 16 178 239 281 223 116 135 ...
- $ Distancia_C3                  : num [1:26035] 9.5 8.5 1 9.5 4.4 5.7 8.2 8.5 11.2 3.8 ...
- $ NombreComun_C3                : chr [1:26035] "temezquite" "tocon" "ambula" "encino" ...
- $ Familia_APG_C3                : chr [1:26035] "Fabaceae" "ZZ Familia Desconocida" "Hernandiaceae" "Pinaceae" ...
- $ Genero_APG_C3                 : chr [1:26035] "Lysiloma" "ZZ Genero Desconocido" "Gyrocarpus" "Pinus" ...
- $ Especie_APG_C3                : chr [1:26035] "divaricatum" "NULL" "jatrophifolius" "oocarpa" ...
- $ Categoria_APG_C3              : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
- $ Infraespecie_APG_C3           : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
- $ NombreCientifico_APG_C3       : chr [1:26035] "Lysiloma divaricatum" "ZZ Genero Desconocido" "Gyrocarpus jatrophifolius" "Pinus oocarpa" ...
- $ Forma_Biologica_Cat_C3        : chr [1:26035] "Arbol" "Indeterminada" "Arbol" "Arbol" ...
- $ FormaFuste_C3                 : chr [1:26035] "Individuo curvo con dos o más fustes" "No capturado" "Individuo curvo con dos o más fustes" "individuo recto con un fuste" ...
- $ Condicion_C3                  : chr [1:26035] "Arbol vivo" "Tocon sin marca" "Arbol vivo" "Arbol vivo" ...
- $ MuertoPie_C3                  : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ GradoPutrefaccion_C3          : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ TipoTocon_C3                  : chr [1:26035] "No capturado" "Tocón madera seca (madera dura sin evidencias de descomposición)" "No capturado" "No capturado" ...
- $ DiametroNormal_C3             : num [1:26035] 7.9 41.2 11.2 16.4 8.7 17.8 25.4 17.4 27.5 36.4 ...
- $ AlturaTotal_C3                : num [1:26035] 8.5 0.97 4.65 8.8 4.5 10.2 13.8 11 15 8.7 ...
- $ AnguloInclinacion_C3          : num [1:26035] 999993 999993 999993 -1 -1 ...
- $ AlturaFusteLimpio_C3          : num [1:26035] 4.3 1.0e+06 1.4 6.7 2.4 ...
- $ AlturaComercial_C3            : num [1:26035] 1.0e+06 1.0e+06 1.4 5.0 1.0e+06 ...
- $ DiametroCopaNS_C3             : num [1:26035] 4.2 1.0e+06 3.2 2.8 3.0 ...
- $ DiametroCopaEO_C3             : num [1:26035] 3.4 1.0e+06 2.9 2.6 2.7 ...
- $ DiametroCopa_C3               : num [1:26035] 3.80 1.00e+06 3.05 2.70 2.85 ...
- $ ProporcionCopaViva_C3         : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ ExposicionCopa_C3             : chr [1:26035] "No capturado" "No capturado" "No capturado" "SI" ...
- $ PosicionCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "Suprimido" ...
- $ DensidadCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ MuerteRegresiva_C3            : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ TransparenciaFollaje_C3       : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ VigorEtapa_C3                 : chr [1:26035] "Árbol joven" "No capturado" "Árbol joven" "Árbol joven" ...
- $ NivelVigor_C3                 : chr [1:26035] "Moderado" "No capturado" "Moderado" "No aplica" ...
- $ AreaBasal_C3                  : num [1:26035] 0.0049 0.13332 0.00985 0.02112 0.00594 ...
- $ AreaCopa_C3                   : num [1:26035] 1.13e+01 1.00e+06 7.30 5.73 6.38 ...
- $ AgenteDanio1_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
- $ AgenteDanio1_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
- $ Severidad1_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
- $ AgenteDanio2_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
- $ AgenteDanio2_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
- $ Severidad2_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
- $ EsSubmuestra_C3               : num [1:26035] 0 0 0 0 0 0 0 0 0 0 ...
- $ DiametroBasalSub_validacion_C3: num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ Edad_C3                       : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ NumeroAnillos25_C3            : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ LongitudAnillos10_C3          : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ GrosorCorteza_C3              : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ es_para_estimacion_Volumen_C3 : num [1:26035] 1 0 1 1 1 1 1 1 1 1 ...
- $ VolumenVRTA_m3_C3             : num [1:26035] 2.64e-02 1.00e+06 2.75e-02 1.26e-01 1.24e-02 ...
- $ es_para_estimacion_ByC        : num [1:26035] 1 1 1 1 1 1 1 1 1 1 ...
- $ biomasa_kg_C3                 : num [1:26035] 21 35.3 10.5 72.1 18.2 ...
- $ carbono_kg_C3                 : num [1:26035] 9.22 15.76 4.7 35.29 8.05 ...</code></pre>
+<pre><code>spc_tbl_ [65 × 12] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id_parcela             : num [1:65] 4165 4165 4165 4165 4165 ...
+ $ DESCRIP_S7_C3          : chr [1:65] "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" "VEGETACIÓN SECUNDARIA ARBUSTIVA DE MEZQUITAL XERÓFILO" ...
+ $ NombreComun_C3         : chr [1:65] "Mezquite" "Mezquite" "Mezquite" "Mezquite" ...
+ $ Familia_APG_C3         : chr [1:65] "Fabaceae" "Fabaceae" "Fabaceae" "Fabaceae" ...
+ $ Genero_APG_C3          : chr [1:65] "Prosopis" "Prosopis" "Prosopis" "Prosopis" ...
+ $ Especie_APG_C3         : chr [1:65] "juliflora" "NULL" "juliflora" "juliflora" ...
+ $ NombreCientifico_APG_C3: chr [1:65] "Prosopis juliflora" "Prosopis" "Prosopis juliflora" "Prosopis juliflora" ...
+ $ Forma_Biologica_Cat_C3 : chr [1:65] "Arbusto" "Indeterminada" "Arbusto" "Arbusto" ...
+ $ Condicion_C3           : chr [1:65] "Arbol vivo" "Arbol muerto en pie" "Arbol vivo" "Arbol vivo" ...
+ $ AlturaTotal_C3         : num [1:65] 4 1.6 2.8 4.2 3 3.1 4.1 3.6 4.3 3.4 ...
+ $ AreaBasal_C3           : num [1:65] 0.00916 0.00622 0.01327 0.0227 0.0085 ...
+ $ biomasa_kg_C3          : num [1:65] 16.25 2.46 25.28 47.9 14.85 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id_parcela = col_double(),
+  ..   DESCRIP_S7_C3 = col_character(),
+  ..   NombreComun_C3 = col_character(),
+  ..   Familia_APG_C3 = col_character(),
+  ..   Genero_APG_C3 = col_character(),
+  ..   Especie_APG_C3 = col_character(),
+  ..   NombreCientifico_APG_C3 = col_character(),
+  ..   Forma_Biologica_Cat_C3 = col_character(),
+  ..   Condicion_C3 = col_character(),
+  ..   AlturaTotal_C3 = col_double(),
+  ..   AreaBasal_C3 = col_double(),
+  ..   biomasa_kg_C3 = col_double()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/DivBosqInund_long.xlsx"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"DivBosqInund_long.xlsx"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: `path` does not exist: 'DivBosqInund_long.xlsx'</code></pre>
+</div>
 </div>
 <section id="problemas-comunes-líneas-espurio" class="level3">
 <h3 class="anchored" data-anchor-id="problemas-comunes-líneas-espurio">Problemas comunes: líneas espurio</h3>
 <p>A veces vienen tablas con líneas en las que no estamos interesados.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/INFyS_2015_2020_Michoacan_de_Ocampo_skip.xlsx"</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"INFyS_2015_2020_Michoacan_de_Ocampo_skip.xlsx"</span>,</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>,</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">skip =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -995,16 +943,13 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>Leer datos completos desde excel:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Expecting numeric in BW19313 / R19313C75: got 'NULL'</code></pre>
+<div class="cell-output cell-output-error">
+<pre><code>Error: `path` does not exist: 'INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx'</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Expecting numeric in BX19313 / R19313C76: got 'NULL'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar la parte superior de los datos</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 76
   UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
@@ -1023,86 +968,86 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 #   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
 #   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mostrar su estructura</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [26,035 × 76] (S3: tbl_df/tbl/data.frame)
- $ UPMID                         : num [1:26035] 40277 40277 40277 40279 40279 ...
- $ IdConglomerado                : num [1:26035] 67761 67761 67761 67762 67762 ...
- $ ArboladoID_C3                 : num [1:26035] 801985 802033 802948 135014 135029 ...
- $ Anio_C3                       : num [1:26035] 2019 2019 2019 2015 2015 ...
- $ Cve_Estado_C3                 : num [1:26035] 16 16 16 16 16 16 16 16 16 16 ...
- $ Estado_C3                     : chr [1:26035] "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" ...
- $ CVEECON1_C3                   : num [1:26035] 14 14 14 14 14 14 14 14 14 14 ...
- $ CVEECON2_C3                   : num [1:26035] 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 ...
- $ CVEECON3_C3                   : chr [1:26035] "14.5.2" "14.5.2" "14.5.2" "14.5.2" ...
- $ CVEECON4_C3                   : chr [1:26035] "14.5.2.3" "14.5.2.3" "14.5.2.3" "14.5.2.3" ...
- $ DESECON1_C3                   : chr [1:26035] "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" ...
- $ DESECON2_C3                   : chr [1:26035] "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" ...
- $ DESECON3_C3                   : chr [1:26035] "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" ...
- $ DESECON4_C3                   : chr [1:26035] "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" ...
- $ Region_Hidrologica_C3         : chr [1:26035] "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" ...
- $ CVE_S7_C3                     : chr [1:26035] "BPQ" "BPQ" "BPQ" "VSA/BPQ" ...
- $ X_C3                          : num [1:26035] -103 -103 -103 -102 -102 ...
- $ Y_C3                          : num [1:26035] 18.2 18.2 18.2 18.2 18.2 ...
- $ DESCRIP_S7_C3                 : chr [1:26035] "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "VEGETACIÓN SECUNDARIA ARBÓREA DE BOSQUE DE PINO-ENCINO" ...
- $ FORM_S7_C3                    : chr [1:26035] "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" ...
- $ FAO_S7_C3                     : logi [1:26035] NA NA NA NA NA NA ...
- $ ECO_S7_C3                     : chr [1:26035] "Bosques" "Bosques" "Bosques" "Bosques" ...
- $ Sitio_C3                      : num [1:26035] 1 3 4 1 1 1 1 2 2 3 ...
- $ Consecutivo_C3                : num [1:26035] 9 19 13 1 14 20 22 12 8 2 ...
- $ NoIndividuo_C3                : num [1:26035] 9 10 8 1 14 20 22 12 8 2 ...
- $ NoRama_C3                     : num [1:26035] 9 19 13 1 16 22 24 12 8 2 ...
- $ Azimut_C3                     : num [1:26035] 44 276 202 16 178 239 281 223 116 135 ...
- $ Distancia_C3                  : num [1:26035] 9.5 8.5 1 9.5 4.4 5.7 8.2 8.5 11.2 3.8 ...
- $ NombreComun_C3                : chr [1:26035] "temezquite" "tocon" "ambula" "encino" ...
- $ Familia_APG_C3                : chr [1:26035] "Fabaceae" "ZZ Familia Desconocida" "Hernandiaceae" "Pinaceae" ...
- $ Genero_APG_C3                 : chr [1:26035] "Lysiloma" "ZZ Genero Desconocido" "Gyrocarpus" "Pinus" ...
- $ Especie_APG_C3                : chr [1:26035] "divaricatum" "NULL" "jatrophifolius" "oocarpa" ...
- $ Categoria_APG_C3              : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
- $ Infraespecie_APG_C3           : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
- $ NombreCientifico_APG_C3       : chr [1:26035] "Lysiloma divaricatum" "ZZ Genero Desconocido" "Gyrocarpus jatrophifolius" "Pinus oocarpa" ...
- $ Forma_Biologica_Cat_C3        : chr [1:26035] "Arbol" "Indeterminada" "Arbol" "Arbol" ...
- $ FormaFuste_C3                 : chr [1:26035] "Individuo curvo con dos o más fustes" "No capturado" "Individuo curvo con dos o más fustes" "individuo recto con un fuste" ...
- $ Condicion_C3                  : chr [1:26035] "Arbol vivo" "Tocon sin marca" "Arbol vivo" "Arbol vivo" ...
- $ MuertoPie_C3                  : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ GradoPutrefaccion_C3          : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ TipoTocon_C3                  : chr [1:26035] "No capturado" "Tocón madera seca (madera dura sin evidencias de descomposición)" "No capturado" "No capturado" ...
- $ DiametroNormal_C3             : num [1:26035] 7.9 41.2 11.2 16.4 8.7 17.8 25.4 17.4 27.5 36.4 ...
- $ AlturaTotal_C3                : num [1:26035] 8.5 0.97 4.65 8.8 4.5 10.2 13.8 11 15 8.7 ...
- $ AnguloInclinacion_C3          : num [1:26035] 999993 999993 999993 -1 -1 ...
- $ AlturaFusteLimpio_C3          : num [1:26035] 4.3 1.0e+06 1.4 6.7 2.4 ...
- $ AlturaComercial_C3            : num [1:26035] 1.0e+06 1.0e+06 1.4 5.0 1.0e+06 ...
- $ DiametroCopaNS_C3             : num [1:26035] 4.2 1.0e+06 3.2 2.8 3.0 ...
- $ DiametroCopaEO_C3             : num [1:26035] 3.4 1.0e+06 2.9 2.6 2.7 ...
- $ DiametroCopa_C3               : num [1:26035] 3.80 1.00e+06 3.05 2.70 2.85 ...
- $ ProporcionCopaViva_C3         : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ ExposicionCopa_C3             : chr [1:26035] "No capturado" "No capturado" "No capturado" "SI" ...
- $ PosicionCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "Suprimido" ...
- $ DensidadCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ MuerteRegresiva_C3            : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ TransparenciaFollaje_C3       : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ VigorEtapa_C3                 : chr [1:26035] "Árbol joven" "No capturado" "Árbol joven" "Árbol joven" ...
- $ NivelVigor_C3                 : chr [1:26035] "Moderado" "No capturado" "Moderado" "No aplica" ...
- $ AreaBasal_C3                  : num [1:26035] 0.0049 0.13332 0.00985 0.02112 0.00594 ...
- $ AreaCopa_C3                   : num [1:26035] 1.13e+01 1.00e+06 7.30 5.73 6.38 ...
- $ AgenteDanio1_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
- $ AgenteDanio1_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
- $ Severidad1_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
- $ AgenteDanio2_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
- $ AgenteDanio2_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
- $ Severidad2_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
- $ EsSubmuestra_C3               : num [1:26035] 0 0 0 0 0 0 0 0 0 0 ...
- $ DiametroBasalSub_validacion_C3: num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ Edad_C3                       : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ NumeroAnillos25_C3            : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ LongitudAnillos10_C3          : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ GrosorCorteza_C3              : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ es_para_estimacion_Volumen_C3 : num [1:26035] 1 0 1 1 1 1 1 1 1 1 ...
- $ VolumenVRTA_m3_C3             : num [1:26035] 2.64e-02 1.00e+06 2.75e-02 1.26e-01 1.24e-02 ...
- $ es_para_estimacion_ByC        : num [1:26035] 1 1 1 1 1 1 1 1 1 1 ...
- $ biomasa_kg_C3                 : num [1:26035] 21 35.3 10.5 72.1 18.2 ...
- $ carbono_kg_C3                 : num [1:26035] 9.22 15.76 4.7 35.29 8.05 ...</code></pre>
+<pre><code>tibble [20 × 76] (S3: tbl_df/tbl/data.frame)
+ $ UPMID                         : num [1:20] 40277 40277 40277 40279 40279 ...
+ $ IdConglomerado                : num [1:20] 67761 67761 67761 67762 67762 ...
+ $ ArboladoID_C3                 : num [1:20] 801985 802033 802948 135014 135029 ...
+ $ Anio_C3                       : num [1:20] 2019 2019 2019 2015 2015 ...
+ $ Cve_Estado_C3                 : num [1:20] 16 16 16 16 16 16 16 16 16 16 ...
+ $ Estado_C3                     : chr [1:20] "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" ...
+ $ CVEECON1_C3                   : num [1:20] 14 14 14 14 14 14 14 14 14 14 ...
+ $ CVEECON2_C3                   : num [1:20] 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 ...
+ $ CVEECON3_C3                   : chr [1:20] "14.5.2" "14.5.2" "14.5.2" "14.5.2" ...
+ $ CVEECON4_C3                   : chr [1:20] "14.5.2.3" "14.5.2.3" "14.5.2.3" "14.5.2.3" ...
+ $ DESECON1_C3                   : chr [1:20] "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" ...
+ $ DESECON2_C3                   : chr [1:20] "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" ...
+ $ DESECON3_C3                   : chr [1:20] "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" ...
+ $ DESECON4_C3                   : chr [1:20] "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" ...
+ $ Region_Hidrologica_C3         : chr [1:20] "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" ...
+ $ CVE_S7_C3                     : chr [1:20] "BPQ" "BPQ" "BPQ" "VSA/BPQ" ...
+ $ X_C3                          : num [1:20] -103 -103 -103 -102 -102 ...
+ $ Y_C3                          : num [1:20] 18.2 18.2 18.2 18.2 18.2 ...
+ $ DESCRIP_S7_C3                 : chr [1:20] "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "VEGETACIÓN SECUNDARIA ARBÓREA DE BOSQUE DE PINO-ENCINO" ...
+ $ FORM_S7_C3                    : chr [1:20] "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" ...
+ $ FAO_S7_C3                     : logi [1:20] NA NA NA NA NA NA ...
+ $ ECO_S7_C3                     : chr [1:20] "Bosques" "Bosques" "Bosques" "Bosques" ...
+ $ Sitio_C3                      : num [1:20] 1 3 4 1 1 1 1 2 2 3 ...
+ $ Consecutivo_C3                : num [1:20] 9 19 13 1 14 20 22 12 8 2 ...
+ $ NoIndividuo_C3                : num [1:20] 9 10 8 1 14 20 22 12 8 2 ...
+ $ NoRama_C3                     : num [1:20] 9 19 13 1 16 22 24 12 8 2 ...
+ $ Azimut_C3                     : num [1:20] 44 276 202 16 178 239 281 223 116 135 ...
+ $ Distancia_C3                  : num [1:20] 9.5 8.5 1 9.5 4.4 5.7 8.2 8.5 11.2 3.8 ...
+ $ NombreComun_C3                : chr [1:20] "temezquite" "tocon" "ambula" "encino" ...
+ $ Familia_APG_C3                : chr [1:20] "Fabaceae" "ZZ Familia Desconocida" "Hernandiaceae" "Pinaceae" ...
+ $ Genero_APG_C3                 : chr [1:20] "Lysiloma" "ZZ Genero Desconocido" "Gyrocarpus" "Pinus" ...
+ $ Especie_APG_C3                : chr [1:20] "divaricatum" "NULL" "jatrophifolius" "oocarpa" ...
+ $ Categoria_APG_C3              : chr [1:20] "NULL" "NULL" "NULL" "NULL" ...
+ $ Infraespecie_APG_C3           : chr [1:20] "NULL" "NULL" "NULL" "NULL" ...
+ $ NombreCientifico_APG_C3       : chr [1:20] "Lysiloma divaricatum" "ZZ Genero Desconocido" "Gyrocarpus jatrophifolius" "Pinus oocarpa" ...
+ $ Forma_Biologica_Cat_C3        : chr [1:20] "Arbol" "Indeterminada" "Arbol" "Arbol" ...
+ $ FormaFuste_C3                 : chr [1:20] "Individuo curvo con dos o más fustes" "No capturado" "Individuo curvo con dos o más fustes" "individuo recto con un fuste" ...
+ $ Condicion_C3                  : chr [1:20] "Arbol vivo" "Tocon sin marca" "Arbol vivo" "Arbol vivo" ...
+ $ MuertoPie_C3                  : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ GradoPutrefaccion_C3          : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TipoTocon_C3                  : chr [1:20] "No capturado" "Tocón madera seca (madera dura sin evidencias de descomposición)" "No capturado" "No capturado" ...
+ $ DiametroNormal_C3             : num [1:20] 7.9 41.2 11.2 16.4 8.7 17.8 25.4 17.4 27.5 36.4 ...
+ $ AlturaTotal_C3                : num [1:20] 8.5 0.97 4.65 8.8 4.5 10.2 13.8 11 15 8.7 ...
+ $ AnguloInclinacion_C3          : num [1:20] 999993 999993 999993 -1 -1 ...
+ $ AlturaFusteLimpio_C3          : num [1:20] 4.3 1.0e+06 1.4 6.7 2.4 ...
+ $ AlturaComercial_C3            : num [1:20] 1.0e+06 1.0e+06 1.4 5.0 1.0e+06 ...
+ $ DiametroCopaNS_C3             : num [1:20] 4.2 1.0e+06 3.2 2.8 3.0 ...
+ $ DiametroCopaEO_C3             : num [1:20] 3.4 1.0e+06 2.9 2.6 2.7 ...
+ $ DiametroCopa_C3               : num [1:20] 3.80 1.00e+06 3.05 2.70 2.85 ...
+ $ ProporcionCopaViva_C3         : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ ExposicionCopa_C3             : chr [1:20] "No capturado" "No capturado" "No capturado" "SI" ...
+ $ PosicionCopa_C3               : chr [1:20] "No capturado" "No capturado" "No capturado" "Suprimido" ...
+ $ DensidadCopa_C3               : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ MuerteRegresiva_C3            : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TransparenciaFollaje_C3       : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ VigorEtapa_C3                 : chr [1:20] "Árbol joven" "No capturado" "Árbol joven" "Árbol joven" ...
+ $ NivelVigor_C3                 : chr [1:20] "Moderado" "No capturado" "Moderado" "No aplica" ...
+ $ AreaBasal_C3                  : num [1:20] 0.0049 0.13332 0.00985 0.02112 0.00594 ...
+ $ AreaCopa_C3                   : num [1:20] 1.13e+01 1.00e+06 7.30 5.73 6.38 ...
+ $ AgenteDanio1_C3               : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ AgenteDanio1_EST_C3           : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ Severidad1_C3                 : chr [1:20] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ AgenteDanio2_C3               : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ AgenteDanio2_EST_C3           : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ Severidad2_C3                 : chr [1:20] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ EsSubmuestra_C3               : num [1:20] 0 0 0 0 0 0 0 0 0 0 ...
+ $ DiametroBasalSub_validacion_C3: num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ Edad_C3                       : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ NumeroAnillos25_C3            : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ LongitudAnillos10_C3          : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ GrosorCorteza_C3              : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ es_para_estimacion_Volumen_C3 : num [1:20] 1 0 1 1 1 1 1 1 1 1 ...
+ $ VolumenVRTA_m3_C3             : num [1:20] 2.64e-02 1.00e+06 2.75e-02 1.26e-01 1.24e-02 ...
+ $ es_para_estimacion_ByC        : num [1:20] 1 1 1 1 1 1 1 1 1 1 ...
+ $ biomasa_kg_C3                 : num [1:20] 21 35.3 10.5 72.1 18.2 ...
+ $ carbono_kg_C3                 : num [1:20] 9.22 15.76 4.7 35.29 8.05 ...</code></pre>
 </div>
 </div>
 <p>Consultar datos del INFyS</p>
@@ -1112,8 +1057,8 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </ul>
 <p>Para ello podemos usar el paquete skimr</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>Data summary</caption>
@@ -1124,7 +1069,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">26035</td>
+<td style="text-align: left;">20</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
@@ -1202,7 +1147,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -1212,27 +1157,27 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">DESECON1_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">35</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">19</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">DESECON2_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">20</td>
+<td style="text-align: right;">25</td>
 <td style="text-align: right;">44</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1240,19 +1185,19 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">62</td>
-<td style="text-align: right;">87</td>
+<td style="text-align: right;">67</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">DESECON4_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">31</td>
-<td style="text-align: right;">79</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">71</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1262,7 +1207,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">18</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -1272,27 +1217,27 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">32</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">DESCRIP_S7_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">16</td>
 <td style="text-align: right;">61</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">32</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">FORM_S7_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">24</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">9</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1300,19 +1245,19 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">39</td>
+<td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NombreComun_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">26</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">10</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1113</td>
+<td style="text-align: right;">13</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1322,17 +1267,17 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">22</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">68</td>
+<td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Genero_APG_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">21</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">176</td>
+<td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1340,9 +1285,9 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">17</td>
+<td style="text-align: right;">14</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">294</td>
+<td style="text-align: right;">8</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -1350,9 +1295,9 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1360,19 +1305,19 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">11</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NombreCientifico_APG_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">37</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">25</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">401</td>
+<td style="text-align: right;">9</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1382,7 +1327,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -1402,7 +1347,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">19</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -1410,19 +1355,19 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">12</td>
-<td style="text-align: right;">31</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">GradoPutrefaccion_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">12</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -1430,19 +1375,19 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">12</td>
-<td style="text-align: right;">98</td>
+<td style="text-align: right;">64</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ProporcionCopaViva_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">22</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
@@ -1450,9 +1395,9 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">84</td>
+<td style="text-align: right;">76</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1460,39 +1405,39 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">7</td>
-<td style="text-align: right;">14</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">8</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">DensidadCopa_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">22</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">MuerteRegresiva_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">17</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">TransparenciaFollaje_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">13</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">22</td>
+<td style="text-align: right;">2</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1500,19 +1445,19 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">26</td>
+<td style="text-align: right;">15</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NivelVigor_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
 <td style="text-align: right;">12</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -1520,59 +1465,59 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">34</td>
+<td style="text-align: right;">19</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">26</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AgenteDanio1_EST_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
 <td style="text-align: right;">19</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">15</td>
+<td style="text-align: right;">5</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Severidad1_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">12</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">14</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AgenteDanio2_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">23</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">19</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">24</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AgenteDanio2_EST_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">12</td>
 <td style="text-align: right;">19</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">16</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Severidad2_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">9</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 </tbody>
@@ -1591,7 +1536,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">FAO_S7_C3</td>
-<td style="text-align: right;">26035</td>
+<td style="text-align: right;">20</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">NaN</td>
 <td style="text-align: left;">:</td>
@@ -1606,7 +1551,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <col style="width: 10%">
 <col style="width: 7%">
 <col style="width: 7%">
-<col style="width: 6%">
+<col style="width: 7%">
 <col style="width: 7%">
 <col style="width: 7%">
 <col style="width: 7%">
@@ -1633,53 +1578,53 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">UPMID</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">66822.59</td>
-<td style="text-align: right;">11201.92</td>
-<td style="text-align: right;">34257.00</td>
-<td style="text-align: right;">61347.00</td>
-<td style="text-align: right;">69522.00</td>
-<td style="text-align: right;">74589.00</td>
-<td style="text-align: right;">87690.00</td>
-<td style="text-align: left;">▁▂▃▇▃</td>
+<td style="text-align: right;">40078.90</td>
+<td style="text-align: right;">909.95</td>
+<td style="text-align: right;">36213.00</td>
+<td style="text-align: right;">40279.00</td>
+<td style="text-align: right;">40279.00</td>
+<td style="text-align: right;">40287.00</td>
+<td style="text-align: right;">40289.00</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">IdConglomerado</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">61210.60</td>
-<td style="text-align: right;">2767.09</td>
-<td style="text-align: right;">56011.00</td>
-<td style="text-align: right;">59280.00</td>
-<td style="text-align: right;">60556.00</td>
-<td style="text-align: right;">62584.00</td>
-<td style="text-align: right;">69266.00</td>
-<td style="text-align: left;">▃▇▃▂▁</td>
+<td style="text-align: right;">67814.55</td>
+<td style="text-align: right;">227.49</td>
+<td style="text-align: right;">67761.00</td>
+<td style="text-align: right;">67762.00</td>
+<td style="text-align: right;">67762.00</td>
+<td style="text-align: right;">67766.00</td>
+<td style="text-align: right;">68781.00</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ArboladoID_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">445904.05</td>
-<td style="text-align: right;">255726.18</td>
-<td style="text-align: right;">99751.00</td>
-<td style="text-align: right;">140751.50</td>
-<td style="text-align: right;">446643.00</td>
-<td style="text-align: right;">638423.50</td>
-<td style="text-align: right;">836076.00</td>
-<td style="text-align: left;">▇▁▇▃▆</td>
+<td style="text-align: right;">430795.75</td>
+<td style="text-align: right;">336101.15</td>
+<td style="text-align: right;">134941.00</td>
+<td style="text-align: right;">135033.50</td>
+<td style="text-align: right;">135075.00</td>
+<td style="text-align: right;">802953.00</td>
+<td style="text-align: right;">802995.00</td>
+<td style="text-align: left;">▇▁▁▁▆</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Anio_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">2016.44</td>
-<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">2016.75</td>
+<td style="text-align: right;">2.00</td>
 <td style="text-align: right;">2015.00</td>
 <td style="text-align: right;">2015.00</td>
-<td style="text-align: right;">2016.00</td>
-<td style="text-align: right;">2017.00</td>
+<td style="text-align: right;">2015.00</td>
 <td style="text-align: right;">2019.00</td>
-<td style="text-align: left;">▇▇▃▁▅</td>
+<td style="text-align: right;">2019.00</td>
+<td style="text-align: left;">▇▁▁▁▆</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Cve_Estado_C3</td>
@@ -1698,129 +1643,129 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">CVEECON1_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">13.23</td>
-<td style="text-align: right;">0.61</td>
-<td style="text-align: right;">12.00</td>
-<td style="text-align: right;">13.00</td>
-<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: right;">0.00</td>
 <td style="text-align: right;">14.00</td>
 <td style="text-align: right;">14.00</td>
-<td style="text-align: left;">▂▁▇▁▅</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">CVEECON2_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">13.62</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">12.20</td>
-<td style="text-align: right;">13.40</td>
-<td style="text-align: right;">13.40</td>
+<td style="text-align: right;">14.48</td>
+<td style="text-align: right;">0.04</td>
 <td style="text-align: right;">14.40</td>
 <td style="text-align: right;">14.50</td>
-<td style="text-align: left;">▂▁▇▁▅</td>
+<td style="text-align: right;">14.50</td>
+<td style="text-align: right;">14.50</td>
+<td style="text-align: right;">14.50</td>
+<td style="text-align: left;">▂▁▁▁▇</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">-101.49</td>
-<td style="text-align: right;">0.72</td>
-<td style="text-align: right;">-103.48</td>
-<td style="text-align: right;">-102.05</td>
-<td style="text-align: right;">-101.53</td>
-<td style="text-align: right;">-100.86</td>
-<td style="text-align: right;">-100.09</td>
-<td style="text-align: left;">▁▅▇▇▆</td>
+<td style="text-align: right;">-102.40</td>
+<td style="text-align: right;">0.11</td>
+<td style="text-align: right;">-102.53</td>
+<td style="text-align: right;">-102.48</td>
+<td style="text-align: right;">-102.48</td>
+<td style="text-align: right;">-102.29</td>
+<td style="text-align: right;">-102.24</td>
+<td style="text-align: left;">▇▁▁▁▆</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Y_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">19.35</td>
-<td style="text-align: right;">0.48</td>
-<td style="text-align: right;">17.97</td>
-<td style="text-align: right;">19.10</td>
-<td style="text-align: right;">19.47</td>
-<td style="text-align: right;">19.69</td>
-<td style="text-align: right;">20.28</td>
-<td style="text-align: left;">▁▂▅▇▃</td>
+<td style="text-align: right;">18.24</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">18.06</td>
+<td style="text-align: right;">18.25</td>
+<td style="text-align: right;">18.25</td>
+<td style="text-align: right;">18.25</td>
+<td style="text-align: right;">18.25</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Sitio_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">2.43</td>
-<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">2.55</td>
+<td style="text-align: right;">1.23</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2.00</td>
 <td style="text-align: right;">3.00</td>
 <td style="text-align: right;">4.00</td>
-<td style="text-align: left;">▇▇▁▇▆</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: left;">▇▃▁▇▇</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Consecutivo_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">15.49</td>
-<td style="text-align: right;">13.39</td>
+<td style="text-align: right;">9.85</td>
+<td style="text-align: right;">6.58</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">6.00</td>
-<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">9.50</td>
+<td style="text-align: right;">14.00</td>
 <td style="text-align: right;">22.00</td>
-<td style="text-align: right;">332.00</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: left;">▇▅▅▃▃</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">NoIndividuo_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">13.34</td>
-<td style="text-align: right;">11.96</td>
+<td style="text-align: right;">9.05</td>
+<td style="text-align: right;">6.19</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">5.00</td>
-<td style="text-align: right;">10.00</td>
-<td style="text-align: right;">19.00</td>
-<td style="text-align: right;">341.00</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">8.50</td>
+<td style="text-align: right;">12.50</td>
+<td style="text-align: right;">22.00</td>
+<td style="text-align: left;">▇▇▅▃▂</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NoRama_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">16.57</td>
-<td style="text-align: right;">13.98</td>
+<td style="text-align: right;">10.35</td>
+<td style="text-align: right;">6.90</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">6.00</td>
-<td style="text-align: right;">13.00</td>
-<td style="text-align: right;">23.00</td>
-<td style="text-align: right;">332.00</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">4.50</td>
+<td style="text-align: right;">9.50</td>
+<td style="text-align: right;">14.50</td>
+<td style="text-align: right;">24.00</td>
+<td style="text-align: left;">▇▇▅▃▂</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Azimut_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1097.76</td>
-<td style="text-align: right;">30342.93</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">85.00</td>
-<td style="text-align: right;">175.00</td>
-<td style="text-align: right;">267.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">196.65</td>
+<td style="text-align: right;">114.44</td>
+<td style="text-align: right;">2.00</td>
+<td style="text-align: right;">113.50</td>
+<td style="text-align: right;">212.50</td>
+<td style="text-align: right;">300.50</td>
+<td style="text-align: right;">338.00</td>
+<td style="text-align: left;">▃▃▃▂▇</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Distancia_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">5423.21</td>
-<td style="text-align: right;">73392.67</td>
+<td style="text-align: right;">100005.96</td>
+<td style="text-align: right;">307788.39</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">5.60</td>
-<td style="text-align: right;">7.90</td>
-<td style="text-align: right;">9.80</td>
+<td style="text-align: right;">5.85</td>
+<td style="text-align: right;">8.50</td>
+<td style="text-align: right;">10.93</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -1828,51 +1773,51 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">DiametroNormal_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">24022.46</td>
-<td style="text-align: right;">153067.41</td>
-<td style="text-align: right;">7.60</td>
-<td style="text-align: right;">10.10</td>
-<td style="text-align: right;">13.80</td>
-<td style="text-align: right;">21.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">17.34</td>
+<td style="text-align: right;">9.03</td>
+<td style="text-align: right;">7.90</td>
+<td style="text-align: right;">11.35</td>
+<td style="text-align: right;">15.10</td>
+<td style="text-align: right;">18.60</td>
+<td style="text-align: right;">41.20</td>
+<td style="text-align: left;">▇▅▂▁▂</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AlturaTotal_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">6998.69</td>
-<td style="text-align: right;">83317.33</td>
-<td style="text-align: right;">0.09</td>
-<td style="text-align: right;">5.00</td>
-<td style="text-align: right;">7.20</td>
-<td style="text-align: right;">10.10</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">8.79</td>
+<td style="text-align: right;">4.04</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">6.30</td>
+<td style="text-align: right;">8.65</td>
+<td style="text-align: right;">10.85</td>
+<td style="text-align: right;">17.50</td>
+<td style="text-align: left;">▂▇▇▃▂</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AnguloInclinacion_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">577645.56</td>
-<td style="text-align: right;">493935.59</td>
+<td style="text-align: right;">449996.30</td>
+<td style="text-align: right;">510414.72</td>
 <td style="text-align: right;">-1.00</td>
 <td style="text-align: right;">-1.00</td>
+<td style="text-align: right;">-1.00</td>
 <td style="text-align: right;">999993.00</td>
 <td style="text-align: right;">999993.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▆▁▁▁▇</td>
+<td style="text-align: left;">▇▁▁▁▆</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AlturaFusteLimpio_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">130057.92</td>
-<td style="text-align: right;">336367.34</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">1.90</td>
-<td style="text-align: right;">2.90</td>
-<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">50003.07</td>
+<td style="text-align: right;">223604.43</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1.98</td>
+<td style="text-align: right;">3.40</td>
+<td style="text-align: right;">5.00</td>
 <td style="text-align: right;">999993.00</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -1880,25 +1825,25 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">AlturaComercial_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">362436.04</td>
-<td style="text-align: right;">480706.10</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">3.50</td>
-<td style="text-align: right;">7.90</td>
-<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">250002.68</td>
+<td style="text-align: right;">444254.97</td>
+<td style="text-align: right;">1.40</td>
+<td style="text-align: right;">5.30</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">250007.12</td>
 <td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▇▁▁▁▅</td>
+<td style="text-align: left;">▇▁▁▁▂</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">DiametroCopaNS_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">129904.96</td>
-<td style="text-align: right;">336198.01</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">4.20</td>
-<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">50004.31</td>
+<td style="text-align: right;">223604.14</td>
+<td style="text-align: right;">2.80</td>
+<td style="text-align: right;">3.35</td>
+<td style="text-align: right;">4.50</td>
+<td style="text-align: right;">5.93</td>
 <td style="text-align: right;">999993.00</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -1906,12 +1851,12 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">DiametroCopaEO_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">129559.28</td>
-<td style="text-align: right;">335817.07</td>
-<td style="text-align: right;">0.08</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">4.20</td>
-<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">50004.29</td>
+<td style="text-align: right;">223604.14</td>
+<td style="text-align: right;">1.70</td>
+<td style="text-align: right;">3.28</td>
+<td style="text-align: right;">4.70</td>
+<td style="text-align: right;">5.73</td>
 <td style="text-align: right;">999993.00</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -1919,12 +1864,12 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">DiametroCopa_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">131249.29</td>
-<td style="text-align: right;">337672.01</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">4.25</td>
-<td style="text-align: right;">6.90</td>
+<td style="text-align: right;">50004.30</td>
+<td style="text-align: right;">223604.14</td>
+<td style="text-align: right;">2.30</td>
+<td style="text-align: right;">3.22</td>
+<td style="text-align: right;">4.78</td>
+<td style="text-align: right;">5.51</td>
 <td style="text-align: right;">999993.00</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -1932,25 +1877,25 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">AreaBasal_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">7297.85</td>
-<td style="text-align: right;">85116.14</td>
+<td style="text-align: right;">0.03</td>
+<td style="text-align: right;">0.03</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">0.01</td>
-<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.02</td>
 <td style="text-align: right;">0.03</td>
-<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">0.13</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AreaCopa_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">131263.03</td>
-<td style="text-align: right;">337666.67</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">7.07</td>
-<td style="text-align: right;">14.18</td>
-<td style="text-align: right;">37.39</td>
+<td style="text-align: right;">50021.19</td>
+<td style="text-align: right;">223600.16</td>
+<td style="text-align: right;">4.15</td>
+<td style="text-align: right;">8.17</td>
+<td style="text-align: right;">17.92</td>
+<td style="text-align: right;">23.87</td>
 <td style="text-align: right;">999993.00</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -1958,86 +1903,86 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">EsSubmuestra_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.04</td>
-<td style="text-align: right;">0.21</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">0.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">DiametroBasalSub_validacion_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">956513.05</td>
-<td style="text-align: right;">203929.51</td>
+<td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Edad_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">957972.69</td>
-<td style="text-align: right;">200629.73</td>
-<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">0.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NumeroAnillos25_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">956627.17</td>
-<td style="text-align: right;">203676.55</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">0.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">LongitudAnillos10_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">956589.47</td>
-<td style="text-align: right;">203759.30</td>
+<td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">GrosorCorteza_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">956589.11</td>
-<td style="text-align: right;">203760.99</td>
+<td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: right;">999991.00</td>
-<td style="text-align: right;">999993.00</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: right;">999991.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">es_para_estimacion_Volumen_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.89</td>
-<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.22</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">1.00</td>
@@ -2049,12 +1994,12 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: left;">VolumenVRTA_m3_C3</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">114806.11</td>
-<td style="text-align: right;">318792.07</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">0.07</td>
-<td style="text-align: right;">0.26</td>
+<td style="text-align: right;">49999.69</td>
+<td style="text-align: right;">223604.75</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.19</td>
 <td style="text-align: right;">999991.00</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
@@ -2063,39 +2008,39 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.01</td>
 <td style="text-align: right;">0.00</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: left;">▁▁▇▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">biomasa_kg_C3</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">147.04</td>
-<td style="text-align: right;">450.75</td>
-<td style="text-align: right;">0.18</td>
-<td style="text-align: right;">19.11</td>
-<td style="text-align: right;">40.76</td>
-<td style="text-align: right;">108.23</td>
-<td style="text-align: right;">22319.79</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">87.02</td>
+<td style="text-align: right;">76.26</td>
+<td style="text-align: right;">10.53</td>
+<td style="text-align: right;">32.99</td>
+<td style="text-align: right;">64.71</td>
+<td style="text-align: right;">103.57</td>
+<td style="text-align: right;">279.99</td>
+<td style="text-align: left;">▇▃▂▁▂</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">carbono_kg_C3</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">66.90</td>
-<td style="text-align: right;">206.96</td>
-<td style="text-align: right;">0.09</td>
-<td style="text-align: right;">8.66</td>
-<td style="text-align: right;">18.37</td>
-<td style="text-align: right;">48.92</td>
-<td style="text-align: right;">9976.95</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">40.28</td>
+<td style="text-align: right;">36.60</td>
+<td style="text-align: right;">4.70</td>
+<td style="text-align: right;">14.70</td>
+<td style="text-align: right;">28.33</td>
+<td style="text-align: right;">46.17</td>
+<td style="text-align: right;">137.08</td>
+<td style="text-align: left;">▇▃▁▁▂</td>
 </tr>
 </tbody>
 </table>
@@ -2103,7 +2048,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </div>
 <p>Ver tabla completa en RStudio</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>¿Qué fijarse?</p>
 <ul>
@@ -2116,90 +2061,90 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>Hagámoslo con R base</p>
 <p>Estructura de datos y tipo de variables</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tibble [26,035 × 76] (S3: tbl_df/tbl/data.frame)
- $ UPMID                         : num [1:26035] 40277 40277 40277 40279 40279 ...
- $ IdConglomerado                : num [1:26035] 67761 67761 67761 67762 67762 ...
- $ ArboladoID_C3                 : num [1:26035] 801985 802033 802948 135014 135029 ...
- $ Anio_C3                       : num [1:26035] 2019 2019 2019 2015 2015 ...
- $ Cve_Estado_C3                 : num [1:26035] 16 16 16 16 16 16 16 16 16 16 ...
- $ Estado_C3                     : chr [1:26035] "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" ...
- $ CVEECON1_C3                   : num [1:26035] 14 14 14 14 14 14 14 14 14 14 ...
- $ CVEECON2_C3                   : num [1:26035] 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 ...
- $ CVEECON3_C3                   : chr [1:26035] "14.5.2" "14.5.2" "14.5.2" "14.5.2" ...
- $ CVEECON4_C3                   : chr [1:26035] "14.5.2.3" "14.5.2.3" "14.5.2.3" "14.5.2.3" ...
- $ DESECON1_C3                   : chr [1:26035] "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" ...
- $ DESECON2_C3                   : chr [1:26035] "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" ...
- $ DESECON3_C3                   : chr [1:26035] "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" ...
- $ DESECON4_C3                   : chr [1:26035] "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" ...
- $ Region_Hidrologica_C3         : chr [1:26035] "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" ...
- $ CVE_S7_C3                     : chr [1:26035] "BPQ" "BPQ" "BPQ" "VSA/BPQ" ...
- $ X_C3                          : num [1:26035] -103 -103 -103 -102 -102 ...
- $ Y_C3                          : num [1:26035] 18.2 18.2 18.2 18.2 18.2 ...
- $ DESCRIP_S7_C3                 : chr [1:26035] "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "VEGETACIÓN SECUNDARIA ARBÓREA DE BOSQUE DE PINO-ENCINO" ...
- $ FORM_S7_C3                    : chr [1:26035] "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" ...
- $ FAO_S7_C3                     : logi [1:26035] NA NA NA NA NA NA ...
- $ ECO_S7_C3                     : chr [1:26035] "Bosques" "Bosques" "Bosques" "Bosques" ...
- $ Sitio_C3                      : num [1:26035] 1 3 4 1 1 1 1 2 2 3 ...
- $ Consecutivo_C3                : num [1:26035] 9 19 13 1 14 20 22 12 8 2 ...
- $ NoIndividuo_C3                : num [1:26035] 9 10 8 1 14 20 22 12 8 2 ...
- $ NoRama_C3                     : num [1:26035] 9 19 13 1 16 22 24 12 8 2 ...
- $ Azimut_C3                     : num [1:26035] 44 276 202 16 178 239 281 223 116 135 ...
- $ Distancia_C3                  : num [1:26035] 9.5 8.5 1 9.5 4.4 5.7 8.2 8.5 11.2 3.8 ...
- $ NombreComun_C3                : chr [1:26035] "temezquite" "tocon" "ambula" "encino" ...
- $ Familia_APG_C3                : chr [1:26035] "Fabaceae" "ZZ Familia Desconocida" "Hernandiaceae" "Pinaceae" ...
- $ Genero_APG_C3                 : chr [1:26035] "Lysiloma" "ZZ Genero Desconocido" "Gyrocarpus" "Pinus" ...
- $ Especie_APG_C3                : chr [1:26035] "divaricatum" "NULL" "jatrophifolius" "oocarpa" ...
- $ Categoria_APG_C3              : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
- $ Infraespecie_APG_C3           : chr [1:26035] "NULL" "NULL" "NULL" "NULL" ...
- $ NombreCientifico_APG_C3       : chr [1:26035] "Lysiloma divaricatum" "ZZ Genero Desconocido" "Gyrocarpus jatrophifolius" "Pinus oocarpa" ...
- $ Forma_Biologica_Cat_C3        : chr [1:26035] "Arbol" "Indeterminada" "Arbol" "Arbol" ...
- $ FormaFuste_C3                 : chr [1:26035] "Individuo curvo con dos o más fustes" "No capturado" "Individuo curvo con dos o más fustes" "individuo recto con un fuste" ...
- $ Condicion_C3                  : chr [1:26035] "Arbol vivo" "Tocon sin marca" "Arbol vivo" "Arbol vivo" ...
- $ MuertoPie_C3                  : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ GradoPutrefaccion_C3          : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ TipoTocon_C3                  : chr [1:26035] "No capturado" "Tocón madera seca (madera dura sin evidencias de descomposición)" "No capturado" "No capturado" ...
- $ DiametroNormal_C3             : num [1:26035] 7.9 41.2 11.2 16.4 8.7 17.8 25.4 17.4 27.5 36.4 ...
- $ AlturaTotal_C3                : num [1:26035] 8.5 0.97 4.65 8.8 4.5 10.2 13.8 11 15 8.7 ...
- $ AnguloInclinacion_C3          : num [1:26035] 999993 999993 999993 -1 -1 ...
- $ AlturaFusteLimpio_C3          : num [1:26035] 4.3 1.0e+06 1.4 6.7 2.4 ...
- $ AlturaComercial_C3            : num [1:26035] 1.0e+06 1.0e+06 1.4 5.0 1.0e+06 ...
- $ DiametroCopaNS_C3             : num [1:26035] 4.2 1.0e+06 3.2 2.8 3.0 ...
- $ DiametroCopaEO_C3             : num [1:26035] 3.4 1.0e+06 2.9 2.6 2.7 ...
- $ DiametroCopa_C3               : num [1:26035] 3.80 1.00e+06 3.05 2.70 2.85 ...
- $ ProporcionCopaViva_C3         : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ ExposicionCopa_C3             : chr [1:26035] "No capturado" "No capturado" "No capturado" "SI" ...
- $ PosicionCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "Suprimido" ...
- $ DensidadCopa_C3               : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ MuerteRegresiva_C3            : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ TransparenciaFollaje_C3       : chr [1:26035] "No capturado" "No capturado" "No capturado" "No capturado" ...
- $ VigorEtapa_C3                 : chr [1:26035] "Árbol joven" "No capturado" "Árbol joven" "Árbol joven" ...
- $ NivelVigor_C3                 : chr [1:26035] "Moderado" "No capturado" "Moderado" "No aplica" ...
- $ AreaBasal_C3                  : num [1:26035] 0.0049 0.13332 0.00985 0.02112 0.00594 ...
- $ AreaCopa_C3                   : num [1:26035] 1.13e+01 1.00e+06 7.30 5.73 6.38 ...
- $ AgenteDanio1_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
- $ AgenteDanio1_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
- $ Severidad1_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
- $ AgenteDanio2_C3               : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
- $ AgenteDanio2_EST_C3           : chr [1:26035] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
- $ Severidad2_C3                 : chr [1:26035] "No aplica" "No aplica" "No aplica" "No aplica" ...
- $ EsSubmuestra_C3               : num [1:26035] 0 0 0 0 0 0 0 0 0 0 ...
- $ DiametroBasalSub_validacion_C3: num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ Edad_C3                       : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ NumeroAnillos25_C3            : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ LongitudAnillos10_C3          : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ GrosorCorteza_C3              : num [1:26035] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
- $ es_para_estimacion_Volumen_C3 : num [1:26035] 1 0 1 1 1 1 1 1 1 1 ...
- $ VolumenVRTA_m3_C3             : num [1:26035] 2.64e-02 1.00e+06 2.75e-02 1.26e-01 1.24e-02 ...
- $ es_para_estimacion_ByC        : num [1:26035] 1 1 1 1 1 1 1 1 1 1 ...
- $ biomasa_kg_C3                 : num [1:26035] 21 35.3 10.5 72.1 18.2 ...
- $ carbono_kg_C3                 : num [1:26035] 9.22 15.76 4.7 35.29 8.05 ...</code></pre>
+<pre><code>tibble [20 × 76] (S3: tbl_df/tbl/data.frame)
+ $ UPMID                         : num [1:20] 40277 40277 40277 40279 40279 ...
+ $ IdConglomerado                : num [1:20] 67761 67761 67761 67762 67762 ...
+ $ ArboladoID_C3                 : num [1:20] 801985 802033 802948 135014 135029 ...
+ $ Anio_C3                       : num [1:20] 2019 2019 2019 2015 2015 ...
+ $ Cve_Estado_C3                 : num [1:20] 16 16 16 16 16 16 16 16 16 16 ...
+ $ Estado_C3                     : chr [1:20] "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" "Michoacán de Ocampo" ...
+ $ CVEECON1_C3                   : num [1:20] 14 14 14 14 14 14 14 14 14 14 ...
+ $ CVEECON2_C3                   : num [1:20] 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 14.5 ...
+ $ CVEECON3_C3                   : chr [1:20] "14.5.2" "14.5.2" "14.5.2" "14.5.2" ...
+ $ CVEECON4_C3                   : chr [1:20] "14.5.2.3" "14.5.2.3" "14.5.2.3" "14.5.2.3" ...
+ $ DESECON1_C3                   : chr [1:20] "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" "Selvas Calido-Secas" ...
+ $ DESECON2_C3                   : chr [1:20] "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" "Planicie Costera y Lomerios del Pacifico Sur" ...
+ $ DESECON3_C3                   : chr [1:20] "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" "Lomerios y Piedemontes del Pacifico Sur Mexicano con Selva Espinosa" ...
+ $ DESECON4_C3                   : chr [1:20] "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" "Planicie Costera y lomerios del Pacifico Sur con selva baja caducifolia" ...
+ $ Region_Hidrologica_C3         : chr [1:20] "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" "Costa de Michoacan" ...
+ $ CVE_S7_C3                     : chr [1:20] "BPQ" "BPQ" "BPQ" "VSA/BPQ" ...
+ $ X_C3                          : num [1:20] -103 -103 -103 -102 -102 ...
+ $ Y_C3                          : num [1:20] 18.2 18.2 18.2 18.2 18.2 ...
+ $ DESCRIP_S7_C3                 : chr [1:20] "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "BOSQUE DE PINO-ENCINO" "VEGETACIÓN SECUNDARIA ARBÓREA DE BOSQUE DE PINO-ENCINO" ...
+ $ FORM_S7_C3                    : chr [1:20] "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" "Coníferas y latifoliadas" ...
+ $ FAO_S7_C3                     : logi [1:20] NA NA NA NA NA NA ...
+ $ ECO_S7_C3                     : chr [1:20] "Bosques" "Bosques" "Bosques" "Bosques" ...
+ $ Sitio_C3                      : num [1:20] 1 3 4 1 1 1 1 2 2 3 ...
+ $ Consecutivo_C3                : num [1:20] 9 19 13 1 14 20 22 12 8 2 ...
+ $ NoIndividuo_C3                : num [1:20] 9 10 8 1 14 20 22 12 8 2 ...
+ $ NoRama_C3                     : num [1:20] 9 19 13 1 16 22 24 12 8 2 ...
+ $ Azimut_C3                     : num [1:20] 44 276 202 16 178 239 281 223 116 135 ...
+ $ Distancia_C3                  : num [1:20] 9.5 8.5 1 9.5 4.4 5.7 8.2 8.5 11.2 3.8 ...
+ $ NombreComun_C3                : chr [1:20] "temezquite" "tocon" "ambula" "encino" ...
+ $ Familia_APG_C3                : chr [1:20] "Fabaceae" "ZZ Familia Desconocida" "Hernandiaceae" "Pinaceae" ...
+ $ Genero_APG_C3                 : chr [1:20] "Lysiloma" "ZZ Genero Desconocido" "Gyrocarpus" "Pinus" ...
+ $ Especie_APG_C3                : chr [1:20] "divaricatum" "NULL" "jatrophifolius" "oocarpa" ...
+ $ Categoria_APG_C3              : chr [1:20] "NULL" "NULL" "NULL" "NULL" ...
+ $ Infraespecie_APG_C3           : chr [1:20] "NULL" "NULL" "NULL" "NULL" ...
+ $ NombreCientifico_APG_C3       : chr [1:20] "Lysiloma divaricatum" "ZZ Genero Desconocido" "Gyrocarpus jatrophifolius" "Pinus oocarpa" ...
+ $ Forma_Biologica_Cat_C3        : chr [1:20] "Arbol" "Indeterminada" "Arbol" "Arbol" ...
+ $ FormaFuste_C3                 : chr [1:20] "Individuo curvo con dos o más fustes" "No capturado" "Individuo curvo con dos o más fustes" "individuo recto con un fuste" ...
+ $ Condicion_C3                  : chr [1:20] "Arbol vivo" "Tocon sin marca" "Arbol vivo" "Arbol vivo" ...
+ $ MuertoPie_C3                  : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ GradoPutrefaccion_C3          : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TipoTocon_C3                  : chr [1:20] "No capturado" "Tocón madera seca (madera dura sin evidencias de descomposición)" "No capturado" "No capturado" ...
+ $ DiametroNormal_C3             : num [1:20] 7.9 41.2 11.2 16.4 8.7 17.8 25.4 17.4 27.5 36.4 ...
+ $ AlturaTotal_C3                : num [1:20] 8.5 0.97 4.65 8.8 4.5 10.2 13.8 11 15 8.7 ...
+ $ AnguloInclinacion_C3          : num [1:20] 999993 999993 999993 -1 -1 ...
+ $ AlturaFusteLimpio_C3          : num [1:20] 4.3 1.0e+06 1.4 6.7 2.4 ...
+ $ AlturaComercial_C3            : num [1:20] 1.0e+06 1.0e+06 1.4 5.0 1.0e+06 ...
+ $ DiametroCopaNS_C3             : num [1:20] 4.2 1.0e+06 3.2 2.8 3.0 ...
+ $ DiametroCopaEO_C3             : num [1:20] 3.4 1.0e+06 2.9 2.6 2.7 ...
+ $ DiametroCopa_C3               : num [1:20] 3.80 1.00e+06 3.05 2.70 2.85 ...
+ $ ProporcionCopaViva_C3         : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ ExposicionCopa_C3             : chr [1:20] "No capturado" "No capturado" "No capturado" "SI" ...
+ $ PosicionCopa_C3               : chr [1:20] "No capturado" "No capturado" "No capturado" "Suprimido" ...
+ $ DensidadCopa_C3               : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ MuerteRegresiva_C3            : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ TransparenciaFollaje_C3       : chr [1:20] "No capturado" "No capturado" "No capturado" "No capturado" ...
+ $ VigorEtapa_C3                 : chr [1:20] "Árbol joven" "No capturado" "Árbol joven" "Árbol joven" ...
+ $ NivelVigor_C3                 : chr [1:20] "Moderado" "No capturado" "Moderado" "No aplica" ...
+ $ AreaBasal_C3                  : num [1:20] 0.0049 0.13332 0.00985 0.02112 0.00594 ...
+ $ AreaCopa_C3                   : num [1:20] 1.13e+01 1.00e+06 7.30 5.73 6.38 ...
+ $ AgenteDanio1_C3               : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ AgenteDanio1_EST_C3           : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "Ausencia de daño" ...
+ $ Severidad1_C3                 : chr [1:20] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ AgenteDanio2_C3               : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ AgenteDanio2_EST_C3           : chr [1:20] "Ausencia de daño" "Actividades humanas" "Ausencia de daño" "No capturado" ...
+ $ Severidad2_C3                 : chr [1:20] "No aplica" "No aplica" "No aplica" "No aplica" ...
+ $ EsSubmuestra_C3               : num [1:20] 0 0 0 0 0 0 0 0 0 0 ...
+ $ DiametroBasalSub_validacion_C3: num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ Edad_C3                       : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ NumeroAnillos25_C3            : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ LongitudAnillos10_C3          : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ GrosorCorteza_C3              : num [1:20] 1e+06 1e+06 1e+06 1e+06 1e+06 ...
+ $ es_para_estimacion_Volumen_C3 : num [1:20] 1 0 1 1 1 1 1 1 1 1 ...
+ $ VolumenVRTA_m3_C3             : num [1:20] 2.64e-02 1.00e+06 2.75e-02 1.26e-01 1.24e-02 ...
+ $ es_para_estimacion_ByC        : num [1:20] 1 1 1 1 1 1 1 1 1 1 ...
+ $ biomasa_kg_C3                 : num [1:20] 21 35.3 10.5 72.1 18.2 ...
+ $ carbono_kg_C3                 : num [1:20] 9.22 15.76 4.7 35.29 8.05 ...</code></pre>
 </div>
 </div>
 <p>Ver muestras de datos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 76
   UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
@@ -2218,17 +2163,17 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 #   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
 #   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 76
   UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
   &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
-1 82692          57274        475769    2016            16 Michoacá…          12
-2 82692          57274        475800    2016            16 Michoacá…          12
-3 82692          57274        475807    2016            16 Michoacá…          12
-4 82692          57274        475813    2016            16 Michoacá…          12
-5 82692          57274        475825    2016            16 Michoacá…          12
-6 82692          57274        475830    2016            16 Michoacá…          12
+1 40287          67766        802989    2019            16 Michoacá…          14
+2 40287          67766        802995    2019            16 Michoacá…          14
+3 40289          67767        134941    2015            16 Michoacá…          14
+4 40289          67767        134951    2015            16 Michoacá…          14
+5 40289          67767        134954    2015            16 Michoacá…          14
+6 36213          68781        708803    2018            16 Michoacá…          14
 # ℹ 69 more variables: CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;,
 #   DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
 #   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
@@ -2241,139 +2186,108 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>Hacer algunas pruebas:</p>
 <p>Valores min/max</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] NA NA</code></pre>
+<pre><code>[1]  10.5251 279.9856</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>biomasa_kg_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>biomasa_kg_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]     0.180181 22319.794310</code></pre>
+<pre><code>[1]  10.5251 279.9856</code></pre>
 </div>
 </div>
 <p>Ver los valores con NA</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3))</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>biomasa_kg_C3[indices]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3))</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>biomasa_kg_C3[indices]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
+<pre><code>numeric(0)</code></pre>
 </div>
 </div>
 <p>Valores faltantes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>datos[<span class="fu">which</span>(<span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3)),]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>datos[<span class="fu">which</span>(<span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3)),]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 76
-  UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3 CVEECON1_C3
-  &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
-1 79703          58050        832887    2019            16 Michoacá…          12
-# ℹ 69 more variables: CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;,
-#   DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
+<pre><code># A tibble: 0 × 76
+# ℹ 76 variables: UPMID &lt;dbl&gt;, IdConglomerado &lt;dbl&gt;, ArboladoID_C3 &lt;dbl&gt;,
+#   Anio_C3 &lt;dbl&gt;, Cve_Estado_C3 &lt;dbl&gt;, Estado_C3 &lt;chr&gt;, CVEECON1_C3 &lt;dbl&gt;,
+#   CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;, DESECON1_C3 &lt;chr&gt;,
+#   DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
 #   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
 #   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
-#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;,
-#   NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, Distancia_C3 &lt;dbl&gt;, NombreComun_C3 &lt;chr&gt;,
-#   Familia_APG_C3 &lt;chr&gt;, Genero_APG_C3 &lt;chr&gt;, Especie_APG_C3 &lt;chr&gt;, …</code></pre>
+#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
 <p>Valores extremos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]      7.6 999993.0</code></pre>
+<pre><code>[1]  7.9 41.2</code></pre>
 </div>
 </div>
 <p>Valores demasiado altos. Algunas veces en lugar de poner NA se usan valores como 99999 o -99999.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>datos[datos<span class="sc">$</span>DiametroNormal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>,]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>datos[datos<span class="sc">$</span>DiametroNormal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>,]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 625 × 76
-   UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3          
-   &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;              
- 1 48449          65760        197636    2015            16 Michoacán de Ocampo
- 2 40287          67766        802997    2019            16 Michoacán de Ocampo
- 3 40289          67767        134939    2015            16 Michoacán de Ocampo
- 4 44863          66591        405491    2016            16 Michoacán de Ocampo
- 5 46036          66301        406677    2016            16 Michoacán de Ocampo
- 6 46132          66349        128928    2015            16 Michoacán de Ocampo
- 7 41362          67481        141665    2015            16 Michoacán de Ocampo
- 8 40287          67766        802966    2019            16 Michoacán de Ocampo
- 9 40287          67766        802967    2019            16 Michoacán de Ocampo
-10 38204          68270        143190    2015            16 Michoacán de Ocampo
-# ℹ 615 more rows
-# ℹ 70 more variables: CVEECON1_C3 &lt;dbl&gt;, CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;,
-#   CVEECON4_C3 &lt;chr&gt;, DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;,
-#   DESECON4_C3 &lt;chr&gt;, Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;,
-#   X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;, DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;,
-#   FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;, Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;,
-#   NoIndividuo_C3 &lt;dbl&gt;, NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, …</code></pre>
+<pre><code># A tibble: 0 × 76
+# ℹ 76 variables: UPMID &lt;dbl&gt;, IdConglomerado &lt;dbl&gt;, ArboladoID_C3 &lt;dbl&gt;,
+#   Anio_C3 &lt;dbl&gt;, Cve_Estado_C3 &lt;dbl&gt;, Estado_C3 &lt;chr&gt;, CVEECON1_C3 &lt;dbl&gt;,
+#   CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;, DESECON1_C3 &lt;chr&gt;,
+#   DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
+#   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
+#   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
+#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
 <p>Sustituir por NA</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>DiametroNormal_C3[datos<span class="sc">$</span>DiametroNormal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>DiametroNormal_C3[datos<span class="sc">$</span>DiametroNormal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  7.6 60.0</code></pre>
+<pre><code>[1]  7.9 41.2</code></pre>
 </div>
 </div>
 <p>Ya más lógico. Habría que hacer lo mismo con varias variables, pero lo dejaremos para después.</p>
 <p>Seleccinoar parte de los datos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>sbc <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos,</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>       datos<span class="sc">$</span>CVE_S7_C3<span class="sc">==</span><span class="st">"SBC"</span>)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>sbc</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>sbc <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos,</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>       datos<span class="sc">$</span>CVE_S7_C3<span class="sc">==</span><span class="st">"SBC"</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>sbc</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,171 × 76
-   UPMID IdConglomerado ArboladoID_C3 Anio_C3 Cve_Estado_C3 Estado_C3          
-   &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;              
- 1 41382          67491        135203    2015            16 Michoacán de Ocampo
- 2 41382          67491        135236    2015            16 Michoacán de Ocampo
- 3 41382          67491        135250    2015            16 Michoacán de Ocampo
- 4 41382          67491        135301    2015            16 Michoacán de Ocampo
- 5 41382          67491        135340    2015            16 Michoacán de Ocampo
- 6 41382          67491        135358    2015            16 Michoacán de Ocampo
- 7 41382          67491        135361    2015            16 Michoacán de Ocampo
- 8 41382          67491        135379    2015            16 Michoacán de Ocampo
- 9 41382          67491        135408    2015            16 Michoacán de Ocampo
-10 41386          67493        402761    2016            16 Michoacán de Ocampo
-# ℹ 2,161 more rows
-# ℹ 70 more variables: CVEECON1_C3 &lt;dbl&gt;, CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;,
-#   CVEECON4_C3 &lt;chr&gt;, DESECON1_C3 &lt;chr&gt;, DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;,
-#   DESECON4_C3 &lt;chr&gt;, Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;,
-#   X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;, DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;,
-#   FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;, Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;,
-#   NoIndividuo_C3 &lt;dbl&gt;, NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, …</code></pre>
+<pre><code># A tibble: 0 × 76
+# ℹ 76 variables: UPMID &lt;dbl&gt;, IdConglomerado &lt;dbl&gt;, ArboladoID_C3 &lt;dbl&gt;,
+#   Anio_C3 &lt;dbl&gt;, Cve_Estado_C3 &lt;dbl&gt;, Estado_C3 &lt;chr&gt;, CVEECON1_C3 &lt;dbl&gt;,
+#   CVEECON2_C3 &lt;dbl&gt;, CVEECON3_C3 &lt;chr&gt;, CVEECON4_C3 &lt;chr&gt;, DESECON1_C3 &lt;chr&gt;,
+#   DESECON2_C3 &lt;chr&gt;, DESECON3_C3 &lt;chr&gt;, DESECON4_C3 &lt;chr&gt;,
+#   Region_Hidrologica_C3 &lt;chr&gt;, CVE_S7_C3 &lt;chr&gt;, X_C3 &lt;dbl&gt;, Y_C3 &lt;dbl&gt;,
+#   DESCRIP_S7_C3 &lt;chr&gt;, FORM_S7_C3 &lt;chr&gt;, FAO_S7_C3 &lt;lgl&gt;, ECO_S7_C3 &lt;chr&gt;,
+#   Sitio_C3 &lt;dbl&gt;, Consecutivo_C3 &lt;dbl&gt;, NoIndividuo_C3 &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
 <p>Ver los valores únicos hay en una variable</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "BPQ"     "VSA/BPQ" "BQ"      "VSa/SBC" "VSA/SMS" "SBC"     "VM"     
- [8] "VSa/BQ"  "PC"      "VSa/BPQ" "VSa/BP"  "BP"      "VSA/SBC" "VSA/BQ" 
-[15] "VSA/BP"  "BQP"     "VSa/BQP" "TAP"     "RAP"     "TA"      "AH"     
-[22] "BA"      "BC"      "VSa/BA"  "BM"      "VSA/BA"  "VSA/BM"  "PI"     
-[29] "RP"      "VSA/BQP" "RA"      "TP"     </code></pre>
+<pre><code>[1] "BPQ"     "VSA/BPQ" "BQ"      "VSa/SBC" "VSA/SMS"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 32</code></pre>
+<pre><code>[1] 5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 16.88959</code></pre>
+<pre><code>[1] 17.34</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6998.692</code></pre>
+<pre><code>[1] 8.786</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 83317.33</code></pre>
+<pre><code>[1] 4.043952</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(datos<span class="sc">$</span>CVE_S7_C3)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(datos<span class="sc">$</span>CVE_S7_C3)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "BPQ"     "BPQ"     "BPQ"     "VSA/BPQ" "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"
  [8] "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"</code></pre>
@@ -2381,36 +2295,32 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </div>
 <p>Hay algo mal. Altura total tiene el mismo problema de los NA codificados como números muy altos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "BPQ"     "VSA/BPQ" "BQ"      "VSa/SBC" "VSA/SMS" "SBC"     "VM"     
- [8] "VSa/BQ"  "PC"      "VSa/BPQ" "VSa/BP"  "BP"      "VSA/SBC" "VSA/BQ" 
-[15] "VSA/BP"  "BQP"     "VSa/BQP" "TAP"     "RAP"     "TA"      "AH"     
-[22] "BA"      "BC"      "VSa/BA"  "BM"      "VSA/BA"  "VSA/BM"  "PI"     
-[29] "RP"      "VSA/BQP" "RA"      "TP"     </code></pre>
+<pre><code>[1] "BPQ"     "VSA/BPQ" "BQ"      "VSa/SBC" "VSA/SMS"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(datos<span class="sc">$</span>CVE_S7_C3))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 32</code></pre>
+<pre><code>[1] 5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>DiametroNormal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 16.88959</code></pre>
+<pre><code>[1] 17.34</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>AlturaTotal_C3[datos<span class="sc">$</span>AlturaTotal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>datos<span class="sc">$</span>AlturaTotal_C3[datos<span class="sc">$</span>AlturaTotal_C3 <span class="sc">&gt;=</span> <span class="dv">99999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
+<pre><code>[1] 8.786</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>AlturaTotal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8.2088</code></pre>
+<pre><code>[1] 8.786</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(datos<span class="sc">$</span>AlturaTotal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(datos<span class="sc">$</span>AlturaTotal_C3, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.498026</code></pre>
+<pre><code>[1] 4.043952</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(datos<span class="sc">$</span>CVE_S7_C3)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(datos<span class="sc">$</span>CVE_S7_C3)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "BPQ"     "BPQ"     "BPQ"     "VSA/BPQ" "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"
  [8] "VSA/BPQ" "VSA/BPQ" "VSA/BPQ"</code></pre>
@@ -2419,14 +2329,14 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>Ordenar</p>
 <p>glimpse sirve para echar un vistazo a los datos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>temp2<span class="ot">&lt;-</span><span class="fu">order</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(temp2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>temp2<span class="ot">&lt;-</span><span class="fu">order</span>(datos<span class="sc">$</span>AlturaTotal_C3)</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(temp2)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> int [1:26035] 10697 132 4799 5000 5809 6065 6092 6793 6794 7420 ...</code></pre>
+<pre><code> int [1:20] 2 12 5 3 17 14 19 13 1 15 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(datos<span class="sc">$</span>AlturaTotal_C3[temp2])</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(datos<span class="sc">$</span>AlturaTotal_C3[temp2])</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> num [1:26035] 0.09 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 ...</code></pre>
+<pre><code> num [1:20] 0.97 3.5 4.5 4.65 6 6.4 7.3 7.4 8.5 8.6 ...</code></pre>
 </div>
 </div>
 </section>
@@ -2441,7 +2351,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <li>Ylim</li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>DiametroNormal_C3,datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>DiametroNormal_C3,datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2451,7 +2361,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>AlturaTotal_C3,datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>AlturaTotal_C3,datos<span class="sc">$</span>biomasa_kg_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2461,9 +2371,9 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>DiametroNormal_C3,datos<span class="sc">$</span>biomasa_kg_C3,</span>
-<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>),</span>
-<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(datos<span class="sc">$</span>DiametroNormal_C3,datos<span class="sc">$</span>biomasa_kg_C3,</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>),</span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2475,7 +2385,7 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>Ayuda a ver posibles patrones y comportamientos entre variables.</p>
 <p>Histograma</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(datos<span class="sc">$</span>DiametroNormal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(datos<span class="sc">$</span>DiametroNormal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -2486,12 +2396,12 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </div>
 <p>Barplot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>sitios <span class="ot">&lt;-</span> <span class="fu">by</span>(datos<span class="sc">$</span>IdConglomerado, </span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>              datos<span class="sc">$</span>CVE_S7_C3, </span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))</span>
-<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>sitios <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sitios)</span>
-<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(sitios<span class="sc">$</span>x,</span>
-<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">rownames</span>(sitios))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>sitios <span class="ot">&lt;-</span> <span class="fu">by</span>(datos<span class="sc">$</span>IdConglomerado, </span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>              datos<span class="sc">$</span>CVE_S7_C3, </span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">length</span>(<span class="fu">unique</span>(x)))</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>sitios <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(sitios)</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(sitios<span class="sc">$</span>x,</span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">names.arg=</span><span class="fu">rownames</span>(sitios))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2503,9 +2413,9 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>Pie</p>
 <p>By permite corre funciones por un factor. Luego vamos a ver la versión del tidyverse.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">by</span>(datos, datos<span class="sc">$</span>CVE_S7_C3, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">nrow</span>(x))</span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(arboles)</span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(arboles<span class="sc">$</span>x,<span class="at">labels=</span><span class="fu">rownames</span>(arboles))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">by</span>(datos, datos<span class="sc">$</span>CVE_S7_C3, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">nrow</span>(x))</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(arboles)</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(arboles<span class="sc">$</span>x,<span class="at">labels=</span><span class="fu">rownames</span>(arboles))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2516,9 +2426,9 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 </div>
 <p>Boxplot</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>subdf <span class="ot">&lt;-</span> datos[<span class="sc">!</span><span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3),]</span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(subdf<span class="sc">$</span>biomasa_kg_C3 <span class="sc">~</span> subdf<span class="sc">$</span>CVE_S7_C3,</span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>subdf <span class="ot">&lt;-</span> datos[<span class="sc">!</span><span class="fu">is.na</span>(datos<span class="sc">$</span>biomasa_kg_C3),]</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(subdf<span class="sc">$</span>biomasa_kg_C3 <span class="sc">~</span> subdf<span class="sc">$</span>CVE_S7_C3,</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
