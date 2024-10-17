@@ -302,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Instalar vegan</p>
 <p>Cargar vegan</p>
-<p><code>??cca</code> para sacar la ayuda y ver qué hace la función cca en el paquete vegan.</p>
+<p><code>help(cca)</code> para sacar la ayuda y ver qué hace la función cca en el paquete vegan.</p>
 <p>Paquetes personalizados</p>
 <ul>
 <li>Uno puede crear su propio paquete de funciones.</li>
@@ -2413,9 +2413,11 @@ dbl (4): Id_parcela, AlturaTotal_C3, AreaBasal_C3, biomasa_kg_C3
 <p>Pie</p>
 <p>By permite corre funciones por un factor. Luego vamos a ver la versión del tidyverse.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">by</span>(datos, datos<span class="sc">$</span>CVE_S7_C3, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">nrow</span>(x))</span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(arboles)</span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(arboles<span class="sc">$</span>x,<span class="at">labels=</span><span class="fu">rownames</span>(arboles))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">by</span>(datos, datos<span class="sc">$</span>CVE_S7_C3, <span class="at">FUN =</span> <span class="cf">function</span>(x){</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">nrow</span>(x))</span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>arboles <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(arboles)</span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(arboles<span class="sc">$</span>x,<span class="at">labels=</span><span class="fu">rownames</span>(arboles))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
