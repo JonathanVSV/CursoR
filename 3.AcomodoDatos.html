@@ -206,8 +206,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tidyverse" id="toc-tidyverse" class="nav-link active" data-scroll-target="#tidyverse">Tidyverse</a></li>
   <li><a href="#el-pipe" id="toc-el-pipe" class="nav-link" data-scroll-target="#el-pipe">El pipe</a></li>
   <li><a href="#tibble" id="toc-tibble" class="nav-link" data-scroll-target="#tibble">Tibble</a></li>
-  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr">Dplyr</a></li>
-  <li><a href="#tidyr" id="toc-tidyr" class="nav-link" data-scroll-target="#tidyr">Tidyr</a></li>
+  <li><a href="#dplyr" id="toc-dplyr" class="nav-link" data-scroll-target="#dplyr">Dplyr</a>
+  <ul class="collapse">
+  <li><a href="#seleccionar-columnas" id="toc-seleccionar-columnas" class="nav-link" data-scroll-target="#seleccionar-columnas">Seleccionar columnas</a></li>
+  <li><a href="#obtener-valores-distintos-o-únicos" id="toc-obtener-valores-distintos-o-únicos" class="nav-link" data-scroll-target="#obtener-valores-distintos-o-únicos">Obtener valores distintos o únicos</a></li>
+  <li><a href="#agregar-nuevas-columnas" id="toc-agregar-nuevas-columnas" class="nav-link" data-scroll-target="#agregar-nuevas-columnas">Agregar nuevas columnas</a></li>
+  <li><a href="#renombrar-columnas." id="toc-renombrar-columnas." class="nav-link" data-scroll-target="#renombrar-columnas.">Renombrar columnas.</a></li>
+  <li><a href="#ordenar-datos" id="toc-ordenar-datos" class="nav-link" data-scroll-target="#ordenar-datos">Ordenar datos</a></li>
+  <li><a href="#filtrar" id="toc-filtrar" class="nav-link" data-scroll-target="#filtrar">Filtrar</a></li>
+  <li><a href="#sobreescribir-valores-o-modificar-un-columna-en-su-lugar" id="toc-sobreescribir-valores-o-modificar-un-columna-en-su-lugar" class="nav-link" data-scroll-target="#sobreescribir-valores-o-modificar-un-columna-en-su-lugar">Sobreescribir valores o modificar un columna en su lugar</a></li>
+  <li><a href="#selección-de-columnas-con-vectores." id="toc-selección-de-columnas-con-vectores." class="nav-link" data-scroll-target="#selección-de-columnas-con-vectores.">Selección de columnas con vectores.</a></li>
+  <li><a href="#agrupar-y-resumir" id="toc-agrupar-y-resumir" class="nav-link" data-scroll-target="#agrupar-y-resumir">Agrupar y resumir</a></li>
+  <li><a href="#rebanar-o-sacar-ciertas-filas" id="toc-rebanar-o-sacar-ciertas-filas" class="nav-link" data-scroll-target="#rebanar-o-sacar-ciertas-filas">Rebanar o sacar ciertas filas</a></li>
+  <li><a href="#otras-funciones-útiles" id="toc-otras-funciones-útiles" class="nav-link" data-scroll-target="#otras-funciones-útiles">Otras funciones útiles :</a></li>
+  </ul></li>
+  <li><a href="#tidyr" id="toc-tidyr" class="nav-link" data-scroll-target="#tidyr">Tidyr</a>
+  <ul class="collapse">
+  <li><a href="#pasar-de-formato-largo-a-ancho-o-viceversa" id="toc-pasar-de-formato-largo-a-ancho-o-viceversa" class="nav-link" data-scroll-target="#pasar-de-formato-largo-a-ancho-o-viceversa">Pasar de formato largo a ancho o viceversa</a></li>
+  <li><a href="#anidar-y-desanidar" id="toc-anidar-y-desanidar" class="nav-link" data-scroll-target="#anidar-y-desanidar">Anidar y desanidar</a></li>
+  <li><a href="#quitar-na" id="toc-quitar-na" class="nav-link" data-scroll-target="#quitar-na">Quitar NA</a></li>
+  <li><a href="#sustituir-na" id="toc-sustituir-na" class="nav-link" data-scroll-target="#sustituir-na">Sustituir NA</a></li>
+  <li><a href="#rellenar-datos-vacíos" id="toc-rellenar-datos-vacíos" class="nav-link" data-scroll-target="#rellenar-datos-vacíos">Rellenar datos vacíos</a></li>
+  <li><a href="#otras-funciones-útiles-1" id="toc-otras-funciones-útiles-1" class="nav-link" data-scroll-target="#otras-funciones-útiles-1">Otras funciones útiles</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -512,6 +533,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Notar que los nombres de las variables se escriben sin comillas. Si tienen caracteres especiales, con ` `.</p>
 <p>Ver algunas características de nuestros datos.</p>
 <p>Ver niveles de Tipos de vegetación. Recuerden que CVE_S7_C3 contiene la clave de tipos de vegetación.</p>
+<section id="seleccionar-columnas" class="level2">
+<h2 class="anchored" data-anchor-id="seleccionar-columnas">Seleccionar columnas</h2>
 <p>Seleccionar ciertos atributos.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
@@ -552,19 +575,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Select es similar a seleccionar por número de columnas, pero haciendo referencia al nombre de la columna. Los nombres de las columnas se ponen sin concatenarlos en un vector (es decir, sin <code>c</code>).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CVE_S7_C3) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">n_distinct</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 32</code></pre>
-</div>
-</div>
+</section>
+<section id="obtener-valores-distintos-o-únicos" class="level2">
+<h2 class="anchored" data-anchor-id="obtener-valores-distintos-o-únicos">Obtener valores distintos o únicos</h2>
 <p>Principal diferencia de <code>distinct</code> con <code>unique</code> es que retorna un tibble, en lugar de vector. Si se quiere obtener un vector se puede usar <code>pull</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(CVE_S7_C3) <span class="sc">|&gt;</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(CVE_S7_C3) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "BPQ"     "VSA/BPQ" "BQ"      "VSa/SBC" "VSA/SMS" "SBC"     "VM"     
  [8] "VSa/BQ"  "PC"      "VSa/BPQ" "VSa/BP"  "BP"      "VSA/SBC" "VSA/BQ" 
@@ -573,7 +591,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [29] "RP"      "VSA/BQP" "RA"      "TP"     </code></pre>
 </div>
 </div>
-<p>Agregar nuevas columnas.</p>
+<p>Ver número de valores por columna.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CVE_S7_C3) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">n_distinct</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32</code></pre>
+</div>
+</div>
+</section>
+<section id="agregar-nuevas-columnas" class="level2">
+<h2 class="anchored" data-anchor-id="agregar-nuevas-columnas">Agregar nuevas columnas</h2>
+<p>Agregar nuevas columnas se hace con <code>mutate</code>. Primero se pone el nuevo nombre de la columna y luego a lo que equivale.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3) <span class="sc">|&gt;</span></span>
@@ -595,7 +625,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 26,025 more rows</code></pre>
 </div>
 </div>
-<p>Renombrar columnas.</p>
+</section>
+<section id="renombrar-columnas." class="level2">
+<h2 class="anchored" data-anchor-id="renombrar-columnas.">Renombrar columnas.</h2>
+<p>Renombrar se hace con <code>rename</code>. Primero se pone nuevo nombre y luego el viejo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3) <span class="sc">|&gt;</span></span>
@@ -617,7 +650,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 26,025 more rows</code></pre>
 </div>
 </div>
-<p>Ordenar datos.</p>
+</section>
+<section id="ordenar-datos" class="level2">
+<h2 class="anchored" data-anchor-id="ordenar-datos">Ordenar datos</h2>
+<p>Se usa <code>arrange</code>. Por default los ordena de menor a mayor (ascendente). Si no se quiere esto, se usa <code>desc</code> para ponerlos en orden descendente.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3) <span class="sc">|&gt;</span></span>
@@ -658,7 +694,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 26,025 more rows</code></pre>
 </div>
 </div>
-<p>Filtrar. Quedarse con una parte de los datos en función de algún criterio en particular.</p>
+</section>
+<section id="filtrar" class="level2">
+<h2 class="anchored" data-anchor-id="filtrar">Filtrar</h2>
+<p>Quedarse con una parte de los datos en función de algún criterio en particular.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3) <span class="sc">|&gt;</span></span>
@@ -721,7 +760,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 7,103 more rows</code></pre>
 </div>
 </div>
-<p>Sobreescribir valores o modificar un columna en su lugar se hace con <code>mutate(across())</code>.</p>
+</section>
+<section id="sobreescribir-valores-o-modificar-un-columna-en-su-lugar" class="level2">
+<h2 class="anchored" data-anchor-id="sobreescribir-valores-o-modificar-un-columna-en-su-lugar">Sobreescribir valores o modificar un columna en su lugar</h2>
+<p>Esto se hace con <code>mutate(across())</code>.</p>
 <p>Quitar valores de 99999 como NA</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
@@ -884,7 +926,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 26,025 more rows</code></pre>
 </div>
 </div>
-<p>Selección de columnas con vectores.</p>
+</section>
+<section id="selección-de-columnas-con-vectores." class="level2">
+<h2 class="anchored" data-anchor-id="selección-de-columnas-con-vectores.">Selección de columnas con vectores.</h2>
 <p>Este caso se usa cuando los nombres de las columnas no los sabes de antemano, pero los quieres pasar como un vector. En este caso se usa <code>all_of</code>. Noten que cuando se usa <code>all_of</code>, los nombres de las variables van entre comillas (como caracter). En cambio, si se ponen directamente en across, van sin comillas.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
@@ -907,6 +951,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Ya tenemos nuestros datos un poco más limpios. Veamos algunas estadísticas por grupo.</p>
+</section>
+<section id="agrupar-y-resumir" class="level2">
+<h2 class="anchored" data-anchor-id="agrupar-y-resumir">Agrupar y resumir</h2>
 <p>Para agrupar datos por algún nivel se usa <code>group_by</code>. Al imprimir un <code>tibble</code> con <code>group_by</code> nos indica que está agrupado y nos dice el número de grupos.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
@@ -1184,6 +1231,9 @@ override using the `.groups` argument.</code></pre>
 # ℹ 22 more rows</code></pre>
 </div>
 </div>
+</section>
+<section id="rebanar-o-sacar-ciertas-filas" class="level2">
+<h2 class="anchored" data-anchor-id="rebanar-o-sacar-ciertas-filas">Rebanar o sacar ciertas filas</h2>
 <p>Sacar valores más altos o más bajos por grupo se puede hacer con <code>arrange</code> y <code>slice</code>. O también existen las versiones <code>slice_head</code> y <code>slice_tail</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>df_agb_sit <span class="sc">|&gt;</span></span>
@@ -1248,7 +1298,10 @@ override using the `.groups` argument.</code></pre>
 [31] 161.376240  69.519826</code></pre>
 </div>
 </div>
-<p>Otras funciones útiles:</p>
+</section>
+<section id="otras-funciones-útiles" class="level2">
+<h2 class="anchored" data-anchor-id="otras-funciones-útiles">Otras funciones útiles :</h2>
+<p>Algunas otras funciones de <code>dplyr</code>.</p>
 <ul>
 <li>rowwise. Hacer operaciones por cada fila.</li>
 <li>bind_rows, bind_cols. Pegar listas por filas o por columnas. Función bastante útil para cuando tienes múltiples entradas con read.csv o algo similar.</li>
@@ -1257,13 +1310,14 @@ override using the `.groups` argument.</code></pre>
 <li>lag, lead. Para hacer operaciones “rolling”, por ejemplo, restar a cada valor el anterior o sumar. Usados para hacer sumas acumulativas.</li>
 </ul>
 </section>
+</section>
 <section id="tidyr" class="level1">
 <h1>Tidyr</h1>
 <p>Dos formatos principales en datos tabulados: largo (long) y ancho (wide). Hay dos funciones para cambiar rápida y fácilmente de un formato a otro:</p>
-<ul>
-<li>pivot_longer</li>
-<li>pivot_wider</li>
-</ul>
+<section id="pasar-de-formato-largo-a-ancho-o-viceversa" class="level2">
+<h2 class="anchored" data-anchor-id="pasar-de-formato-largo-a-ancho-o-viceversa">Pasar de formato largo a ancho o viceversa</h2>
+<p>Para pasar de formato ancho a largo: <code>pivot_longer</code>, para pasar de largo a ancho: <code>pivot_wider</code>.</p>
+<p>Esto es formato largo</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
 <span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) <span class="sc">|&gt;</span></span>
@@ -1287,7 +1341,7 @@ override using the `.groups` argument.</code></pre>
 # ℹ 52,060 more rows</code></pre>
 </div>
 </div>
-<p>Para generar exactamente el mismo formato necesitamos un id por planta para que cada árbol tenga su propio altura y diámetro.</p>
+<p>Para generar exactamente el mismo formato necesitamos un id por planta para que cada árbol tenga su propio altura y diámetro. Para regresar a los datos como los teníamos en original (formato ancho).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
 <span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) <span class="sc">|&gt;</span></span>
@@ -1412,6 +1466,9 @@ override using the `.groups` argument.</code></pre>
 </div>
 <p>Este ejemplo sirve para ver que los tibbles pueden guardar listas en sus celdas.</p>
 <p>Ya quedó como antes. Los dos pivots son muy útiles para acomodar datos para hacer ciertas operaciones o acomodos. Por ejemplo, en formato ancho es muy fácil calcular el porcentaje para cada valor, mientras que usualmente el formato largo es el más apropiado para hacer gráficas con ggplot.</p>
+</section>
+<section id="anidar-y-desanidar" class="level2">
+<h2 class="anchored" data-anchor-id="anidar-y-desanidar">Anidar y desanidar</h2>
 <p>Ahora si queremos meter datos dentro de una lista en un tibble se puede usar <code>nest</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
@@ -1478,6 +1535,9 @@ override using the `.groups` argument.</code></pre>
 </div>
 </div>
 <p><code>Nest</code> y <code>unnest</code> son útiles para hacer distintos modelos con diferentes grupos de datos o también para manejar casos no únicos al hacer pivot_wider.</p>
+</section>
+<section id="quitar-na" class="level2">
+<h2 class="anchored" data-anchor-id="quitar-na">Quitar NA</h2>
 <p>Hay otras funciones útiles en dplyr/tidyr para manejar datos con NA.</p>
 <p>Quitar NA se hace con <code>drop_na</code></p>
 <div class="cell">
@@ -1507,6 +1567,9 @@ override using the `.groups` argument.</code></pre>
 #   NoIndividuo_C3 &lt;dbl&gt;, NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
+</section>
+<section id="sustituir-na" class="level2">
+<h2 class="anchored" data-anchor-id="sustituir-na">Sustituir NA</h2>
 <p>A veces se desea sustituir los NA con algún valor. Eso se puede hacer con <code>replace_na</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
@@ -1536,7 +1599,10 @@ override using the `.groups` argument.</code></pre>
 #   NoIndividuo_C3 &lt;dbl&gt;, NoRama_C3 &lt;dbl&gt;, Azimut_C3 &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
-<p>Rellenar datos vacíos en función de las entradas que tienen próximas.</p>
+</section>
+<section id="rellenar-datos-vacíos" class="level2">
+<h2 class="anchored" data-anchor-id="rellenar-datos-vacíos">Rellenar datos vacíos</h2>
+<p>Rellenar datos vación en función de las entradas que tienen próximas.</p>
 <p>Veamos otros datos: - <a href="http://dgeiawf.semarnat.gob.mx:8080/ibi_apps/WFServlet?IBIF_ex=D3_BIODIV02_02&amp;IBIC_user=dgeia_mce&amp;IBIC_pass=dgeia_mce">Recuento de especies conocidas de fauna por grupo de vertebrados y según categoría de riesgo de acuerdo con la NOM-059-ECOL-1994</a></p>
 <p>Si no lo pueden descargar directamente de la página, bájenlo de mi repositorio de github: <a href="https://github.com/JonathanVSV/CursoR/blob/main/Data/spNOM.xlsx">spNOM</a>.</p>
 <p>Trae unos signos extraños como nombre de columna.</p>
@@ -1584,6 +1650,9 @@ override using the `.groups` argument.</code></pre>
 #   `Protección especial` &lt;dbl&gt;</code></pre>
 </div>
 </div>
+</section>
+<section id="otras-funciones-útiles-1" class="level2">
+<h2 class="anchored" data-anchor-id="otras-funciones-útiles-1">Otras funciones útiles</h2>
 <p>Otras funciones útiles que ya no da tiempo de ver:</p>
 <ul>
 <li>unite: unir dos columnas en una sol</li>
@@ -1595,6 +1664,7 @@ override using the `.groups` argument.</code></pre>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
