@@ -197,6 +197,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="./9.TareasResueltas.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">9.Tareas Resueltas</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10.BasesDatosBiodiversidad.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">10.Bases de datos de Biodiversidad</span></a>
+  </div>
+</li>
     </ul>
     </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
@@ -322,89 +327,142 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Vamos usar las pruebas equivalentes con rstatix</p>
 <p>Leer los mismos datos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"Data/INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Adjuntando el paquete: 'rstatix'
+
+The following object is masked from 'package:stats':
+
+    filter</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Expecting numeric in BW19313 / R19313C75: got 'NULL'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Expecting numeric in BX19313 / R19313C76: got 'NULL'</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(AlturaTotal_C3, DiametroNormal_C3), <span class="sc">~</span><span class="fu">ifelse</span>(.x <span class="sc">&gt;=</span> <span class="dv">99999</span>, <span class="cn">NA</span>, .x))) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(AlturaTotal_C3) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(DiametroNormal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocesamiento limpieza de datos</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(AlturaTotal_C3, DiametroNormal_C3), <span class="sc">~</span><span class="fu">ifelse</span>(.x <span class="sc">&gt;=</span> <span class="dv">99999</span>, <span class="cn">NA</span>, .x))) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Eliminar NA</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(AlturaTotal_C3) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(DiametroNormal_C3) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Seleccionar columnas de interés</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado,DESCRIP_S7_C3,AlturaTotal_C3, DiametroNormal_C3, biomasa_kg_C3) <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Renombrar columnas</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"ParcelaId"</span> <span class="ot">=</span> <span class="st">"IdConglomerado"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">"TipoVeg"</span> <span class="ot">=</span> <span class="st">"DESCRIP_S7_C3"</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Altura"</span> <span class="ot">=</span> <span class="st">"AlturaTotal_C3"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>         <span class="st">"DAP"</span> <span class="ot">=</span> <span class="st">"DiametroNormal_C3"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Biomasa"</span> <span class="ot">=</span> <span class="st">"biomasa_kg_C3"</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hacer dos subsets de datos para distintas pruebas estadísticas. Uno con solo dos tipos de vegetación y otro con 3. Ojo con convertir tipo de vegetación como factor <strong>después</strong> de hacer la selección de tipos de vegetación de interés, si no, va a marcar error al hacer la pruebas estadísticas.</p>
+<p>Consultar las ayudas de varias funciones de rstatix para ver cómo se ingresa la información. Ahí dice que en muchas fórmulas pongas primero el nombre de la variable numérica y después el nombre de la variable factor. Por ejemplo, veamos <code>tukey_hsd</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(tukey_hsd)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TipoVeg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(TipoVeg, <span class="sc">~</span><span class="fu">as.factor</span>(.x)))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>datos3 <span class="ot">&lt;-</span> datos<span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TipoVeg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>, <span class="st">"BOSQUE DE PINO"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(TipoVeg, <span class="sc">~</span><span class="fu">as.factor</span>(.x)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="estadísticas-descriptivas" class="level1">
 <h1>Estadísticas descriptivas</h1>
 <p>Shapiro test solo funciona con menos de 5000 muestras</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado, CVE_S7_C3, AlturaTotal_C3, DiametroNormal_C3) <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(<span class="at">type =</span> <span class="st">"mean_sd"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(<span class="at">type =</span> <span class="st">"mean_sd"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 4
-  variable              n     mean      sd
-  &lt;fct&gt;             &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
-1 IdConglomerado    25258 61221.   2777.  
-2 AlturaTotal_C3    25258     8.14    5.28
-3 DiametroNormal_C3 25258    16.9     9.77</code></pre>
+<pre><code># A tibble: 4 × 4
+  variable      n     mean      sd
+  &lt;fct&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+1 ParcelaId 25258 61221.   2777.  
+2 Altura    25258     8.14    5.28
+3 DAP       25258    16.9     9.77
+4 Biomasa   25258   123.    255.  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado, CVE_S7_C3, AlturaTotal_C3, DiametroNormal_C3) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq_table</span>(CVE_S7_C3)  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq_table</span>(TipoVeg)  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 32 × 3
-   CVE_S7_C3     n  prop
-   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;
- 1 AH           12   0  
- 2 BA          299   1.2
- 3 BC          154   0.6
- 4 BM          139   0.6
- 5 BP         2990  11.8
- 6 BPQ        5307  21  
- 7 BQ         1817   7.2
- 8 BQP         857   3.4
- 9 PC          176   0.7
-10 PI          456   1.8
+   TipoVeg                                        n  prop
+   &lt;chr&gt;                                      &lt;int&gt; &lt;dbl&gt;
+ 1 AGRICULTURA DE RIEGO ANUAL                     6   0  
+ 2 AGRICULTURA DE RIEGO ANUAL Y PERMANENTE        9   0  
+ 3 AGRICULTURA DE RIEGO PERMANENTE              119   0.5
+ 4 AGRICULTURA DE TEMPORAL ANUAL                154   0.6
+ 5 AGRICULTURA DE TEMPORAL ANUAL Y PERMANENTE    75   0.3
+ 6 AGRICULTURA DE TEMPORAL PERMANENTE             5   0  
+ 7 ASENTAMIENTOS HUMANOS                         12   0  
+ 8 BOSQUE CULTIVADO                             154   0.6
+ 9 BOSQUE DE ENCINO                            1817   7.2
+10 BOSQUE DE ENCINO-PINO                        857   3.4
 # ℹ 22 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado, CVE_S7_C3, AlturaTotal_C3, DiametroNormal_C3) <span class="sc">|&gt;</span>  </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">identify_outliers</span>(AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify_outliers</span>(Altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,578 × 6
-   IdConglomerado CVE_S7_C3 AlturaTotal_C3 DiametroNormal_C3 is.outlier
-            &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;             &lt;dbl&gt; &lt;lgl&gt;     
- 1          68781 VSA/SMS             17.5              18.4 TRUE      
- 2          67481 VSA/BPQ             17.4              33.3 TRUE      
- 3          67484 BPQ                 17.5              41.7 TRUE      
- 4          68027 BPQ                 18                36.5 TRUE      
- 5          68027 BPQ                 19.5              27.6 TRUE      
- 6          66591 BP                  27.4              36   TRUE      
- 7          66301 BP                  23.4              44.2 TRUE      
- 8          68781 VSA/SMS             19.8              49.6 TRUE      
- 9          67481 VSA/BPQ             23                37   TRUE      
-10          67481 VSA/BPQ             21.8              47.5 TRUE      
-# ℹ 1,568 more rows
-# ℹ 1 more variable: is.extreme &lt;lgl&gt;</code></pre>
+<pre><code># A tibble: 1,578 × 7
+   ParcelaId TipoVeg                  Altura   DAP Biomasa is.outlier is.extreme
+       &lt;dbl&gt; &lt;chr&gt;                     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
+ 1     68781 VEGETACIÓN SECUNDARIA A…   17.5  18.4    206. TRUE       FALSE     
+ 2     67481 VEGETACIÓN SECUNDARIA A…   17.4  33.3    569. TRUE       FALSE     
+ 3     67484 BOSQUE DE PINO-ENCINO      17.5  41.7    610. TRUE       FALSE     
+ 4     68027 BOSQUE DE PINO-ENCINO      18    36.5    589. TRUE       FALSE     
+ 5     68027 BOSQUE DE PINO-ENCINO      19.5  27.6    283. TRUE       FALSE     
+ 6     66591 BOSQUE DE PINO             27.4  36      605. TRUE       TRUE      
+ 7     66301 BOSQUE DE PINO             23.4  44.2    835. TRUE       FALSE     
+ 8     68781 VEGETACIÓN SECUNDARIA A…   19.8  49.6    999. TRUE       FALSE     
+ 9     67481 VEGETACIÓN SECUNDARIA A…   23    37      891. TRUE       FALSE     
+10     67481 VEGETACIÓN SECUNDARIA A…   21.8  47.5   1340. TRUE       FALSE     
+# ℹ 1,568 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado, CVE_S7_C3, AlturaTotal_C3, DiametroNormal_C3) <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">4999</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(AlturaTotal_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">4999</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(Altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
-  variable       statistic        p
-  &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;
-1 AlturaTotal_C3     0.868 6.00e-54</code></pre>
+  variable statistic        p
+  &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+1 Altura       0.882 5.35e-52</code></pre>
 </div>
 </div>
 </section>
 <section id="comparación-de-varianzas" class="level1">
 <h1>Comparación de varianzas</h1>
+<p>Prueba de homogeneidad de varianzas.</p>
 <p>levene_test()</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+    df1   df2 statistic        p
+  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1     1  7445      453. 1.48e-97</code></pre>
+</div>
+</div>
 </section>
 <section id="comparación-de-dos-medias-o-medianas" class="level1">
 <h1>Comparación de dos medias o medianas</h1>
@@ -412,29 +470,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="comparación-medias">Comparación medias</h2>
 <p>Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(DiametroNormal_C3 <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
-  .y.               group1 group2    n1    n2 statistic    df         p
-* &lt;chr&gt;             &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
-1 DiametroNormal_C3 BPQ    SBC     5307  2140      26.6 7287. 2.40e-149</code></pre>
+  .y.   group1                group2          n1    n2 statistic    df         p
+* &lt;chr&gt; &lt;chr&gt;                 &lt;chr&gt;        &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;
+1 DAP   BOSQUE DE PINO-ENCINO SELVA BAJA …  5307  2140      26.6 7287. 2.40e-149</code></pre>
 </div>
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, IdConglomerado) <span class="sc">|&gt;</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(biomasa_kg_C3)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(AGB <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
-  .y.   group1 group2    n1    n2 statistic    df           p
-* &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
-1 AGB   BPQ    SBC       65    19      6.11  67.2 0.000000056</code></pre>
+  .y.   group1                group2             n1    n2 statistic    df      p
+* &lt;chr&gt; &lt;chr&gt;                 &lt;chr&gt;           &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 AGB   BOSQUE DE PINO-ENCINO SELVA BAJA CAD…    65    19      6.11  67.2 5.6e-8</code></pre>
 </div>
 </div>
 </section>
@@ -442,29 +498,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="comparación-medianas">Comparación medianas</h2>
 <p>Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(DiametroNormal_C3 <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
-  .y.               group1 group2    n1    n2 statistic        p
-* &lt;chr&gt;             &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1 DiametroNormal_C3 BPQ    SBC     5307  2140   7041795 2.70e-59</code></pre>
+  .y.   group1                group2                 n1    n2 statistic        p
+* &lt;chr&gt; &lt;chr&gt;                 &lt;chr&gt;               &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 DAP   BOSQUE DE PINO-ENCINO SELVA BAJA CADUCIF…  5307  2140   7041795 2.70e-59</code></pre>
 </div>
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, IdConglomerado) <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(biomasa_kg_C3)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(AGB <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
-  .y.   group1 group2    n1    n2 statistic         p
-* &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 AGB   BPQ    SBC       65    19       999 0.0000463</code></pre>
+  .y.   group1                group2                  n1    n2 statistic       p
+* &lt;chr&gt; &lt;chr&gt;                 &lt;chr&gt;                &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 AGB   BOSQUE DE PINO-ENCINO SELVA BAJA CADUCIFO…    65    19       999 4.63e-5</code></pre>
 </div>
 </div>
 </section>
@@ -473,81 +527,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Comparación de tres o más medias o medianas</h1>
 <section id="comparación-medias-1" class="level2">
 <h2 class="anchored" data-anchor-id="comparación-medias-1">Comparación medias</h2>
-<p>Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
+<p>A partir de aquí usamos <code>datos3</code>. Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(DiametroNormal_C3 <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA Table (type II tests)
 
-     Effect DFn   DFd       F         p p&lt;.05   ges
-1 CVE_S7_C3   2 10434 264.126 1.26e-112     * 0.048</code></pre>
+   Effect DFn   DFd       F         p p&lt;.05   ges
+1 TipoVeg   2 10434 264.126 1.26e-112     * 0.048</code></pre>
 </div>
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, IdConglomerado) <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(biomasa_kg_C3)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA Table (type II tests)
 
-     Effect DFn DFd      F        p p&lt;.05   ges
-1 CVE_S7_C3   2 116 11.539 2.69e-05     * 0.166</code></pre>
+   Effect DFn DFd      F        p p&lt;.05   ges
+1 TipoVeg   2 116 11.539 2.69e-05     * 0.166</code></pre>
 </div>
 </div>
 <section id="posthoc" class="level3">
 <h3 class="anchored" data-anchor-id="posthoc">Posthoc</h3>
 <p>Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(CVE_S7_C3, <span class="sc">~</span><span class="fu">factor</span>(.x))) <span class="sc">|&gt;</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(DiametroNormal_C3 <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
   term  group1 group2 null.value estimate conf.low conf.high  p.adj p.adj.signif
 * &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;       
-1 CVE_… BP     BPQ             0    -1.31    -1.87    -0.757 9.9e-8 ****        
-2 CVE_… BP     SBC             0    -6.46    -7.15    -5.77  0      ****        
-3 CVE_… BPQ    SBC             0    -5.15    -5.77    -4.52  0      ****        </code></pre>
+1 Tipo… BOSQU… BOSQU…          0    -1.31    -1.87    -0.757 9.9e-8 ****        
+2 Tipo… BOSQU… SELVA…          0    -6.46    -7.15    -5.77  0      ****        
+3 Tipo… BOSQU… SELVA…          0    -5.15    -5.77    -4.52  0      ****        </code></pre>
 </div>
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, IdConglomerado) <span class="sc">|&gt;</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(biomasa_kg_C3)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(CVE_S7_C3, <span class="sc">~</span><span class="fu">factor</span>(.x))) <span class="sc">|&gt;</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(AGB <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
-  term      group1 group2 null.value estimate conf.low conf.high     p.adj
-* &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 CVE_S7_C3 BP     BPQ             0    -13.1    -36.4      10.2 0.381    
-2 CVE_S7_C3 BP     SBC             0    -62.6    -94.2     -30.9 0.0000223
-3 CVE_S7_C3 BPQ    SBC             0    -49.5    -78.5     -20.5 0.000267 
+  term    group1           group2 null.value estimate conf.low conf.high   p.adj
+* &lt;chr&gt;   &lt;chr&gt;            &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 TipoVeg BOSQUE DE PINO   BOSQU…          0    -13.1    -36.4      10.2 3.81e-1
+2 TipoVeg BOSQUE DE PINO   SELVA…          0    -62.6    -94.2     -30.9 2.23e-5
+3 TipoVeg BOSQUE DE PINO-… SELVA…          0    -49.5    -78.5     -20.5 2.67e-4
 # ℹ 1 more variable: p.adj.signif &lt;chr&gt;</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, IdConglomerado) <span class="sc">|&gt;</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(biomasa_kg_C3)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA Table (type II tests)
 
-     Effect DFn DFd     F        p p&lt;.05   ges
-1 CVE_S7_C3   1  82 17.45 7.32e-05     * 0.175</code></pre>
+   Effect DFn DFd      F        p p&lt;.05   ges
+1 TipoVeg   2 116 11.539 2.69e-05     * 0.166</code></pre>
 </div>
 </div>
 </section>
@@ -556,24 +603,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="comparación-medianas-1">Comparación medianas</h2>
 <p>Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(DiametroNormal_C3 <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
-  .y.                   n statistic    df         p method        
-* &lt;chr&gt;             &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;         
-1 DiametroNormal_C3 10437      463.     2 2.84e-101 Kruskal-Wallis</code></pre>
+  .y.       n statistic    df         p method        
+* &lt;chr&gt; &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;         
+1 DAP   10437      463.     2 2.84e-101 Kruskal-Wallis</code></pre>
 </div>
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, IdConglomerado) <span class="sc">|&gt;</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(biomasa_kg_C3)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(AGB <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
   .y.       n statistic    df         p method        
@@ -585,35 +630,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="posthoc-1">Posthoc</h3>
 <p>Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(CVE_S7_C3, <span class="sc">~</span><span class="fu">factor</span>(.x))) <span class="sc">|&gt;</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(DiametroNormal_C3 <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
-  .y.         group1 group2    n1    n2 statistic        p    p.adj p.adj.signif
-* &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       
-1 DiametroNo… BP     BPQ     2990  5307     -7.63 2.37e-14 2.37e-14 ****        
-2 DiametroNo… BP     SBC     2990  2140    -21.2  1.85e-99 5.54e-99 ****        
-3 DiametroNo… BPQ    SBC     5307  2140    -16.6  7.53e-62 1.51e-61 ****        </code></pre>
+  .y.   group1       group2    n1    n2 statistic        p    p.adj p.adj.signif
+* &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       
+1 DAP   BOSQUE DE P… BOSQU…  2990  5307     -7.63 2.37e-14 2.37e-14 ****        
+2 DAP   BOSQUE DE P… SELVA…  2990  2140    -21.2  1.85e-99 5.54e-99 ****        
+3 DAP   BOSQUE DE P… SELVA…  5307  2140    -16.6  7.53e-62 1.51e-61 ****        </code></pre>
 </div>
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, IdConglomerado) <span class="sc">|&gt;</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(biomasa_kg_C3)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(CVE_S7_C3, <span class="sc">~</span><span class="fu">factor</span>(.x))) <span class="sc">|&gt;</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(AGB <span class="sc">~</span> CVE_S7_C3)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
-  .y.   group1 group2    n1    n2 statistic          p     p.adj p.adj.signif
-* &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       
-1 AGB   BP     BPQ       35    65     -1.11 0.269      0.269     ns          
-2 AGB   BP     SBC       35    19     -4.50 0.00000685 0.0000206 ****        
-3 AGB   BPQ    SBC       65    19     -4.03 0.0000567  0.000113  ***         </code></pre>
+  .y.   group1         group2    n1    n2 statistic       p   p.adj p.adj.signif
+* &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       
+1 AGB   BOSQUE DE PINO BOSQU…    35    65     -1.11 2.69e-1 2.69e-1 ns          
+2 AGB   BOSQUE DE PINO SELVA…    35    19     -4.50 6.85e-6 2.06e-5 ****        
+3 AGB   BOSQUE DE PIN… SELVA…    65    19     -4.03 5.67e-5 1.13e-4 ***         </code></pre>
 </div>
 </div>
 </section>
@@ -622,24 +663,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="comparación-proporciones" class="level1">
 <h1>Comparación proporciones</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_chi <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m20 =</span> <span class="fu">ifelse</span>(DiametroNormal_C3 <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CVE_S7_C3, m20) <span class="sc">|&gt;</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(CVE_S7_C3, <span class="sc">~</span><span class="fu">factor</span>(.x))) <span class="sc">|&gt;</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> m20,</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> n) <span class="sc">|&gt;</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>CVE_S7_C3) <span class="sc">|&gt;</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dimnames</span>(df_chi) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">CVE_S7_C3 =</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>),</span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">m20 =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>)</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq_test</span>(df_chi)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_chi <span class="ot">&lt;-</span> datos3 <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m20 =</span> <span class="fu">ifelse</span>(DAP <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, m20) <span class="sc">|&gt;</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> m20,</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> n) <span class="sc">|&gt;</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>TipoVeg) <span class="sc">|&gt;</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(df_chi) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">TipoVeg =</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>, <span class="st">"BOSQUE DE PINO"</span>),</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">m20 =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq_test</span>(df_chi)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
       n statistic         p    df method          p.signif
@@ -653,48 +692,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Correlación</h1>
 <p>Pearson</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3) <span class="sc">|&gt;</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3),</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3),</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 8
-  var1              var2           cor statistic     p conf.low conf.high method
-  &lt;chr&gt;             &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
-1 DiametroNormal_C3 DiametroNor…  1        Inf       0    1         1     Pears…
-2 DiametroNormal_C3 AlturaTotal…  0.53      63.7     0    0.515     0.543 Pears…
-3 DiametroNormal_C3 biomasa_kg_…  0.77     125.      0    0.766     0.782 Pears…
-4 AlturaTotal_C3    DiametroNor…  0.53      63.7     0    0.515     0.543 Pears…
-5 AlturaTotal_C3    AlturaTotal…  1        Inf       0    1         1     Pears…
-6 AlturaTotal_C3    biomasa_kg_…  0.65      86.8     0    0.636     0.658 Pears…
-7 biomasa_kg_C3     DiametroNor…  0.77     125.      0    0.766     0.782 Pears…
-8 biomasa_kg_C3     AlturaTotal…  0.65      86.8     0    0.636     0.658 Pears…
-9 biomasa_kg_C3     biomasa_kg_…  1        Inf       0    1         1     Pears…</code></pre>
+  var1    var2      cor statistic     p conf.low conf.high method 
+  &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  
+1 DAP     DAP      1        Inf       0    1         1     Pearson
+2 DAP     Altura   0.53      63.7     0    0.515     0.543 Pearson
+3 DAP     Biomasa  0.77     125.      0    0.766     0.782 Pearson
+4 Altura  DAP      0.53      63.7     0    0.515     0.543 Pearson
+5 Altura  Altura   1        Inf       0    1         1     Pearson
+6 Altura  Biomasa  0.65      86.8     0    0.636     0.658 Pearson
+7 Biomasa DAP      0.77     125.      0    0.766     0.782 Pearson
+8 Biomasa Altura   0.65      86.8     0    0.636     0.658 Pearson
+9 Biomasa Biomasa  1        Inf       0    1         1     Pearson</code></pre>
 </div>
 </div>
 <p>Spearman</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3) <span class="sc">|&gt;</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3),</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3),</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 6
-  var1              var2                cor     statistic     p method  
-  &lt;chr&gt;             &lt;chr&gt;             &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
-1 DiametroNormal_C3 DiametroNormal_C3  1               0      0 Spearman
-2 DiametroNormal_C3 AlturaTotal_C3     0.47 100234296506.     0 Spearman
-3 DiametroNormal_C3 biomasa_kg_C3      0.74  50133986981.     0 Spearman
-4 AlturaTotal_C3    DiametroNormal_C3  0.47 100234296506.     0 Spearman
-5 AlturaTotal_C3    AlturaTotal_C3     1               0      0 Spearman
-6 AlturaTotal_C3    biomasa_kg_C3      0.77  43261244015.     0 Spearman
-7 biomasa_kg_C3     DiametroNormal_C3  0.74  50133986981.     0 Spearman
-8 biomasa_kg_C3     AlturaTotal_C3     0.77  43261244015.     0 Spearman
-9 biomasa_kg_C3     biomasa_kg_C3      1               0      0 Spearman</code></pre>
+  var1    var2      cor     statistic     p method  
+  &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
+1 DAP     DAP      1               0      0 Spearman
+2 DAP     Altura   0.47 100234296506.     0 Spearman
+3 DAP     Biomasa  0.74  50133986981.     0 Spearman
+4 Altura  DAP      0.47 100234296506.     0 Spearman
+5 Altura  Altura   1               0      0 Spearman
+6 Altura  Biomasa  0.77  43261244015.     0 Spearman
+7 Biomasa DAP      0.74  50133986981.     0 Spearman
+8 Biomasa Altura   0.77  43261244015.     0 Spearman
+9 Biomasa Biomasa  1               0      0 Spearman</code></pre>
 </div>
 </div>
 </section>
@@ -703,47 +740,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>\(x)</code> Esto es lo mismo que <code>function(x)</code>.</p>
 <p>Crear una función anónima para poder usar el pipe nativo <code>|&gt;</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3) <span class="sc">|&gt;</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">lm</span>(AlturaTotal_C3 <span class="sc">~</span> DiametroNormal_C3, <span class="at">data =</span> x))() </span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> datos3 <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">lm</span>(Altura <span class="sc">~</span> DAP, <span class="at">data =</span> x))() </span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = AlturaTotal_C3 ~ DiametroNormal_C3, data = x)
+lm(formula = Altura ~ DAP, data = x)
 
 Coefficients:
-      (Intercept)  DiametroNormal_C3  
-           4.0709             0.3088  </code></pre>
+(Intercept)          DAP  
+     4.0709       0.3088  </code></pre>
 </div>
 </div>
 <p>Alternativa usando pipe de <code>magrittr</code> y el operador <code>.</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CVE_S7_C3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BPQ"</span>, <span class="st">"SBC"</span>, <span class="st">"BP"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DiametroNormal_C3, AlturaTotal_C3, biomasa_kg_C3) <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(AlturaTotal_C3 <span class="sc">~</span> DiametroNormal_C3, <span class="at">data =</span> .)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(Altura <span class="sc">~</span> DAP, <span class="at">data =</span> .)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = AlturaTotal_C3 ~ DiametroNormal_C3, data = .)
+lm(formula = Altura ~ DAP, data = .)
 
 Coefficients:
-      (Intercept)  DiametroNormal_C3  
-           4.0709             0.3088  </code></pre>
+(Intercept)          DAP  
+     4.0709       0.3088  </code></pre>
 </div>
 </div>
 <p>Sacar coeficientes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mod <span class="sc">|&gt;</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>mod <span class="sc">|&gt;</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
-  term              estimate std.error statistic p.value
-  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-1 (Intercept)          4.07    0.0997       40.9       0
-2 DiametroNormal_C3    0.309   0.00485      63.7       0</code></pre>
+  term        estimate std.error statistic p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)    4.07    0.0997       40.9       0
+2 DAP            0.309   0.00485      63.7       0</code></pre>
 </div>
 </div>
 
