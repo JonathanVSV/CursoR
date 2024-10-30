@@ -208,8 +208,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Tabla de contenidos</h2>
    
   <ul>
-  <li><a href="#pruebas-estadísticas-con-rstatix" id="toc-pruebas-estadísticas-con-rstatix" class="nav-link active" data-scroll-target="#pruebas-estadísticas-con-rstatix">Pruebas estadísticas con Rstatix</a></li>
+  <li><a href="#pruebas-estadísticas-en-r" id="toc-pruebas-estadísticas-en-r" class="nav-link active" data-scroll-target="#pruebas-estadísticas-en-r">Pruebas estadísticas en R</a></li>
+  <li><a href="#pruebas-estadísticas-con-rstatix" id="toc-pruebas-estadísticas-con-rstatix" class="nav-link" data-scroll-target="#pruebas-estadísticas-con-rstatix">Pruebas estadísticas con Rstatix</a></li>
   <li><a href="#estadísticas-descriptivas" id="toc-estadísticas-descriptivas" class="nav-link" data-scroll-target="#estadísticas-descriptivas">Estadísticas descriptivas</a></li>
+  <li><a href="#normalidad" id="toc-normalidad" class="nav-link" data-scroll-target="#normalidad">Normalidad</a></li>
   <li><a href="#comparación-de-varianzas" id="toc-comparación-de-varianzas" class="nav-link" data-scroll-target="#comparación-de-varianzas">Comparación de varianzas</a></li>
   <li><a href="#comparación-de-dos-medias-o-medianas" id="toc-comparación-de-dos-medias-o-medianas" class="nav-link" data-scroll-target="#comparación-de-dos-medias-o-medianas">Comparación de dos medias o medianas</a>
   <ul class="collapse">
@@ -271,6 +273,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="pruebas-estadísticas-en-r" class="level1">
+<h1>Pruebas estadísticas en R</h1>
+<p>Estadística: Ciencia que permite describir una población o inferir relaciones entre características de esta, basados en una muestra representativa (no sesgada).</p>
+<p>Los análisis estadísticos nos permiten inferir patrones sobre las poblaciones a partir de una muestra o muestras. Algunos ejemplos, saber si el promedio de altura de dos tipos de vegetación difiere entre sí (p.ej., vegetación conservada o secundaria), o si la altura de un árbol depende de su diámetro.</p>
+<p>Algunos conceptos básicos:</p>
+<ol type="1">
+<li>Muestra vs Censo.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/muestra.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>Observaciones.</p></li>
+<li><p>Unidad muestral.</p></li>
+</ol>
+<p>En el ejemplo de los datos del INFyS:</p>
+<ul>
+<li>Población: vegetación de México.</li>
+<li>Muestra: datos recabados en el INFyS.</li>
+<li>Observación: Los datos de cada árbol.</li>
+<li>Unidad muestral: Conglomerado de parcelas de muestreo.</li>
+</ul>
+<ol start="4" type="1">
+<li>Normalidad y varianza.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/normalidad.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Homogeneidad de varianzas.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/homoscedasticidad.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li><p>Muestras aleatorias e independientes.</p></li>
+<li><p>Sesgo</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/sesgo.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="8" type="1">
+<li>Hipóstesis nula y alternativa.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/hipotesis.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hipótesis nula normalmente implica que <em>NO</em> hay diferencias significativas.</p>
+<ol start="9" type="1">
+<li><p>Estadístico. Estadístico de cada prueba, por ejemplo, t, F, r.</p></li>
+<li><p>Tipos de errores.</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/tipoerrores.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="10" type="1">
+<li><p>Significancia. p-value o probabilidad de cometer error tipo 1.</p></li>
+<li><p>Nivel de significancia. Valor de corte definido a priori. Comúnmente en ciencias biológicas se usa el valor de 0.05.</p></li>
+</ol>
+<p>Dentro de R existen varias funciones para hacer análisis estadísticos. Sin embargo, aquí veremos un paquete que funciona muy bien con el tidyverse.</p>
+</section>
 <section id="pruebas-estadísticas-con-rstatix" class="level1">
 <h1>Pruebas estadísticas con Rstatix</h1>
 <p>Vamos a ver cómo hacer pruebas usando el paquete Rstatix que es amigable con el tidyverse. Existen las funciones para hacer análisis estadísticos con base R como:</p>
@@ -278,9 +377,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
-<col style="width: 38%">
-<col style="width: 29%">
-<col style="width: 32%">
+<col style="width: 37%">
+<col style="width: 31%">
+<col style="width: 31%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -292,18 +391,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">Una media o mediana vs: un valor, otra media o mediana, o media o mediana de datos pareada.</td>
-<td style="text-align: center;">t.test()</td>
-<td style="text-align: center;">wilcox.test()</td>
+<td style="text-align: center;">t_test()</td>
+<td style="text-align: center;">wilcox_test()</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Más de dos medias o medianas</td>
-<td style="text-align: center;">aov(), TukeyHSD()</td>
-<td style="text-align: center;">kruskal.test()</td>
+<td style="text-align: center;">anova_test(), tukey_hsd()</td>
+<td style="text-align: center;">kruskal_test()</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Dos variables relación</td>
-<td style="text-align: center;">cor()</td>
-<td style="text-align: center;">cor()</td>
+<td style="text-align: center;">cor_test()</td>
+<td style="text-align: center;">cor_test()</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Dos variables dependencia</td>
@@ -317,6 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Diferencias entre pruebas paramétricas y no paramétricas</p>
 <ul>
 <li>Las paramétricas comparan medias, las no paramétricas medianas.</li>
+<li>Las paramétricas usan la desviación estándar como medida de dispersión, las paramétricas usan rangos (acomodo de valores en orden de menor a mayor).</li>
 <li>La media se ve muy afectada por valores extremos, mientras que la mediana no.</li>
 <li>Las pruebas paramétricas suponen una distribucióm normal de los datos, las no paramétricas, no.</li>
 <li>Las pruebas paramétricas suelen suponer igualdad de varianzas, las no paramétricas, no.</li>
@@ -324,10 +424,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Las pruebas paramétricas tienen alto poder estadístico (son más estrictas), mientras que las no paramétricas, tienen poder medio (son más laxas).</li>
 <li>Ambas requieren muestras aleatorias e independientes.</li>
 </ul>
-<p>Vamos usar las pruebas equivalentes con rstatix</p>
-<p>Leer los mismos datos</p>
+<p>Vamos usar las pruebas rstatix.</p>
+<p>Primero instalar el paquete.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rstatix"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Installing package into 'C:/Users/Jonathan/AppData/Local/R/win-library/4.4'
+(as 'lib' is unspecified)</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in contrib.url(repos, "source"): trying to use CRAN without setting a mirror</code></pre>
+</div>
+</div>
+<p>Leer los mismos datos del inventario nacional forestal. Hacer el preprocesamiento relizado en clases pasadas de sustituir datos de más de 99999 por NA en las variables de altura y diámetro, eliminar entradas con NA en ambas columnas, seleccionar columnas de interés y renombrar columnas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -340,8 +451,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Adjuntando el paquete: 'rstatix'
@@ -350,49 +461,50 @@ The following object is masked from 'package:stats':
 
     filter</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx"</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sheet =</span> <span class="st">"Arbolado"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Expecting numeric in BW19313 / R19313C75: got 'NULL'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Expecting numeric in BX19313 / R19313C76: got 'NULL'</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocesamiento limpieza de datos</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(AlturaTotal_C3, DiametroNormal_C3), <span class="sc">~</span><span class="fu">ifelse</span>(.x <span class="sc">&gt;=</span> <span class="dv">99999</span>, <span class="cn">NA</span>, .x))) <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Eliminar NA</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(AlturaTotal_C3) <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(DiametroNormal_C3) <span class="sc">|&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Seleccionar columnas de interés</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado,DESCRIP_S7_C3,AlturaTotal_C3, DiametroNormal_C3, biomasa_kg_C3) <span class="sc">|&gt;</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Renombrar columnas</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"ParcelaId"</span> <span class="ot">=</span> <span class="st">"IdConglomerado"</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">"TipoVeg"</span> <span class="ot">=</span> <span class="st">"DESCRIP_S7_C3"</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Altura"</span> <span class="ot">=</span> <span class="st">"AlturaTotal_C3"</span>,</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>         <span class="st">"DAP"</span> <span class="ot">=</span> <span class="st">"DiametroNormal_C3"</span>,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Biomasa"</span> <span class="ot">=</span> <span class="st">"biomasa_kg_C3"</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocesamiento limpieza de datos</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(AlturaTotal_C3, DiametroNormal_C3), <span class="sc">~</span><span class="fu">ifelse</span>(.x <span class="sc">&gt;=</span> <span class="dv">99999</span>, <span class="cn">NA</span>, .x))) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Eliminar NA</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(AlturaTotal_C3) <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(DiametroNormal_C3) <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Seleccionar columnas de interés</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(IdConglomerado,DESCRIP_S7_C3,AlturaTotal_C3, DiametroNormal_C3, biomasa_kg_C3) <span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Renombrar columnas</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"ParcelaId"</span> <span class="ot">=</span> <span class="st">"IdConglomerado"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">"TipoVeg"</span> <span class="ot">=</span> <span class="st">"DESCRIP_S7_C3"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Altura"</span> <span class="ot">=</span> <span class="st">"AlturaTotal_C3"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>         <span class="st">"DAP"</span> <span class="ot">=</span> <span class="st">"DiametroNormal_C3"</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Biomasa"</span> <span class="ot">=</span> <span class="st">"biomasa_kg_C3"</span>) </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Hacer dos subsets de datos para distintas pruebas estadísticas. Uno con solo dos tipos de vegetación y otro con 3. Ojo con convertir tipo de vegetación como factor <strong>después</strong> de hacer la selección de tipos de vegetación de interés, si no, va a marcar error al hacer la pruebas estadísticas.</p>
 <p>Consultar las ayudas de varias funciones de rstatix para ver cómo se ingresa la información. Ahí dice que en muchas fórmulas pongas primero el nombre de la variable numérica y después el nombre de la variable factor. Por ejemplo, veamos <code>tukey_hsd</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(tukey_hsd)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(tukey_hsd)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Generar dos subsets de los datos, uno para hacer pruebas estadísticas de comparación de dos medias o medianas, y uno para tres o más.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TipoVeg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(TipoVeg, <span class="sc">~</span><span class="fu">as.factor</span>(.x)))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>datos3 <span class="ot">&lt;-</span> datos<span class="sc">|&gt;</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TipoVeg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>, <span class="st">"BOSQUE DE PINO"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(TipoVeg, <span class="sc">~</span><span class="fu">as.factor</span>(.x)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="ot">&lt;-</span> datos <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TipoVeg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(TipoVeg, <span class="sc">~</span><span class="fu">as.factor</span>(.x)))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>datos3 <span class="ot">&lt;-</span> datos<span class="sc">|&gt;</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TipoVeg <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>, <span class="st">"BOSQUE DE PINO"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(TipoVeg, <span class="sc">~</span><span class="fu">as.factor</span>(.x)))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="estadísticas-descriptivas" class="level1">
 <h1>Estadísticas descriptivas</h1>
-<p>Shapiro test solo funciona con menos de 5000 muestras</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(<span class="at">type =</span> <span class="st">"mean_sd"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(<span class="at">type =</span> <span class="st">"mean_sd"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   variable      n     mean      sd
@@ -402,8 +514,8 @@ The following object is masked from 'package:stats':
 3 DAP       25258    16.9     9.77
 4 Biomasa   25258   123.    255.  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq_table</span>(TipoVeg)  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq_table</span>(TipoVeg)  </span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 32 × 3
    TipoVeg                                        n  prop
@@ -420,8 +532,8 @@ The following object is masked from 'package:stats':
 10 BOSQUE DE ENCINO-PINO                        857   3.4
 # ℹ 22 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify_outliers</span>(Altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify_outliers</span>(Altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,578 × 7
    ParcelaId TipoVeg                  Altura   DAP Biomasa is.outlier is.extreme
@@ -438,24 +550,32 @@ The following object is masked from 'package:stats':
 10     67481 VEGETACIÓN SECUNDARIA A…   21.8  47.5   1340. TRUE       FALSE     
 # ℹ 1,568 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">4999</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(Altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="normalidad" class="level1">
+<h1>Normalidad</h1>
+<p>H0: Distribución de datos no significativamente distinta a una normal Prueba de normalidad de los datos.</p>
+<p>Shapiro test solo funciona con menos de 5000 observaciones.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">4999</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(Altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   variable statistic        p
   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-1 Altura       0.868 5.91e-54</code></pre>
+1 Altura       0.870 1.11e-53</code></pre>
 </div>
 </div>
 </section>
 <section id="comparación-de-varianzas" class="level1">
 <h1>Comparación de varianzas</h1>
+<p>H0: Distribución de datos no signfificativamente distinta de una con homogeneidad de varianzas.</p>
 <p>Prueba de homogeneidad de varianzas.</p>
 <p>levene_test()</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
     df1   df2 statistic        p
@@ -468,10 +588,20 @@ The following object is masked from 'package:stats':
 <h1>Comparación de dos medias o medianas</h1>
 <section id="comparación-medias" class="level2">
 <h2 class="anchored" data-anchor-id="comparación-medias">Comparación medias</h2>
+<p>H0: medias no significativamente distintas.</p>
 <p>Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/ttest.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   .y.   group1                group2          n1    n2 statistic    df         p
@@ -481,11 +611,11 @@ The following object is masked from 'package:stats':
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   .y.   group1                group2             n1    n2 statistic    df      p
@@ -496,10 +626,20 @@ The following object is masked from 'package:stats':
 </section>
 <section id="comparación-medianas" class="level2">
 <h2 class="anchored" data-anchor-id="comparación-medianas">Comparación medianas</h2>
-<p>Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
+<p>H0: medianas no significativamente distintas.</p>
+<p>Seleccionemos bosque pino-encino y selva baja caducifolia. Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/wilcox.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
   .y.   group1                group2                 n1    n2 statistic        p
@@ -509,11 +649,11 @@ The following object is masked from 'package:stats':
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
   .y.   group1                group2                  n1    n2 statistic       p
@@ -527,10 +667,20 @@ The following object is masked from 'package:stats':
 <h1>Comparación de tres o más medias o medianas</h1>
 <section id="comparación-medias-1" class="level2">
 <h2 class="anchored" data-anchor-id="comparación-medias-1">Comparación medias</h2>
+<p>H0: <strong>TODAS</strong> medias no significativamente distintas.</p>
 <p>A partir de aquí usamos <code>datos3</code>. Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/anova.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA Table (type II tests)
 
@@ -540,11 +690,11 @@ The following object is masked from 'package:stats':
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA Table (type II tests)
 
@@ -554,10 +704,10 @@ The following object is masked from 'package:stats':
 </div>
 <section id="posthoc" class="level3">
 <h3 class="anchored" data-anchor-id="posthoc">Posthoc</h3>
-<p>Diametros entre árboles</p>
+<p>H0: medias no significativamente distintas. Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
   term  group1 group2 null.value estimate conf.low conf.high  p.adj p.adj.signif
@@ -569,11 +719,11 @@ The following object is masked from 'package:stats':
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
   term    group1           group2 null.value estimate conf.low conf.high   p.adj
@@ -585,11 +735,11 @@ The following object is masked from 'package:stats':
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anova_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ANOVA Table (type II tests)
 
@@ -601,10 +751,20 @@ The following object is masked from 'package:stats':
 </section>
 <section id="comparación-medianas-1" class="level2">
 <h2 class="anchored" data-anchor-id="comparación-medianas-1">Comparación medianas</h2>
+<p>H0: medianas no significativamente distintas.</p>
 <p>Seleccionemos bosque pino-encino y selva baja caducifolia Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/kruskal.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
   .y.       n statistic    df         p method        
@@ -614,11 +774,11 @@ The following object is masked from 'package:stats':
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kruskal_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
   .y.       n statistic    df         p method        
@@ -628,10 +788,10 @@ The following object is masked from 'package:stats':
 </div>
 <section id="posthoc-1" class="level3">
 <h3 class="anchored" data-anchor-id="posthoc-1">Posthoc</h3>
-<p>Diametros entre árboles</p>
+<p>H0: medianas no significativamente distintas. Diametros entre árboles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(DAP <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
   .y.   group1       group2    n1    n2 statistic        p    p.adj p.adj.signif
@@ -643,11 +803,11 @@ The following object is masked from 'package:stats':
 </div>
 <p>Biomasa por parcela</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, ParcelaId) <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">AGB =</span> (<span class="fu">sum</span>(Biomasa)<span class="sc">/</span><span class="dv">1000</span>)<span class="sc">*</span><span class="dv">10000</span><span class="sc">/</span><span class="dv">1600</span>,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dunn_test</span>(AGB <span class="sc">~</span> TipoVeg)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 9
   .y.   group1         group2    n1    n2 statistic       p   p.adj p.adj.signif
@@ -662,23 +822,24 @@ The following object is masked from 'package:stats':
 </section>
 <section id="comparación-proporciones" class="level1">
 <h1>Comparación proporciones</h1>
+<p>H0: proporciones no significativamente distintas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_chi <span class="ot">&lt;-</span> datos3 <span class="sc">|&gt;</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m20 =</span> <span class="fu">ifelse</span>(DAP <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, m20) <span class="sc">|&gt;</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> m20,</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> n) <span class="sc">|&gt;</span></span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>TipoVeg) <span class="sc">|&gt;</span></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(df_chi) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">TipoVeg =</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>, <span class="st">"BOSQUE DE PINO"</span>),</span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">m20 =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>)</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq_test</span>(df_chi)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_chi <span class="ot">&lt;-</span> datos3 <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">m20 =</span> <span class="fu">ifelse</span>(DAP <span class="sc">&gt;=</span> <span class="dv">20</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TipoVeg, m20) <span class="sc">|&gt;</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> m20,</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> n) <span class="sc">|&gt;</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>TipoVeg) <span class="sc">|&gt;</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(df_chi) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">TipoVeg =</span> <span class="fu">c</span>(<span class="st">"BOSQUE DE PINO-ENCINO"</span>, <span class="st">"SELVA BAJA CADUCIFOLIA"</span>, <span class="st">"BOSQUE DE PINO"</span>),</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">m20 =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>)</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq_test</span>(df_chi)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 6
       n statistic         p    df method          p.signif
@@ -690,13 +851,23 @@ The following object is masked from 'package:stats':
 </section>
 <section id="correlación" class="level1">
 <h1>Correlación</h1>
-<p>Pearson</p>
+<p>H0: variables no relacionadas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="imgs/corr.png" class="img-fluid figure-img" style="width:50.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pearson: Paramétrica</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 8
   var1    var2      cor statistic     p conf.low conf.high method 
@@ -712,13 +883,13 @@ The following object is masked from 'package:stats':
 9 Biomasa Biomasa  1        Inf       0    1         1     Pearson</code></pre>
 </div>
 </div>
-<p>Spearman</p>
+<p>Spearman: No paramétrica</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_test</span>(<span class="at">vars =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">vars2 =</span> <span class="fu">c</span>(DAP, Altura, Biomasa),</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 6
   var1    var2      cor     statistic     p method  
@@ -737,13 +908,14 @@ The following object is masked from 'package:stats':
 </section>
 <section id="regresión-lineal" class="level1">
 <h1>Regresión lineal</h1>
+<p>H0: variables no relacionadas.</p>
 <p><code>\(x)</code> Esto es lo mismo que <code>function(x)</code>.</p>
 <p>Crear una función anónima para poder usar el pipe nativo <code>|&gt;</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> datos3 <span class="sc">|&gt;</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">lm</span>(Altura <span class="sc">~</span> DAP, <span class="at">data =</span> x))() </span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> datos3 <span class="sc">|&gt;</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">|&gt;</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  (\(x) <span class="fu">lm</span>(Altura <span class="sc">~</span> DAP, <span class="at">data =</span> x))() </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>mod</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -756,9 +928,9 @@ Coefficients:
 </div>
 <p>Alternativa usando pipe de <code>magrittr</code> y el operador <code>.</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">%&gt;%</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(Altura <span class="sc">~</span> DAP, <span class="at">data =</span> .)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>datos3 <span class="sc">|&gt;</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DAP, Altura, Biomasa) <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(Altura <span class="sc">~</span> DAP, <span class="at">data =</span> .)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -771,8 +943,8 @@ Coefficients:
 </div>
 <p>Sacar coeficientes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>mod <span class="sc">|&gt;</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>mod <span class="sc">|&gt;</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic p.value
