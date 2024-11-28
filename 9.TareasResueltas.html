@@ -213,6 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tarea-3" id="toc-tarea-3" class="nav-link" data-scroll-target="#tarea-3">Tarea 3</a></li>
   <li><a href="#tarea-4" id="toc-tarea-4" class="nav-link" data-scroll-target="#tarea-4">Tarea 4</a></li>
   <li><a href="#tarea-5" id="toc-tarea-5" class="nav-link" data-scroll-target="#tarea-5">Tarea 5</a></li>
+  <li><a href="#tarea-6" id="toc-tarea-6" class="nav-link" data-scroll-target="#tarea-6">Tarea 6</a></li>
   </ul>
 </nav>
 </nav>
@@ -920,6 +921,233 @@ Coefficients:
 <div class="cell">
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>cowplot</span>
 <span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>patchwork</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tarea-6" class="level1">
+<h1>Tarea 6</h1>
+<p>Gráficas con ggplot2</p>
+<p>Utiliza los siguientes datos para generar los gráficos de la tarea. Se trata del registro de largo (cm) y peso (kg) de tlacuaches (Didelphis marsupialis) en tres localidades distintas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># incluye ggplot2</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iNEXT)</span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiodiversityR)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: tcltk</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: vegan</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: permute</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Cargando paquete requerido: lattice</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is vegan 2.6-8</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>BiodiversityR 2.16-1: Use command BiodiversityRGUI() to launch the Graphical User Interface; 
+to see changes use BiodiversityRGUI(changeLog=TRUE, backward.compatibility.messages=TRUE)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">Terminalia.buceras =</span> <span class="fu">c</span>(<span class="dv">3</span>L, <span class="dv">5</span>L, <span class="dv">3</span>L, <span class="dv">8</span>L, <span class="dv">1</span>L, <span class="dv">3</span>L,</span>
+<span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>L, <span class="dv">2</span>L, <span class="dv">2</span>L), <span class="at">Laguncularia.racemosa =</span> <span class="fu">c</span>(<span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L), <span class="at">Lonchocarpus.hondurensis =</span> <span class="fu">c</span>(<span class="dv">1</span>L, <span class="dv">3</span>L, <span class="dv">4</span>L, <span class="dv">2</span>L, <span class="dv">1</span>L, <span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">1</span>L, <span class="dv">3</span>L), <span class="at">Pachira.aquatica =</span> <span class="fu">c</span>(<span class="dv">4</span>L, <span class="dv">2</span>L, <span class="dv">0</span>L, <span class="dv">2</span>L, <span class="dv">3</span>L, <span class="dv">1</span>L, <span class="dv">4</span>L, <span class="dv">1</span>L, <span class="dv">2</span>L), <span class="at">Rhizophora.mangle =</span> <span class="fu">c</span>(<span class="dv">4</span>L, <span class="dv">2</span>L, <span class="dv">4</span>L, <span class="dv">1</span>L, <span class="dv">7</span>L, <span class="dv">6</span>L, <span class="dv">1</span>L, <span class="dv">8</span>L, <span class="dv">5</span>L), <span class="at">Coccoloba.barbadensis =</span> <span class="fu">c</span>(<span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L), <span class="at">Tabebuia.rosea =</span> <span class="fu">c</span>(<span class="dv">0</span>L, <span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">1</span>L, <span class="dv">0</span>L ), <span class="at">Chrysobalanus.icaco =</span> <span class="fu">c</span>(<span class="dv">0</span>L, <span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">1</span>L, <span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L ), <span class="at">Manilkara.zapota =</span> <span class="fu">c</span>(<span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">1</span>L, <span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L), <span class="at">Zygia.recordii =</span> <span class="fu">c</span>(<span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">1</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">1</span>L)), <span class="at">class =</span> <span class="st">"data.frame"</span>, <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="sc">-</span><span class="dv">9</span>L))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>Usando el conjunto de datos “datos”, cómo obtendrías el número de especies (riqueza de especies) por sitio.</li>
+</ol>
+<p>con vegan</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">specnumber</span>(datos)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6 6 4 5 5 5 4 5 5</code></pre>
+</div>
+</div>
+<p>La opción con BiodiversityR</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diversityresult</span>(<span class="at">x=</span>datos <span class="sc">|&gt;</span> </span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">as.matrix</span>(), </span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="st">"richness"</span>, </span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span><span class="st">"each site"</span>,</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">ortit =</span> <span class="cn">FALSE</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in diversityresult(x = as.matrix(datos), index = "richness", method = "each site", : el argumento no fue usado (ortit = FALSE)</code></pre>
+</div>
+</div>
+<p>Versión más en el tidyverse, requiere formatear datos en formato largo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>datos <span class="sc">|&gt;</span> </span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Sitio =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>Sitio, </span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Especies"</span>,</span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"n"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Sitio) <span class="sc">|&gt;</span> </span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">rich =</span> <span class="fu">specnumber</span>(n))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  Sitio  rich
+  &lt;int&gt; &lt;int&gt;
+1     1     6
+2     2     6
+3     3     4
+4     4     5
+5     5     5
+6     6     5
+7     7     4
+8     8     5
+9     9     5</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Usando el conjunto de datos “datos”, cómo obtendrías el índice de Shannon por sitio.</li>
+</ol>
+<p>con vegan</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diversity</span>(datos, <span class="at">index =</span> <span class="st">"shannon"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.611472 1.630799 1.286057 1.252763 1.263626 1.314374 1.126929 1.178655
+[9] 1.479133</code></pre>
+</div>
+</div>
+<p>con BiodiversityR</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diversityresult</span>(<span class="at">x =</span> datos, </span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="st">"Shannon"</span>, </span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">"each site"</span>, </span>
+<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">sortit =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb117-5"><a href="#cb117-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Shannon
+1  1.6115
+2  1.6308
+3  1.2861
+4  1.2528
+5  1.2636
+6  1.3144
+7  1.1269
+8  1.1786
+9  1.4791</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Usando el conjunto de datos “datos”, cómo obtendrías el índice de Simpson por sitio.</li>
+</ol>
+<p>con vegan</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diversity</span>(datos, <span class="at">index =</span> <span class="st">"simpson"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.77551 0.77551 0.70833 0.62245 0.63905 0.66667 0.62500 0.57988 0.74556</code></pre>
+</div>
+</div>
+<p>con BiodiversityR</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diversityresult</span>(<span class="at">x =</span> datos, </span>
+<span id="cb121-2"><a href="#cb121-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">index =</span> <span class="st">"Simpson"</span>, </span>
+<span id="cb121-3"><a href="#cb121-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">method =</span> <span class="st">"each site"</span>, </span>
+<span id="cb121-4"><a href="#cb121-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">sortit =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb121-5"><a href="#cb121-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Simpson
+1 0.77551
+2 0.77551
+3 0.70833
+4 0.62245
+5 0.63905
+6 0.66667
+7 0.62500
+8 0.57988
+9 0.74556</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Usando el conjunto de datos “datos”, cómo obtendrías la riqueza de especies rarificada a 9 individuos, por sitio.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rarefy</span>(datos, <span class="at">sample =</span> <span class="dv">9</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.8911 5.0380 3.7455 4.0659 4.0629 4.2455 3.5000 4.0000 4.5245
+attr(,"Subsample")
+[1] 9</code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Con qué función del paquete vegan calcularías una curva de acumulación de especies.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">specaccum</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>El número de Hill exponente 0 es igual a qué índice de diversidad “clásico”.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>Riqueza de especies</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="7" type="1">
+<li>Qué función del paquete iNEXT te permite calcular los índices de Hill.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">estimateD</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>También la función <code>iNEXT()</code> te permite calcular los índices de Hill, pero hay que buscar dentro de los resultados para ver los estimados con el número de individuos que se muestrearon en cada parcela. Esto correponde a la entrada que en Method dice Observed, dentro de la lista <code>resul$iNextEst$size_based</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>resul <span class="ot">&lt;-</span> <span class="fu">iNEXT</span>(<span class="fu">t</span>(datos))</span>
+<span id="cb128-2"><a href="#cb128-2" aria-hidden="true" tabindex="-1"></a>resul<span class="sc">$</span>iNextEst<span class="sc">$</span>size_based</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="8" type="1">
+<li>Qué función del paquete iNEXT te permite crear una curva de acumulación de especies. Ojo: obtener los datos de la curva de acumulación de especies, no generar el gráfico de la curva de acumulación de especies.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iNEXT</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="9" type="1">
+<li>Qué función del paquete iNEXT te permite generar una gráfica de curva de acumulación de especies, utilizando los resultados de la función iNEXT.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggiNEXT</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="10" type="1">
+<li>¿Qué función te permite calcular los valores para generar una curva de rango - abundancia?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rankabundance</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="11" type="1">
+<li>Cómo calcularías el número de Hill exponente 0 para los datos de abundancia del manglar. En este caso, en el argumento de level le puedes poner el número de individuos al que quieres rarificar o extrapolar el número de Hill. En este caso, estima el número de especies estimado para 9 individuos (lo cual implica que se calcularía mediante rarefacción). ¿Cuál sería el valor de riqueza de especies rarificado a 9 individuos para el sitio 5?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>datos2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(datos))</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(datos2) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"sitio_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La respuesta correcta era: 4.0629</p>
+<p>Opción vegan</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>rarif_resul <span class="ot">&lt;-</span> <span class="fu">rarefy</span>(datos, <span class="at">sample =</span> <span class="dv">9</span>)</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>rarif_resul[<span class="dv">5</span>]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.0629</code></pre>
+</div>
+</div>
+<p>Opción BiodiversityR</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>resul_inext <span class="ot">&lt;-</span> <span class="fu">iNEXT</span>(<span class="at">x =</span> datos2, </span>
+<span id="cb135-2"><a href="#cb135-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">q =</span> <span class="dv">0</span>,<span class="co">#c(0,1,2), </span></span>
+<span id="cb135-3"><a href="#cb135-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">datatype=</span><span class="st">"abundance"</span>,</span>
+<span id="cb135-4"><a href="#cb135-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">9</span>)</span>
+<span id="cb135-5"><a href="#cb135-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-6"><a href="#cb135-6" aria-hidden="true" tabindex="-1"></a>resul_inext<span class="sc">$</span>iNextEst<span class="sc">$</span>size_based <span class="sc">|&gt;</span></span>
+<span id="cb135-7"><a href="#cb135-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Assemblage <span class="sc">==</span> <span class="st">"sitio_5"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Assemblage  m        Method Order.q     qD qD.LCL qD.UCL      SC  SC.LCL
+1    sitio_5  9   Rarefaction       0 4.0629 2.8969 5.2289 0.75874 0.60742
+2    sitio_5 12   Rarefaction       0 4.7692 3.2655 6.2730 0.76923 0.60805
+3    sitio_5 13      Observed       0 5.0000 3.3765 6.6235 0.78698 0.62764
+4    sitio_5 14 Extrapolation       0 5.2130 3.4653 6.9607 0.80337 0.65123
+   SC.UCL
+1 0.91006
+2 0.93041
+3 0.94633
+4 0.95550</code></pre>
+</div>
 </div>
 
 
