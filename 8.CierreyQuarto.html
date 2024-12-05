@@ -218,7 +218,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="quarto" class="level1">
 <h1>Quarto</h1>
-<p>Es un paquete para automatizar la creación de reportes.</p>
+<p>Es como un paquete para automatizar la creación de reportes.</p>
 <ul>
 <li>Html.</li>
 <li>Pdf (requiere instalación de tinytex).</li>
@@ -243,7 +243,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Manuscritos.</li>
 </ul>
 <p>El flujo de trabajo:</p>
-<div class="![](imgs/quartowf.png)">
+<div class="![](imgs/quartowf.png):::">
 <p>Permite el manejo de referencias con bib.</p>
 <p>Una alternativa muy similar es RMarkdown.</p>
 <ol start="0" type="1">
@@ -255,19 +255,23 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Cuerpo: Markdown <a href="https://quarto.org/docs/authoring/markdown-basics.html">Básico de Markdown</a></p></li>
 <li><p>Chunk de código: <a href="https://quarto.org/docs/computations/r.html">Escritura de chunks</a></p></li>
 </ol>
-<p>Veamos el archivo Quarto de muestra</p>
+<p>Veamos el archivo Quarto de muestra.</p>
+<p>De hecho todo el librito de la clase está hecho en Quarto 😉.</p>
 <p>Ver algunos temas: <a href="https://quarto.org/docs/output-formats/html-themes.html">Temas</a></p>
 <section id="trabajo-final" class="level1">
 <h1>Trabajo final</h1>
 <p>La idea es que apliquen los conocimientos adquiridos con un conjunto de datos que les interese. Este conjunto de datos puede ser uno suyo o uno públicamente disponible.</p>
-<p>Estructura de artículo, pero muy resumido todo. Piensen en 1-2 párrafos por sección.</p>
+<p>Estructura de artículo, pero muy resumido todo. Piensen en 1-2 párrafos por sección y una extensión aproximada de 2 cuartillas.</p>
 <ol type="1">
-<li>Introducción.</li>
-<li>Método.</li>
-<li>Resultados.</li>
-<li>Discusión.</li>
-<li>Referencias.</li>
+<li>Objetivo del análisis (qué esperan probar o describir con los análisis a realizar).</li>
+<li>Método (descripción de los datos y los análisis realizados).</li>
+<li>Resultados (descripción de los principales resultados). Sugiero en resultados usar una gráfica que describa los resultados.</li>
+<li>Discusión (Discutir patrones observados en sus resultados, cuáles sitios son más ricos en especies, cuáles provincias tienen mayor incidencia de enfermedades, qué modelo mejor describe el comportamiento entre dos variables).</li>
+<li>Anexo. Código en R utilizado para: la importación de datos, el análisis, las figuras, etc.</li>
 </ol>
+</section>
+<section id="repaso-del-curso" class="level1">
+<h1>Repaso del curso</h1>
 <p>Recordemos lo que vimos en este curso.</p>
 <ol type="1">
 <li>Introducción a R.</li>
@@ -279,8 +283,12 @@ ul.task-list li input[type="checkbox"] {
 <li>Modelos.</li>
 <li>Reportes automatizables.</li>
 </ol>
-<p>Los pasos principales para realizar ciencia de datos en R.</p>
-<p>Tidymodels permite usar muchos algoritmos de aprendizaje automatizado usando la misma sintáxis vista en el curso.</p>
+<p>Vimos los pasos básicos para realizar ciencia de datos en R.</p>
+<p>Evidentemente no espero que sean expertos programando en R, pero mi idea fue mostrarles la mayor variedad de herramientas. Ya que se quedan con las grabaciones y el material escrito del curso, considero que pueden regresar muchas veces a él en el futuro.</p>
+<p>Recuerden: La práctica hace al maestro o a la maestra. Ahorita, aprendieron bastantes cosas sobre R, aunque quizás sientan lo contrario. Por ejemplo, aprendieron sobre tipos de objetos, cómo importar datos, algunos errores, diferentes paquetes (vimos por lo menos 10 paquetes), funciones para hacer gráficos, limpiar datos, hacer análisis estadísticos y de diversidad, modelación.</p>
+<p>Mi sugerencia para mejorar en sus habilidades en R: Ponerse de meta realizar algún análisis en R (aunque sufran al principio). La curva de aprendizaje es difícil, pero rinde frutos. Personalmente, cuando más he aprendido ha sido por mi cuenta, con datos que salen errores que no salen en los cursos.</p>
+<p>Recuerden que mucho de los proyectos de ciencia de datos radican en acomodar, limpiar y curar bases de datos. Ya también vimos cómo acomodar datos para ahcer ciertos análisis.</p>
+<p>Con tidymodels vimos ejemplos más complejos de modelación.</p>
 </section>
 <section id="otras-cosas-que-no-vimos" class="level1">
 <h1>Otras cosas que no vimos</h1>
@@ -379,6 +387,22 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 <p>Más muchos otros paquetes que yo no he utilizado. La gran ventaja, es que usando un lenguaje común, es fácil entender y utilizar funciones programadas por alguien más.</p>
+<p>La otra ventaja es que en el curso vimos dos aspectos básicos para usar nuevos paquetes y funciones: 1) consultar la ayuda y 2) los datos de ejemplo. Una tercera que no vimos, es que muchos paquetes traen una sección de <strong>vignettes</strong> que es como un mini blog de ejemplo para usar sus funciones. Por ejemplo: <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html" class="uri">https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html</a> o <a href="https://cran.r-project.org/web/packages/sf/vignettes/sf1.html" class="uri">https://cran.r-project.org/web/packages/sf/vignettes/sf1.html</a></p>
+</section>
+<section id="últimos-pasos" class="level1">
+<h1>Últimos pasos</h1>
+<ul>
+<li>El 11 de diciembre debo tener todas las tareas entregadas y calificadas, así como su proyecto final entregado.</li>
+<li>El 12 de diciembre debo entregar calificaciones finales.</li>
+<li>Les voy a mandar una encuesta sobre el curso para tener retroalimentación sobre el curso y conocer las áreas de oportunidad donde se puede mejorar.</li>
+<li>Tras contestar la encuesta y subir sus calificaciones les enviarán su constancia.</li>
+<li>El libro del curso lo dejaré hospedad en mi github. Las grabaciones no estoy seguro si las subirán a algún sitio. Si quieren conservar los scripts de la clase, les sugiero descargarlos.</li>
+</ul>
+</section>
+<section id="dudas" class="level1">
+<h1>¿Dudas?</h1>
+<p>Espero que les haya gustado el curso y lo hayan encontrado útil.</p>
+<p>Mi correo por cualquier cosa en el futuro: jonathanvsv@gmail.com</p>
 
 
 </section>
