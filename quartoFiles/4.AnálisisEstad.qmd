@@ -1,0 +1,442 @@
+---
+title: "4.AnálisisEstad"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+```{r setup, include=FALSE}
+library(pander)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Pruebas estadísticas en R 
+
+Estadística: Ciencia que permite describir una población o inferir relaciones entre características de esta, basados en una muestra representativa (no sesgada).
+
+Los análisis estadísticos nos permiten inferir patrones sobre las poblaciones a partir de una muestra o muestras. Algunos ejemplos, saber si el promedio de altura de dos tipos de vegetación difiere entre sí (p.ej., vegetación conservada o secundaria), o si la altura de un árbol depende de su diámetro.
+
+Algunos conceptos básicos:
+
+1. Muestra vs Censo. 
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/muestra.png")
+```
+
+2. Observaciones.
+
+3. Unidad muestral.
+
+En el ejemplo de los datos del INFyS: 
+
+- Población: vegetación de México.
+- Muestra: datos recabados en el INFyS.
+- Observación: Los datos de cada árbol.
+- Unidad muestral: Conglomerado de parcelas de muestreo.
+
+4. Normalidad y varianza.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/normalidad.png")
+```
+
+5. Homogeneidad de varianzas.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/homoscedasticidad.png")
+```
+
+6. Muestras aleatorias e independientes.
+
+7. Sesgo
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/sesgo.png")
+```
+
+8. Hipóstesis nula y alternativa.
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/hipotesis.png")
+```
+
+Hipótesis nula normalmente implica que *NO* hay diferencias significativas.
+
+9. Estadístico. Estadístico de cada prueba, por ejemplo, t, F, r.
+
+10. Tipos de errores.
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/tipoerrores.png")
+```
+
+10. Significancia. p-value o probabilidad de cometer error tipo 1.
+
+11. Nivel de significancia. Valor de corte definido a priori. Comúnmente en ciencias biológicas se usa el valor de 0.05.
+
+Dentro de R existen varias funciones para hacer análisis estadísticos. Sin embargo, aquí veremos un paquete que funciona muy bien con el tidyverse.
+
+# Pruebas estadísticas con Rstatix
+
+Vamos a ver cómo hacer pruebas usando el paquete Rstatix que es amigable con el tidyverse. Existen las funciones para hacer análisis estadísticos con base R como:
+
+```{r echo=F, error=T,fig.height=3,fig.width=4,fig.align = "center"}
+Pruebas_est<-t(data.frame(B=c("Una media o mediana vs: un valor, otra media o mediana, o media o mediana de datos pareada.","t_test()","wilcox_test()"),C=c("M\u00e1s de dos medias o medianas", "anova_test(), tukey_hsd() ", "kruskal_test()"),D=c("Dos variables relaci\u00f3n","cor_test()","cor_test()"),E=c("Dos variables dependencia", "lm()","-" )))
+row.names(Pruebas_est)<-NULL
+```
+
+```{r echo=F, error=T,fig.height=3,fig.width=4,fig.align = "center"}
+
+pander(Pruebas_est,col.names = c("**Variables a comparar**","**Prueba paramétrica**","**Prueba no paramétrica**"),split.table = Inf)
+```
+
+Diferencias entre pruebas paramétricas y no paramétricas
+
+* Las paramétricas comparan medias, las no paramétricas medianas.
+* Las paramétricas usan la desviación estándar como medida de dispersión, las paramétricas usan rangos (acomodo de valores en orden de menor a mayor).
+* La media se ve muy afectada por valores extremos, mientras que la mediana no.
+* Las pruebas paramétricas suponen una distribucióm normal de los datos, las no paramétricas, no.
+* Las pruebas paramétricas suelen suponer igualdad de varianzas, las no paramétricas, no.
+* Las paramétricas tienen utilidad baja con una n <= 20 - 30, mientras que las no paramétricas, tienen una utilidad alta en esos casos (tiene que ver con la varianza alta de muestras chiquitas).
+* Las pruebas paramétricas tienen alto poder estadístico (son más estrictas), mientras que las no paramétricas, tienen poder medio (son más laxas).
+* Ambas requieren muestras aleatorias e independientes.
+
+Vamos usar las pruebas rstatix.
+
+Primero instalar el paquete.
+
+```{r echo=T, error=T}
+install.packages("rstatix")
+```
+
+Leer los mismos datos del inventario nacional forestal.
+Hacer el preprocesamiento relizado en clases pasadas de sustituir datos de más de 99999 por NA en las variables de altura y diámetro, eliminar entradas con NA en ambas columnas, seleccionar columnas de interés y renombrar columnas.
+
+```{r echo=T, error=T}
+library(tidyverse)
+library(readxl)
+library(rstatix)
+
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+
+# Preprocesamiento limpieza de datos
+datos <- datos |>
+  mutate(across(c(AlturaTotal_C3, DiametroNormal_C3), ~ifelse(.x >= 99999, NA, .x))) |>
+  # Eliminar NA
+  drop_na(AlturaTotal_C3) |>
+  drop_na(DiametroNormal_C3) |>
+  # Seleccionar columnas de interés
+  select(IdConglomerado,DESCRIP_S7_C3,AlturaTotal_C3, DiametroNormal_C3, biomasa_kg_C3) |>
+  # Renombrar columnas
+  rename("ParcelaId" = "IdConglomerado",
+         "TipoVeg" = "DESCRIP_S7_C3",
+         "Altura" = "AlturaTotal_C3",
+         "DAP" = "DiametroNormal_C3",
+         "Biomasa" = "biomasa_kg_C3") 
+```
+
+Hacer dos subsets de datos para distintas pruebas estadísticas. Uno con solo dos tipos de vegetación y otro con 3. Ojo con convertir tipo de vegetación como factor **después** de hacer la selección de tipos de vegetación de interés, si no, va a marcar error al hacer la pruebas estadísticas.
+
+Consultar las ayudas de varias funciones de rstatix para ver cómo se ingresa la información. Ahí dice que en muchas fórmulas pongas primero el nombre de la variable numérica y después el nombre de la variable factor. Por ejemplo, veamos `tukey_hsd`.
+
+```{r echo=T, error=T, eval=FALSE}
+help(tukey_hsd)
+```
+
+Generar dos subsets de los datos, uno para hacer pruebas estadísticas de comparación de dos medias o medianas, y uno para tres o más.
+
+```{r echo=T, error=T}
+datos2 <- datos |> 
+  filter(TipoVeg %in% c("BOSQUE DE PINO-ENCINO", "SELVA BAJA CADUCIFOLIA")) |>
+  mutate(across(TipoVeg, ~as.factor(.x)))
+
+datos3 <- datos|> 
+  filter(TipoVeg %in% c("BOSQUE DE PINO-ENCINO", "SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO")) |>
+  mutate(across(TipoVeg, ~as.factor(.x)))
+```
+
+# Estadísticas descriptivas
+
+```{r}
+datos |>
+  get_summary_stats(type = "mean_sd")
+
+datos |>
+  freq_table(TipoVeg)  
+
+datos |>
+  identify_outliers(Altura)
+```
+
+# Normalidad
+
+H0: Distribución de datos no significativamente distinta a una normal
+Prueba de normalidad de los datos.
+
+Shapiro test solo funciona con menos de 5000 observaciones.
+
+```{r}
+datos |>
+  slice_sample(n = 4999) |>
+  shapiro_test(Altura)
+```
+
+# Comparación de varianzas
+
+H0: Distribución de datos no signfificativamente distinta de una con homogeneidad de varianzas.
+
+Prueba de homogeneidad de varianzas.
+
+levene_test()
+
+```{r}
+datos2 |>
+  levene_test(DAP ~ TipoVeg)
+```
+
+# Comparación de dos medias o medianas
+
+## Comparación medias
+
+H0: medias no significativamente distintas.
+
+Seleccionemos bosque pino-encino y selva baja caducifolia
+Diametros entre árboles
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/ttest.png")
+```
+
+```{r}
+datos2 |>
+  t_test(DAP ~ TipoVeg)
+```
+
+Biomasa por parcela
+
+```{r}
+datos2 |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  t_test(AGB ~ TipoVeg)
+```
+
+## Comparación medianas
+
+H0: medianas no significativamente distintas.
+
+Seleccionemos bosque pino-encino y selva baja caducifolia.
+Diametros entre árboles
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/wilcox.png")
+```
+
+
+```{r}
+datos2 |>
+  wilcox_test(DAP ~ TipoVeg)
+```
+
+Biomasa por parcela
+
+```{r}
+datos2 |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  wilcox_test(AGB ~ TipoVeg)
+```
+
+# Comparación de tres o más medias o medianas
+
+## Comparación medias
+
+H0: **TODAS** medias no significativamente distintas.
+
+A partir de aquí usamos `datos3`.
+Seleccionemos bosque pino-encino y selva baja caducifolia
+Diametros entre árboles
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/anova.png")
+```
+
+```{r}
+datos3 |>
+  anova_test(DAP ~ TipoVeg)
+```
+
+Biomasa por parcela
+
+```{r}
+datos3 |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  anova_test(AGB ~ TipoVeg)
+```
+
+### Posthoc
+
+H0: medias no significativamente distintas.
+Diametros entre árboles
+
+```{r}
+datos3 |>
+  tukey_hsd(DAP ~ TipoVeg)
+```
+
+Biomasa por parcela
+
+```{r}
+datos3 |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  tukey_hsd(AGB ~ TipoVeg)
+```
+
+```{r}
+datos3 |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  anova_test(AGB ~ TipoVeg)
+```
+
+
+## Comparación medianas
+
+H0: medianas no significativamente distintas.
+
+Seleccionemos bosque pino-encino y selva baja caducifolia
+Diametros entre árboles
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/kruskal.png")
+```
+
+
+```{r}
+datos3 |>
+  kruskal_test(DAP ~ TipoVeg)
+```
+
+Biomasa por parcela
+
+```{r}
+datos3 |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  kruskal_test(AGB ~ TipoVeg)
+```
+
+### Posthoc
+
+H0: medianas no significativamente distintas.
+Diametros entre árboles
+
+```{r}
+datos3 |>
+  dunn_test(DAP ~ TipoVeg)
+```
+
+Biomasa por parcela
+
+```{r}
+datos3 |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  dunn_test(AGB ~ TipoVeg)
+```
+
+# Comparación proporciones
+
+H0: proporciones no significativamente distintas.
+
+```{r}
+df_chi <- datos3 |>
+  mutate(m20 = ifelse(DAP >= 20, 1, 0)) |>
+  group_by(TipoVeg, m20) |>
+  count() |>
+  ungroup() |>
+  pivot_wider(names_from = m20,
+              values_from = n) |>
+  select(-TipoVeg) |>
+  as.matrix()
+
+dimnames(df_chi) <- list(
+    TipoVeg = c("BOSQUE DE PINO-ENCINO", "SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO"),
+    m20 = c("0", "1")
+  )
+
+  chisq_test(df_chi)
+```
+
+No son iguales las proporciones de árboles de >= 20 cm de DAP.
+
+# Correlación
+
+H0: variables no relacionadas.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/corr.png")
+```
+
+Pearson: Paramétrica
+
+```{r}
+datos3 |>
+  select(DAP, Altura, Biomasa) |>
+  cor_test(vars = c(DAP, Altura, Biomasa),
+           vars2 = c(DAP, Altura, Biomasa),
+           method = "pearson")
+```
+
+Spearman: No paramétrica
+
+```{r}
+datos3 |>
+  select(DAP, Altura, Biomasa) |>
+  cor_test(vars = c(DAP, Altura, Biomasa),
+           vars2 = c(DAP, Altura, Biomasa),
+           method = "spearman")
+```
+
+# Regresión lineal
+
+H0: variables no relacionadas.
+
+`\(x)` Esto es lo mismo que `function(x)`.
+
+Crear una función anónima para poder usar el pipe nativo `|>`
+
+```{r}
+mod <- datos3 |>
+  select(DAP, Altura, Biomasa) |>
+  (\(x) lm(Altura ~ DAP, data = x))() 
+mod
+```
+
+Alternativa usando pipe de `magrittr` y el operador `.`.
+
+```{r}
+datos3 |>
+  select(DAP, Altura, Biomasa) %>%
+  lm(Altura ~ DAP, data = .)
+```
+
+Sacar coeficientes
+
+```{r}
+mod |>
+  tidy()
+```

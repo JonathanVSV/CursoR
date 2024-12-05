@@ -1,0 +1,745 @@
+---
+title: "9.Tareas Resueltas"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+```{r setup, echo=T, error=TRUE}
+library(rstatix)
+library(tidyverse)
+```
+
+# Tarea 1
+
+1.  Cuál es el resultado de la siguiente operación: `(3+5)/2`
+
+```{r echo=T, error=TRUE}
+  (3+5)/2
+```
+
+2.  Calcula 10 a la (potencia) 5 y a ese resultado súmale 5 y luego multiplica ese resultado por 3
+
+```{r echo=T, error=TRUE}
+  ((10^5)+5)*3
+```
+
+3.  Evalúa si 5 es mayor que 1. Pon tal cuál la respuesta de la consola de R (TRUE o FALSE).
+
+```{r echo=T, error=TRUE}
+  5>1
+```
+
+4.  Evalúa si la palabra "variable" es igual a la palabra "variable2". Pon tal cual la respuesta de la consola de R (TRUE o FALSE).
+
+Aquí recuerden que `=` sirve para guardar algo dentro de un objeto, `==` es para comparar si el objeto del lado izquierdo es igual al del lado derecho.
+
+```{r echo=T, error=TRUE}
+  "variable" == "variable2"
+```
+
+5.  Crea un objeto con `a <- data.frame(a = 1:3, b = 2:4)`. ¿Qué tipo de objeto es `a`?
+
+```{r echo=T, error=TRUE}
+a <- data.frame(a = 1:3, b = 2:4)
+class(a)
+```
+
+6.  Crea un objeto `b <- list(a, a)`. Cuál es el valor del primer renglón, de la segunda columna de la primera entrada de la lista? Recuerda cómo se accede a las entradas de una lista y de un data.frame
+
+```{r echo=T, error=TRUE}
+b <- list(a, a)
+b[[1]][1,2]
+```
+
+7.  Qué tipo de objeto es `z <- matrix(1:4, nrow = 2)`. En R salen dos tipos de objetos, pon el primero que sale.
+
+```{r echo=T, error=TRUE}
+z <- matrix(1:4, nrow = 2)
+class(z)
+```
+
+8.  Crea un objeto `y` que contenga una secuencia de 100 al 1000 en intervalos de 1 y calcula el promedio de ese objeto. La función para calcular el promedio se llama `mean`.
+
+```{r echo=T, error=TRUE}
+y <- 100:1000
+mean(y)
+```
+
+9.  Crea una funcion llamada `mifunc` que le sume 8 al número que tenga como entrada. Después aplica esa función sobre la entrada 100 del objeto `y` (creado en la pregunta anterior). ¿Cuál es el resultado?
+
+```{r echo=T, error=TRUE}
+mifunc <- function(x){
+  resul <- x+8
+  return(resul)
+}
+mifunc(y[100])
+```
+
+10. Crea un ciclo con `for` que le sume 100 a cada entrada del objeto `y`. ¿Cuál es el valor de la entrada 200 del resulado?
+
+```{r echo=T, error=TRUE}
+for(i in 1:length(y)){
+  y[i] <- y[i] + 100
+}
+y[200]
+```
+
+# Tarea 2
+
+1.  ¿Cómo se instalarías un nuevo paquete que se llama "dplyr" en R? Anota la sintaxis tal cual con la función y el nombre del paquete.
+
+```{r echo=T, error=TRUE, eval = FALSE}
+install.packages("dplyr")
+```
+
+2.  ¿Cómo cargas al entorno de trabajo el paquete previamente instalado de "dplyr"? Anota la sintaxis tal cual con la función y el nombre del paquete.
+
+```{r echo=T, error=TRUE}
+library("dplyr")
+```
+
+3.  ¿Con qué función puedes leer datos desde un archivo separado por comas (csv)?. Hay varias opciones, pero solo menciona una.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+ read.csv
+```
+
+o del paquete readr
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+ read_csv
+```
+
+4.  ¿Con qué función puedes escribir un conjunto de datos como un archivo con extensión .rds (archivo nativo de R)?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+saveRDS
+```
+
+Aunque no lo vimos en clase también existe la función
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+write_rds
+```
+
+5.  ¿Qué paquete necesitas cargar en tu entorno de trabajo para poder leer datos desde un archivo de excel (.xlsx)?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+readxl
+```
+
+6.  ¿Cómo se llama el argumento de la función `read.csv` que indica la codificación de la información contenida en un archivo csv.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+encoding
+```
+
+Aunque para lectura en la clase usamos `encoding`, también se puede usar `fileEncoding`. Hay una pequeña diferencia entre usar una y otra. `encoding` lo lee con el encoding indicado, mientras que `fileEncoding` intenta convertir del encoding indicado al que tenga tu sesión de Rstudio.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+fileEncoding 
+```
+
+7.  ¿Cuántos datos en la columna de biomasa (biomasa_kg_C3) tienen entrada NA (es decir, sin dato o sin observación)?
+
+```{r echo=T, error=TRUE}
+library(readxl)
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+
+which(is.na(datos$biomasa_kg_C3))
+```
+
+La respuesta correcta era uno, aunque el valor anterior dice 19312, eso realmente solo nos dice que la observación 19312 es la que tiene valor de NA.
+
+```{r echo=T, error=TRUE}
+length(which(is.na(datos$biomasa_kg_C3)))
+```
+
+8.  Cuántas familias de plantas distintas se registraron en los datos. Esta información viene codificada en la columna "Familia_APG_C3".
+
+```{r echo=T, error=TRUE}
+length(unique(datos$Familia_APG_C3))
+```
+
+9.  ¿Cómo se llama la función con la cual puedes construir una gráfica de tipo histograma?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+hist
+```
+
+10. ¿Cuál argumento de la función `plot` maneja el intervalo de valores mínimo y máximo que se muestran en el eje x? Solo indica el nombre del argumento.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+xlim
+```
+
+# Tarea 3
+
+1.  ¿Cómo se escribe el "pipe" nativo en R versión mayor a 4.0?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+|>
+```
+
+El otro pipe `%>%` aunque también funciona en R, hay que cargar el paquete magrittr, por ello no corresponde al pipe nativo.
+
+2.  ¿Cuál es la función que se usa para transformar un objeto de tipo data.frame a uno tibble?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+as_tibble()
+```
+
+La función as.tibble() no existe.
+
+3.  ¿Qué función te permite filtrar datos a partir de ciertas condiciones?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+filter()
+```
+
+4.  ¿Con que función agregas una nueva columnas a un tibble?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+mutate()
+```
+
+5.  ¿Cuál función te permite modificar una columna en su lugar?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+mutate(across())
+```
+
+6.  ¿Cuál función te permite ordenar datos de acuerdo a una columna?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+arrange()
+```
+
+Si quieres probar en R cómo le podrías hacer con un ejemplo concreto. Usa el siguiente código para generar el tibble que se indica en las siguientes dos preguntas
+
+```{r echo=T, error=TRUE}
+datos <- tibble(grupo = c("A", "A","B","C"),valor = c(1,2,3,4))
+```
+
+7.  Si tenemos un tibble que se llama datos con una columna llamada grupo y otra llamada valor. ¿Cómo puedes calcular el número de observaciones por cada nivel de la columna grupo?
+
+Hay varias respuestas correctas, pero las dos principales son:
+
+```{r echo=T, error=TRUE}
+datos |>
+  group_by(grupo) |>
+  count()
+
+datos |>
+  group_by(grupo) |>
+  summarise(n = n())
+```
+
+Hubo varias respuestas con `n_distinct` o `sum`. `sum` no daba el resultado esperado porque suma los valores dentro de la columna `valor`. Aunque `n_distinct` si daba el resultado esperado, lo daba por la razón incorrecta. `n_distinct` cuenta el número de valores únicos distintos. Por lo tanto, estrictamente no es un conteo del número de observaciones por grupo, sino el número de observaciones *distintas* (en algunos casos no van a dar igual).
+
+8.  Si tenemos un tibble que se llama datos con una columna llamada grupo y otra llamada valor. ¿Cómo puedes sacar el valor (de la columna valor) más alto de cada nivel en la columna grupo (de la columna grupo)?
+
+Hay varias respuestas correctas, pero las tres principales son:
+
+```{r echo=T, error=TRUE}
+datos |>
+  group_by(grupo) |>
+  arrange(desc(valor)) |>
+  slice_head(n=1)
+
+datos |>
+  group_by(grupo) |>
+  arrange(desc(valor)) |>
+  slice(1)
+
+datos |>
+  group_by(grupo) |>
+  summarise(max = max(valor))
+```
+
+9.  ¿Cuál es la función para convertir los datos de un formato largo a uno ancho?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+pivot_wider()
+```
+
+10. ¿Cómo escribirías la función de tidyr para quitar las observaciones (o filas) que contengan NA en la columna biomasa_kg_C3 en un tibble llamado datos?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+datos |>
+  drop_na(biomasa_kg_C3)
+```
+
+# Tarea 4
+
+Pruebas estadísticas
+
+1.  ¿Qué tipo de pruebas usarías para analizar datos que no se distribuyen de manera normal?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+pruebas no paramétricas
+```
+
+2.  ¿Qué función te permite probar si una variable se distribuye de manera normal?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+library(rstatix)
+shapiro_test()
+```
+
+Algunos pusieron `shapiro.test`. También la tomé como buena porque aunque no es de las funciones del paquete `rstatix` existe y sirve para hacer la prueba de Shapiro.
+
+En esta respuesta como cargué el paquete `rstatix` para dejar claro que se requiere para poder usar las funciones vistas en clase.
+
+3.  Qué función usarías para comparar dos medias que se distribuyen de manera normal
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+t_test()
+```
+
+4.  ¿Qué función usarias para comparar dos medias que se distribuyen de manera NO normal?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+wilcox_test()
+```
+
+Aunque tomé `wilcox_test` como buena, realmente esta prueba compara **medianas** no **medias**. La respuesta 100 % correcta debería haber sido que si las medias no son normales, se podría usar `wilcox_test` para comparar medianas, no medias.
+
+Con los siguientes datos sobre la talla (largo en cm) de carpas (Cyprinus carpio) en tres distintos ambientes, evalúa las siguiente pruebas estadísticas. Ojo: corre la línea de set.seed antes de correr los datos para que siempre den los mismos valores (rnorm genera datos aleatorios con una distribución particular).
+
+```{r echo=T, error=TRUE}
+set.seed(5)
+datos <- tibble(ambiente = rep(c("Estanque", "Presa", "Río"), each = 50), talla = c(rnorm(50,65,3), rnorm(50,70,5), rnorm(50,85,5)))
+```
+
+En este código `set.seed` genera una semilla aleatoria que asegura que siempre que se corra la siguiente línea den los mismos valores. Por su parte, `rnorm` genera datos con una distribución normal. El primer argumento dice cuántos datos queremos, el segundo, el valor del promedio o la media y el tercero, la desviación estándar.
+
+5.  Suponiendo que los datos se distribuyen de manera normal y tienen homogeneidad de varianzas. ¿Cómo probarías si hay diferencias significativas entre las medias de la talla de los peces entre los tres tipos de ambiente?
+
+```{r echo=T, error=TRUE}
+datos |>
+  anova_test(talla ~ ambiente)
+```
+
+Hay por lo menos una media distinta. El valor de significancia es menor a 0.05
+
+6.  ¿Encontraste por lo menos diferencias significativas en alguna de las medias del ejercicio anterior? Si sí, cómo harías para detectar cuáles medias son distintas entre sí. Utiliza la prueba de Tukey.
+
+```{r echo=T, error=TRUE}
+datos |>
+  tukey_hsd(talla~ambiente)
+```
+
+Como el ANOVA detecto diferencias significativas, hacemos una prueba post-hoc.
+
+7.  ¿Entre cuáles ambientes detectaste diferencias significativas?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+Todos. Todas las comparaciones pareadas muestran una significancia menor a 0.05
+```
+
+Con los siguientes datos sobre la talla (largo en cm) de cocodrilos ( Crocodylus acutus) y el número de huevos puestos, evalúa las siguiente pruebas estadísticas. Ojo: corre la línea de set.seed antes de correr los datos para que siempre den los mismos valores (rnorm genera datos aleatorios con una distribución particular).
+
+```{r echo=T, error=TRUE}
+set.seed(5)
+datos <- tibble(talla= c(rnorm(50,3,0.5), rnorm(50,3.5,0.25), rnorm(50,4,0.5)), huevos= c(rnorm(50,30,15), rnorm(50,50,10), rnorm(50,70,20)))
+```
+
+8.  ¿Cómo harías una correlación no paramétrica para ver si están correlacionados el largo de los cocodrilos y el número de huevos que ponen?
+
+```{r echo=T, error=TRUE}
+datos |> 
+  cor_test(vars = c(talla, huevos), 
+           vars2 = c(talla, huevos),
+           method = "spearman")
+```
+
+La versión más sencilla podía ser
+
+```{r echo=T, error=TRUE}
+datos |> 
+  cor_test(vars = talla, 
+           vars2 = huevos,
+           method = "spearman")
+```
+
+9.  ¿Cómo harías una regresión lineal para ver si el largo de los cocodrilos permite explicar el número de huevos que ponen?
+
+Cualquiera de las siguientes dos opciones eran correctas:
+
+```{r echo=T, error=TRUE}
+ lm(huevos ~ talla, data = datos)
+
+datos |> (\(x) lm(huevos ~ talla, data = x))()
+```
+
+10. ¿El largo de los cocodrilos permite explicar el número de huevos que ponen? o en otras palabras, ¿la pendiente de la regresión es significativa? Contesta sí o no.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+Sí
+```
+
+En el siguiente código podemos ver que el valor de significancia (p.value) es menor que 0.05 para el término talla, por lo cual, rechazamos la hipótesis nula y concluimos que el largo de los cocodrilos permite explicar el número de huevos.
+
+```{r echo=T, error=TRUE}
+datos |> 
+  (\(x) lm(huevos ~ talla, data = x))() |>
+  tidy()
+```
+
+# Tarea 5
+
+Gráficas con ggplot2
+
+Utiliza los siguientes datos para generar los gráficos de la tarea. Se trata del registro de largo (cm) y peso (kg) de tlacuaches (Didelphis marsupialis) en tres localidades distintas.
+
+```{r echo=T, error=TRUE}
+library(tidyverse) # incluye ggplot2
+datos <- tibble(localidad = c("A", "A", "B", "B", "C", "C"), 
+                largo = c(45, 46, 50, 52, 55, 56), 
+                peso = c(0.9, 1, 1.1, 1.2, 1.3, 1.5))
+```
+
+1.  Cómo harías un gráfico de puntos (scatterplot) que muestre en el eje x el largo de los tlacuaches y en el eje y su peso. Coloca el código que usarías en R.
+
+```{r echo=T, error=TRUE}
+datos |> 
+  ggplot(aes(x = largo, 
+             y = peso)) + 
+  geom_point()
+```
+
+2.  Cómo harías un gráfico de tipo histograma que muestre la distribución de la variable peso de los datos de los tlacuaches. Coloca el código que usarías en R.
+
+```{r echo=T, error=TRUE}
+datos |> 
+  ggplot(aes(x = peso)) + 
+  geom_histogram(bins = 3)
+```
+
+3.  Con los datos de los tlacuaches, cómo harías un gráfico de columnas que muestre en el eje x las localidades, en el eje y el largo de los individuos y el relleno de las columnas indique su peso. Coloca el código que usarías en R.
+
+```{r echo=T, error=TRUE }
+datos |> 
+  ggplot(aes(x = localidad, 
+             y = largo, 
+             fill = peso)) + 
+  geom_col()
+```
+
+Aunque la respuesta correcta era la anterior, varias personas me comentaron que la gráfica no comunicaba muy bien el mensaje porque apilaba las barras. Entonces para solucionarlo había dos alternativas
+
+1.  Ponerle posición "dodge" para que no apile las barras
+
+```{r echo=T, error=TRUE }
+datos |> 
+  ggplot(aes(x = localidad, 
+             y = largo, 
+             fill = peso)) + 
+  geom_col(position = "dodge")
+```
+
+o 2. Resumir el largo y peso promedio por localidad
+
+```{r echo=T, error=TRUE }
+datos |> 
+  group_by(localidad) |>
+  summarise(promlargo = mean(largo),
+            prompeso = mean(peso),
+            .groups = "drop") |>
+  ggplot(aes(x = localidad, 
+             y = promlargo, 
+             fill = prompeso)) + 
+  geom_col()
+```
+
+4.  ¿Qué función permite cambiar los títulos de los ejes de la gráfica que se colocan por default? Recuerda que por default en ggplot, los ejes toman el nombre de la variable representada en cada eje.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+labs()
+```
+
+5.  Qué función permite modificar la representación del eje Y cuando la variable representada en este eje es una variable continua. Esta función permite cambiar los límites del eje, así como los intervalos donde se muestran etiquetas.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+scale_y_continuous()
+```
+
+6.  Qué función permite cambiar la escala de colores asignada de manera automática a un gráfico, al mapear una variable en el argumento de `fill`.
+
+Cualquiera de las siguientes era correcta (con o sin paréntesis):
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+scale_fill_manual()
+scale_fill_brewer()
+scale_fill_distiller()
+```
+
+7.  Qué función permite crear gráficas multipanel, sin necesidad de crear las gráficas por separado.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+facet_grid()
+facet_wrap()
+```
+
+8.  Menciona dos funciones para utilizar algunos de los temas que vienen por default en ggplot
+
+Cualquier combinación de los siguientes temas era correcta
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+theme_bw()
+theme_classic()
+theme_dark()
+theme_gray()
+theme_light()
+theme_minimal()
+theme_void()
+theme_cowplot()
+```
+
+9.  Qué función permite guardar un plot generado con ggplot a un archivo en disco (p.ej., png, pdf, o jpg)
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+ggsave()
+```
+
+Algunos contestaron `save_plot` y se las puse bien. Esa función es del paquete `cowplot`, pero también sirve para exportar gráficas.
+
+10. Qué paquete permite juntar dos gráficos generados por separado en uno solo.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+cowplot
+patchwork
+```
+
+# Tarea 6
+
+Gráficas con ggplot2
+
+Utiliza los siguientes datos para generar los gráficos de la tarea. Se trata del registro de largo (cm) y peso (kg) de tlacuaches (Didelphis marsupialis) en tres localidades distintas.
+
+```{r echo=T, error=TRUE}
+library(tidyverse) # incluye ggplot2
+library(iNEXT)
+library(BiodiversityR)
+
+datos <- structure(list(Terminalia.buceras = c(3L, 5L, 3L, 8L, 1L, 3L,
+6L, 2L, 2L), Laguncularia.racemosa = c(1L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), Lonchocarpus.hondurensis = c(1L, 3L, 4L, 2L, 1L, 1L, 0L, 1L, 3L), Pachira.aquatica = c(4L, 2L, 0L, 2L, 3L, 1L, 4L, 1L, 2L), Rhizophora.mangle = c(4L, 2L, 4L, 1L, 7L, 6L, 1L, 8L, 5L), Coccoloba.barbadensis = c(0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L, 0L), Tabebuia.rosea = c(0L, 1L, 0L, 0L, 0L, 0L, 0L, 1L, 0L ), Chrysobalanus.icaco = c(0L, 1L, 0L, 0L, 0L, 1L, 1L, 0L, 0L ), Manilkara.zapota = c(0L, 0L, 1L, 1L, 0L, 0L, 0L, 0L, 0L), Zygia.recordii = c(1L, 0L, 0L, 0L, 1L, 0L, 0L, 0L, 1L)), class = "data.frame", row.names = c(NA, -9L))
+```
+
+1.  Usando el conjunto de datos "datos", cómo obtendrías el número de especies (riqueza de especies) por sitio.
+
+con vegan
+
+```{r echo=T, error=TRUE}
+specnumber(datos)
+```
+
+La opción con BiodiversityR
+
+```{r echo=T, error=TRUE}
+diversityresult(x=datos |> 
+                  as.matrix(), 
+                index = "richness", 
+                method ="each site",
+                ortit = FALSE)
+```
+
+Versión más en el tidyverse, requiere formatear datos en formato largo.
+
+```{r echo=T, error=TRUE}
+datos |> 
+  mutate(Sitio = 1:9) |> 
+  pivot_longer(cols = -Sitio, 
+               names_to = "Especies",
+               values_to = "n") |>
+  group_by(Sitio) |> 
+  summarise(rich = specnumber(n))
+```
+
+2.  Usando el conjunto de datos "datos", cómo obtendrías el índice de Shannon por sitio.
+
+con vegan
+
+```{r echo=T, error=TRUE}
+diversity(datos, index = "shannon")
+```
+
+con BiodiversityR
+
+```{r echo=T, error=TRUE}
+diversityresult(x = datos, 
+                index = "Shannon", 
+                method = "each site", 
+                sortit = FALSE, 
+                digits = 5)
+```
+
+3.  Usando el conjunto de datos "datos", cómo obtendrías el índice de Simpson por sitio.
+
+con vegan
+
+```{r echo=T, error=TRUE}
+diversity(datos, index = "simpson")
+```
+
+con BiodiversityR
+
+```{r echo=T, error=TRUE}
+diversityresult(x = datos, 
+                index = "Simpson", 
+                method = "each site", 
+                sortit = FALSE, 
+                digits = 5)
+```
+
+4.  Usando el conjunto de datos "datos", cómo obtendrías la riqueza de especies rarificada a 9 individuos, por sitio.
+
+```{r echo=T, error=TRUE}
+rarefy(datos, sample = 9)
+```
+
+5.  Con qué función del paquete vegan calcularías una curva de acumulación de especies.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+specaccum()
+```
+
+6.  El número de Hill exponente 0 es igual a qué índice de diversidad "clásico".
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+Riqueza de especies
+```
+
+7.  Qué función del paquete iNEXT te permite calcular los índices de Hill.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+estimateD()
+```
+
+También la función `iNEXT()` te permite calcular los índices de Hill, pero hay que buscar dentro de los resultados para ver los estimados con el número de individuos que se muestrearon en cada parcela. Esto correponde a la entrada que en Method dice Observed, dentro de la lista `resul$iNextEst$size_based`
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+resul <- iNEXT(t(datos))
+resul$iNextEst$size_based
+```
+
+8.  Qué función del paquete iNEXT te permite crear una curva de acumulación de especies. Ojo: obtener los datos de la curva de acumulación de especies, no generar el gráfico de la curva de acumulación de especies.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+iNEXT()
+```
+
+9.  Qué función del paquete iNEXT te permite generar una gráfica de curva de acumulación de especies, utilizando los resultados de la función iNEXT.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+ggiNEXT()
+```
+
+10. ¿Qué función te permite calcular los valores para generar una curva de rango - abundancia?
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+rankabundance()
+```
+
+11. Cómo calcularías el número de Hill exponente 0 para los datos de abundancia del manglar. En este caso, en el argumento de level le puedes poner el número de individuos al que quieres rarificar o extrapolar el número de Hill. En este caso, estima el número de especies estimado para 9 individuos (lo cual implica que se calcularía mediante rarefacción). ¿Cuál sería el valor de riqueza de especies rarificado a 9 individuos para el sitio 5?
+
+```{r echo=T, error=TRUE}
+datos2 <- as.data.frame(t(datos))
+colnames(datos2) <- paste0("sitio_", 1:9)
+```
+
+La respuesta correcta era: 4.0629
+
+Opción vegan
+
+```{r echo=T, error=TRUE}
+rarif_resul <- rarefy(datos, sample = 9)
+rarif_resul[5]
+```
+
+Opción BiodiversityR
+
+```{r echo=T, error=TRUE}
+resul_inext <- iNEXT(x = datos2, 
+               q = 0,#c(0,1,2), 
+               datatype="abundance",
+               size = 9)
+
+resul_inext$iNextEst$size_based |>
+  filter(Assemblage == "sitio_5")
+```
+
+# Tarea 7
+
+Modelos con tidymodels
+
+1. Qué tipo de modelo trata de describir la relación de dependencia entre dos variables numéricas.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+Regresión
+```
+
+2.  Al crear predicciones basadas en un modelo predictivo cuáles son los dos componentes del error.
+
+con vegan
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+Varianza y sesgo
+```
+
+3. Cuál paquete dentro de tidymodels sirve para evaluar los modelos ajustados mediante métricas de error o de ajuste.
+
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+yardstick
+```
+
+4.  Qué función permite dividir los datos en un set de entrenamiento y prueba (Pista: es el paso anterior a correr las funciones training y testing).
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+initial_split()
+```
+
+5.  Qué función permite definir una receta y los datos a usar por ésta, para un generar un modelo
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+recipe()
+```
+
+6.  Qué función permite ajustar un modelo, definido mediante un flujo de trabajo (donde ya se incluye la receta y el tipo de modelo a ajustar).
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+fit()
+```
+
+7.  Qué función permite "sembrar una semilla" para que cualquier proceso aleatorio siempre de el mismo resultado (lo cual asegura la reproducibilidad). Esto se usa por ejemplo, para asegurarse que las mismas observaciones siempre se vayan para datos de entrenamiento y otras siempre a datos de prueba.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+set.seed()
+```
+
+8.  Qué función permite agregar las predicciones como una columna al lado de los datos originales. Esto normalmente se hace con los datos de prueba
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+augment()
+```
+
+9. Qué función te permite definir las métricas a utilizar para evaluar el desempeño de un modelo ajustado. Pueden ser métricas de error o métrias de ajuste.
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+metric_set()
+```
+
+10. Menciona un método de validación cruzada que vimos en clase
+
+```{r echo=T, error=TRUE, results='hide', eval = FALSE}
+vfold, Montecarlo, leave-one-out
+```

@@ -1,0 +1,951 @@
+---
+title: "6.Diversidad"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+# Medidas de diversidad
+
+## Conceptos básicos
+
+-   Especie. Grupo de organismos que se pueden reproducir entre sí y generar descendencia fértil.
+-   Comunidad. Conjunto de diferentes especies que interactúan entre sí.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/comunidad.jpg")
+```
+
+-   Muestreo. Método por el cual inferimos propiedades de una población objetivo (no confundir con población en el sentido ecológico).
+-   Esfuerzo de muestreo. Número de individuos muestreados o el tiempo invertido en obtener datos.
+-   Interpolación. Modelar datos dentro del intervalo observado.
+-   Extrapolación. Modelar datos fuera del intervalo observado.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/esfuerzo.jpg")
+```
+
+-   Abundancia. Qué tan común o raro es encontrar una especie en una comunidad.
+-   Diversidad. Propiedad emergente de las comunidades que incorpora el grado de heterogeneidad de algún estado o propiedad (este estado puede ser diversidad de especies, gremios, grupos funcionales, familias, genética, etc).
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/diver.png")
+```
+
+-   Remuestreo. Técnica estadística que permite obtener estimaciones simulando submuestras de una muestra.
+
+No existe una única forma de medir biodiversidad. Por lo tanto, hay diversas medidas que describen de manera distinta la diversidad. ¿Cómo responder a la pregunta qué tan diversa es una comunidad?
+
+### Diversidad
+
+Diversidad $\alpha$, $\beta$ y $\gamma$.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/divs.jpg")
+```
+
+Los índices que vamos a ver permiten obtener mediciones $\alpha$ y $\gamma$. $\beta$ normalmente se mide con índice de similitud o disimilitud.
+
+### Relevancia
+
+El poder medir la diversidad permite entender patrones de distribución de especies (p.ej., zonas tropicales vs polares), poner a prueba hipótesis ecológicas (p.ej., sobre el estado de conservación / perturbación), crear líneas base (p.ej., conocer el número de especies presentes en una región), proveer información de prioridades de conservación (p.ej., proteger zonas más biodiversas), entre otras.
+
+### Índices tradicionales
+
+Índices sobre qué tan heterogénea es una comunidad. Normalmente tratan de resumir dos componentes:
+
+-   Número de especies.
+-   Abundancia de éstas.
+
+Medidas sobre diversidad incluyen el cálculo de índices "clásicos":
+
+-   Riqueza. Número de especies en una muestra.
+-   Índice de Shannon. Incertidumbre en la identidad de una especie en una muestra. Índice que considera riqueza de especies y dominancia.
+
+$$
+D = -\sum_{i=1}^S p_i ln p_i
+$$
+
+-   Índice de Simpson. Probabilidad de que dos individuos, de una muestra, elegidos al azar sean de especies distintas. Índice que considera riqueza de especies y dominancia, pero está más influenciado por la dominancia.
+
+Está el índice de Simpson (o Gini-Simpson).
+
+$$
+D = 1 - \sum_{i=1}^S p_i^2
+$$
+
+y el inverso de Simpson.
+
+$$
+D = \frac{1}{\sum_{i=1}^S p_i^2}
+$$
+
+-   Curvas de rango abundancia. Abundancia de cada especie encontrada en el muestreo.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/indices.png")
+```
+
+Figuras tomadas de: <https://www.davidzeleny.net/anadat-r/doku.php/en:div-ind>
+
+Sin embargo, el principal problema con estos índices es que los índices dependen del esfuerzo de muestreo, cuántas especies hay y su abundancia relativa. Entonces qué puede pasar:
+
+1.  Una comunidad puede ser igual de diversa que otra, pero si se muestreó con un menor esfuerzo de muestreo, el índice saldrá menor.
+2.  Dos comunidades con el mismo valor del índice de Shannon, pero una puede tener el doble número de especies con diferente abundancia.
+
+Otras métricas que se han plantado como alternativas, basadas en técnicas de remuestreo:
+
+-   Curvas de acumulación de especies.
+-   Rarefacción.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/curvaacum.png")
+```
+
+Las curvas de acumulación de especies permiten simular la diversidad encontrada en función del esfuerzo de muestreo. Tratan de describir la dependencia de los índices de diversidad de acuerdo con el esfuerzo de muestreo.
+
+Los índices rarificados se basan en las curvas de acumulación de especies para intrapolar el valor de diversidad (modelado) de una comunidad con un esfuerzo de muestreo reducido.
+
+### Números de Hill
+
+Los números de Hill corresponden a medidas de diversidad que tratan de estandarizar estas medidas en función del número de especies y su abundancia.
+
+Trata de abordar el problema de la medir la diversidad en comunidades, como un valor que depende del: 1) esfuerzo de muestreo y 2) cuántas especies hay y su abundancia relativa.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/hills.jpg")
+```
+
+Figuras tomadas de: <https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/oik.07202>
+
+
+Su ventaja respecto a los índices de diversidad "tradicionales":
+
+1.  Interpretables en términos de número de especies.
+2.  Cuentan con un exponente que controla la sensibilidad de la diversidad a la abundancia de las especies (q = c(0,1,2)). Más importancia a especies abundantes conforme incrementa el número q.
+
+-   q0: Riqueza de especies. Más sensible a especies raras.
+-   q1: Similar al índice de Shannon, pero expresado en número de especies (comunes). Punto intermedio.
+-   q2: Similar al índice de Simpson, pero expresado en número de especies (comunes). Más sensible a especies comunes.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/hill.jpg")
+```
+
+Figuras tomadas de: <https://www.davidzeleny.net/anadat-r/doku.php/en:div-ind>
+
+Ventajas:
+
+1.  Si dos comunidades tienen una proporción similar de especies dominantes, pero distinto número de especies totales, su índice de Shannon o Simpson serán muy similares; pero q1 y q2 no (reflejará la diferencia en número de especies).
+2.  Los valores se expresan en número de especies. Modelan una comunidad con determinada diversidad donde todas las especies tienen la misma abundancia.
+3.  Permite hacer comparaciones proporcionales en términos de diversidad entre números de Hill de distintas comunidades.
+
+$$
+D = (\sum_{i=1}^S p_i^q)^{1/1-q}
+$$
+
+$S$: número de especies en la muestra. $p_i$: número de individuos de la especie $i$ entre total de individuos. $q$: exponente del número de Hill.
+
+Otro concepto importante: Coverage.
+
+Es una medida de qué tanto se ha muestrado una comunidad. Coverage crece más lento conforme crece el tamaño de la muestra. Se calcula a partir del número de singletons, doubletons y número total de individuos.
+
+[iNEXT package](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12613) 
+
+[Medir diversidad](https://nsojournals.onlinelibrary.wiley.com/doi/full/10.1111/oik.07202)
+
+# Datos INFyS
+
+Veremos tres paquetes hoy: vegan, BiodiversityR y iNEXT.
+
+- vegan: Clásico paquete para calcular índices de diversidad, curvas de acumulación de especies, rarificación, extrapolación de número de especies.
+- BiodiversityR: funciones basadas en vegan más amigable con el tidyverse.
+- iNEXT: Cálculo de números de Hill y curva de acumulación de especies.
+
+Empecemos cargando los paquetes que vamos a usar.
+
+```{r setup, include=TRUE}
+library(BiodiversityR)
+library(readxl)
+library(tidyverse)
+library(readr)
+library(skimr)
+library(iNEXT)
+library(dplyr)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Cargar los datos del INFyS, pero ahora usaremos las columnas de especies.
+
+```{r}
+df <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+
+# Preprocesamiento limpieza de datos
+df <- df |>
+  mutate(across(c(AlturaTotal_C3, DiametroNormal_C3), ~ifelse(.x >= 99999, NA, .x))) |>
+  # Eliminar NA
+  drop_na(AlturaTotal_C3, DiametroNormal_C3) |>
+  # Seleccionar columnas de interés
+  select(IdConglomerado, DESCRIP_S7_C3, Genero_APG_C3, Especie_APG_C3) |>
+  # Renombrar columnas
+  rename("ParcelaId" = "IdConglomerado",
+         "TipoVeg" = "DESCRIP_S7_C3",
+         "Genero" = "Genero_APG_C3",
+         "Especie" = "Especie_APG_C3")
+
+skim(df)
+```
+
+Crear columna de especies
+
+```{r}
+df <- df |>
+  mutate(nom_cien = paste(Genero, Especie, sep = " "))
+
+df |>
+  select(nom_cien) |>
+  distinct() |>
+  arrange(nom_cien)
+```
+
+Hay algunos géneros sin especies (NULL)
+
+```{r}
+df <- df |>
+  mutate(across(nom_cien, ~str_replace_all(.x, "NULL", "sp.")))
+         
+df |>
+  select(nom_cien) |>
+  distinct() |>
+  arrange(nom_cien)
+```
+
+## vegan
+
+Sacar datos de los sitios
+
+Queremos usar las siguientes funciones, ver ayuda
+
+```{r, eval = FALSE}
+help(diversity)
+```
+
+Para saber cómo meter los dato conviene revisar los datos que vienen en los ejemplos. Datos de la isla de Barro Colorado.
+
+Vemos que en `BCI` vienen las especies en columnas, las abundancias correpsonden a cada entrada y las filas representan los sitios de muestreo. Trataremos de poner los datos en ese formato.
+
+```{r}
+data(BCI)
+data(BCI.env)
+as_tibble(BCI)
+as_tibble(BCI.env)
+```
+
+### Preprocesamiento
+
+df_sites2: Abundancia por sitio de muestreo. Este lo vamos a usar después, pero para dejarlo en el ambiente de trabajo.
+df2: Abundancia por tipo de vegetación.
+
+Convertirlo a datos en formato ancho y convertirlo a matriz para poder usar las funciones de vegan.
+
+```{r}
+library(vegan)
+
+# Crear matriz de sitios y abundancia por especies
+df_sites2 <- df |>
+  select(TipoVeg, ParcelaId, nom_cien) |>
+  group_by(TipoVeg, ParcelaId, nom_cien) |>
+  count() |>
+  pivot_wider(id_cols = c(TipoVeg, ParcelaId),
+              names_from = nom_cien,
+              values_from = n,
+              values_fill = 0) |>
+  ungroup()
+
+# Grupos de tipos de vegetación
+veggroups <- df_sites2 |>
+  pull(TipoVeg)
+
+# Datos de los sitios, quitar tipoVeg y ParcelaID para solo dejar datos de abundancias
+df_sites2 <- df_sites2 |>
+  select(-c(TipoVeg, ParcelaId)) |>
+  as.matrix()
+```
+
+Crear tablas de abundancias a partir de observaciones individuales
+
+```{r}
+# Acomodar datos y ponerlos en formato para usarlo por funciones de vegan
+# Por tipo de vegetación
+df2 <- df |>
+  select(TipoVeg, nom_cien) |>
+  group_by(TipoVeg, nom_cien) |>
+  count() |>
+  ungroup() |>
+  select(TipoVeg, nom_cien, n) 
+
+tv <- df2 |>
+  pull(TipoVeg) 
+
+df2mat <- df2 |>
+  pivot_wider(id_cols = TipoVeg,
+              names_from = nom_cien,
+              values_from = n,
+              values_fill =0) |>
+  select(-TipoVeg) |>
+  as.matrix()
+```
+
+### Índices de diversidad
+
+Calcular índices de diversidad de dos formas, una más "tidyverse" y otra menos.
+
+```{r}
+# Por tipo de vegetación: Tidyverse. Más organizado
+res_vegan <- df2 |>
+  group_by(TipoVeg) |>
+  summarise(rich = specnumber(n),
+            shan = diversity(n,
+                             index = "shannon"),
+            simp = diversity(n,
+                             index = "simpson"), 
+            invsimp = diversity(n,
+                                index = "invsimpson"))
+res_vegan
+```
+
+Más con sintáxis R base
+
+```{r}
+# Por tipo de vegetación: más R base. Menos organizados (luego hay que hacer un data.frame).
+specnumber(df2mat)
+diversity(df_sites2, 
+          index = "shannon",
+          groups = veggroups)
+```
+
+Aquí vamos a ver que la desventaja es que vegan no se cruza tan bien con el tidyverse (sobre todo porque las funciones deben leer matrices). Sin embargo, vamos a ver rápido algunas funciones básicas.
+
+Crear matriz de abundancias por sitios, en lugar de tipos de vegetación. Lo vamos a usar más adelante.
+
+```{r}
+# Por sitio
+df3 <- df |>
+  select(ParcelaId, nom_cien) |>
+  group_by(ParcelaId, nom_cien) |>
+  count() |>
+  ungroup() |>
+  select(ParcelaId, nom_cien, n) 
+```
+
+### Curva de acumulación de especies
+
+Esto hay que hacerlo por comunidad. Ahorita tomaremos datos de Bosque de Pino-Encino.
+
+```{r}
+# Por un tipo de vegetación
+dfbpq <- df |>
+  filter(TipoVeg == "BOSQUE DE PINO-ENCINO") |>
+  select(ParcelaId, nom_cien) |>
+  group_by(ParcelaId, nom_cien) |>
+  count() |>
+  ungroup() |>
+  select(ParcelaId, nom_cien, n) |>
+  pivot_wider(id_cols = ParcelaId,
+              names_from = nom_cien,
+              values_from = n,
+              values_fill =0) |>
+  select(-ParcelaId) |>
+  as.matrix()
+```
+
+comm : datos de comunidad method: "collector", orden de los datos como viene "random", orden aleatorio "exact", promedio esperado de especies, "coleman", de acuerdo con Coleman et al 1982 "rarefaction", promedio acumulando individuos en lugar de sitios. gamma: método para obtener el número de especies extrapolado, jack1, jack2, chao, boot, species
+
+```{r}
+spacum <- specaccum(comm = dfbpq,
+                    method="random",
+                    permutations=100,
+                    gamma="chao.1")
+spacum
+plot(spacum)
+```
+
+### Rarificación
+
+Rarificar número de especies.
+
+Para cada sitio le calcula el número esperado de especies si se hubieran muestreado en todas 20 individuos. Además se muestra el error estándar.
+
+```{r}
+# Rarificar número de especies
+temp <- rarefy(dfbpq, 
+               sample =  20,
+               se = TRUE)
+temp
+```
+
+Algunas parcelas tienen SE = 0 porque tienen menos individuos que los que le pusimos en sample.
+
+### Extrapolar número total de especies
+
+Modelos: "arrhenius" (SSarrhenius), "gleason" (SSgleason), "gitay" (SSgitay), "lomolino" (SSlomolino) of vegan package. "asymp" (SSasymp). "gompertz" (SSgompertz). "michaelis-menten" (SSmicmen). "logis" (SSlogis). "weibull" (SSweibull).
+
+Usar modelo de michaelis menten para calcular la curva de acumulación
+
+```{r}
+# Calcular número de especies total
+extrspp <- predict(fitspecaccum(dfbpq, 
+                                model = "michaelis-menten", 
+                                method = "exact"),
+                   # Datos sobre los cuales se hace la predicción
+                   newdata=seq(1,500,50))
+
+plot(x = seq(1,500,50),
+     y = extrspp)
+```
+
+De acuerdo con el modelo de Michaelis-Menten, calcula cuál podría ser el número de especies esperado si se aumentara el esfuerzo de muestreo. La idea principal es que si hay mucha diversidad en el muestreo, al extrapolar va a calcular que hay más especies sin registrar y por lo tanto su diversidad extrapolada va a ser mayor.
+
+## BiodiversityR
+
+Ver primero ejemplos de la función 
+
+```{r, eval = FALSE}
+help(diversityresult)
+```
+
+```{r}
+data(dune.env)
+data(dune)
+as_tibble(dune)
+as_tibble(dune.env)
+```
+
+### Pre procesamiento
+
+Igual formato que vegan
+
+Primero sacar los 10 tipos de vegetación con más especies. Luego usar esto para filtrar datos. Luego generar datos de abundancia.
+
+- df3: Datos por sitio.
+- df4: Datos por tipo de vegetación.
+
+```{r}
+tiposveg <- df2 |>
+  group_by(TipoVeg) |>
+  count()|>
+  arrange(desc(n)) |>
+  ungroup() |>
+  slice_head(n = 10) |>
+  pull(TipoVeg)
+
+df3 <- df |>
+  filter(TipoVeg %in% tiposveg) |>
+  select(TipoVeg, ParcelaId, nom_cien) |>
+  group_by(TipoVeg, ParcelaId, nom_cien) |>
+  count() |>
+  ungroup() |>
+  select(TipoVeg, ParcelaId,nom_cien, n) |>
+  pivot_wider(id_cols = c(TipoVeg, ParcelaId),
+              names_from = nom_cien,
+              values_from = n,
+              values_fill = 0) 
+
+df4 <- df |>
+  filter(TipoVeg %in% tiposveg) |>
+  select(TipoVeg, nom_cien) |>
+  group_by(TipoVeg, nom_cien) |>
+  count() |>
+  ungroup() |>
+  select(TipoVeg, nom_cien, n) |>
+  pivot_wider(id_cols = c(TipoVeg),
+              names_from = nom_cien,
+              values_from = n,
+              values_fill = 0) 
+```
+
+### Métricas de diversidad
+
+Por tipo vegetación
+
+Riqueza se puede calcular por: 
+
+- pooled: todo junto.
+- each site: cada sitio o cada nivel de los datos (fila).
+- mean: promedio.
+
+Todos los tipos de vegetación juntos
+
+```{r}
+respool <- diversityresult(x = df4 |>
+                  select(-c(TipoVeg)) |>
+                  as.matrix(),
+                index = "richness",
+                method = "pooled", 
+                sortit = FALSE, 
+                digits = 5)
+respool
+```
+
+Por tipo de vegetación
+
+```{r}
+resit <- diversityresult(x = df4 |>
+                  select(-c(TipoVeg)) |>
+                  as.matrix(),
+                index = "richness",
+                method = "each site", 
+                sortit = FALSE, 
+                digits = 5)
+resit
+```
+
+Promedio por tipo de vegetación
+
+```{r}
+resmean <- diversityresult(x = df4 |>
+                  select(-c(TipoVeg)) |>
+                  as.matrix(),
+                index = "richness",
+                method = "mean", 
+                sortit = FALSE, 
+                digits = 5)
+resmean
+```
+
+Por sitio
+
+Riqueza de todo el muestreo
+
+```{r}
+respool <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "richness",
+                method = "pooled", 
+                sortit = FALSE, 
+                digits = 5)
+respool
+```
+
+Riqueza por sitio
+
+```{r}
+resit <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "richness",
+                method ="each site", 
+                sortit = FALSE, 
+                digits = 5)
+resit
+```
+
+Riqueza promedio por sitio
+
+```{r}
+resmean <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "richness",
+                method = "mean", 
+                sortit = FALSE, 
+                digits = 5)
+resmean
+```
+
+Shannon de todo el muestreo
+
+```{r}
+respool <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "Shannon",
+                method = "pooled", 
+                sortit = FALSE, 
+                digits = 5)
+respool
+```
+
+Shannon por sitio
+
+```{r}
+resit <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "Shannon",
+                method ="each site", 
+                sortit = FALSE, 
+                digits = 5)
+resit
+```
+
+Shannon promedio por sitio
+
+```{r}
+resmean <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "Shannon",
+                method = "mean", 
+                sortit = FALSE, 
+                digits = 5)
+resmean
+```
+
+Simpson de todo el muestreo
+
+```{r}
+respool <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "Simpson",
+                method = "pooled", 
+                sortit = FALSE, 
+                digits = 5)
+respool
+```
+
+Simpson para cada sitio
+
+```{r}
+resit <- diversityresult(x = df3 |>
+                  select(-c(TipoVeg, ParcelaId)) |>
+                  as.matrix(),
+                index = "Simpson",
+                method ="each site", 
+                sortit = FALSE, 
+                digits = 5)
+resit
+```
+
+Simpson promedio por sitio
+
+```{r}
+resmean <- diversityresult(x = df3 |>
+                             select(-c(TipoVeg, ParcelaId)) |>
+                             as.matrix(),
+                           index = "Simpson",
+                           method = "mean", 
+                           sortit = FALSE, 
+                           digits = 5)
+resmean
+```
+
+### Acumulación de especies
+
+Por tipo de vegetación
+
+```{r}
+resul <- accumcomp(x = df3 |>
+                     filter(TipoVeg %in% tiposveg) |>
+                     select(-c(TipoVeg, ParcelaId)) |>
+                     as.matrix(), 
+                   y = df3 |>
+                     filter(TipoVeg %in% tiposveg) |>
+                     select(c(TipoVeg, ParcelaId)),
+                   factor = "TipoVeg",
+                   method = "exact",
+                   plotit = FALSE)
+dim(resul)
+
+# pa df
+resul_list <- map(1:dim(resul)[1], function(i){
+  as.data.frame(resul[i,,]) 
+}) |>
+  setNames(dimnames(resul)$TipoVeg) |>
+  bind_rows(.id = "tipoveg") |>
+  drop_na(Sites)
+
+resul_list
+
+resul_list |>
+  mutate(ymin = Richness - 1.96 * sd,
+         ymax = Richness + 1.96 * sd) |>
+  ggplot(aes(x = Sites,
+             y = Richness,
+             col = tipoveg,
+             fill = tipoveg,
+             gropu = tipoveg,
+             ymin = ymin,
+             ymax = ymax)) +
+  geom_point() +
+  geom_line() +
+  geom_ribbon(alpha=0.5) +
+  theme_bw()
+```
+
+### Curvas rango abundancia
+
+Preprocesamiento
+
+```{r}
+df4 <- df |>
+        select(TipoVeg, nom_cien, ParcelaId) |>
+       group_by(TipoVeg, nom_cien, ParcelaId) |>
+  count() |>
+  ungroup() |>
+  select(TipoVeg, nom_cien, ParcelaId, n) |>
+  as.data.frame() |>
+  mutate(across(nom_cien, ~gsub(" ", "_", .x))) |>
+  pivot_wider(id_cols = c(TipoVeg, ParcelaId),
+              names_from = nom_cien,
+              values_from = n,
+              values_fill = 0) 
+
+tiposveg <- df4 |>
+  group_by(TipoVeg) |>
+  count()|>
+  filter(n >= 10) |>
+  ungroup() |>
+  pull(TipoVeg)
+  
+df4 <- df4 |>
+  filter(TipoVeg %in% tiposveg) |>
+  select(-c(TipoVeg, ParcelaId)) |>
+  as.matrix()
+```
+
+### Cálculo de curvas de rango abundancia
+
+```{r, eval = FALSE}
+help(rankabundance)
+```
+
+Usan mismos datos de dune.env, así que podemos usar los objetos que ya creamos.
+
+Hechas con los datos de los tipos de vegetación seleccionados.
+
+```{r}
+resul <- rankabundance(x = df4)
+especies <- rownames(resul)
+
+resul |>
+  as_tibble() |>
+  mutate(Especie = especies) |>
+  ggplot(aes(x = rank,
+             y = abundance,
+             label = Especie)) +
+  geom_point() +
+  geom_line() +
+  geom_text(nudge_y = 1000, 
+            angle = 90,
+            size = 1.2) +
+  # Si queremos ver solo parte del gráfico
+  scale_x_continuous(limits = c(1,10)) +
+  theme_bw() 
+```
+
+10 Especies más comunes
+
+```{r}
+resul |>
+  as_tibble() |>
+   mutate(Especie = especies) |>
+  arrange(rank) |>
+  slice_head(n = 10) |>
+  distinct(Especie)
+```
+
+## iNEXT
+
+Paquete de R enfocado en calcular los números de Hill. 
+
+### Preprocesamiento
+
+Diversidad por sitio y por comunidad: df1
+
+tipo vegetación df_sitios: sitios.
+
+Sacar los 10 tipos de vegetación con mauor número de sitios muestrados.
+
+```{r}
+tipos_veg <- df |>
+  group_by(TipoVeg) |>
+  distinct(ParcelaId) |>
+  count() |>
+  arrange(desc(n)) |>
+  ungroup() |>
+  slice_head(n = 10) |>
+  pull(TipoVeg)
+
+df1 <- df |>
+    filter(TipoVeg %in% tipos_veg) |>
+    select(TipoVeg, nom_cien) |>
+    group_by(TipoVeg, nom_cien) |>
+    count() |>
+    ungroup() |>
+    pivot_wider(id_cols = nom_cien,
+                names_from = TipoVeg,
+                values_from = n,
+                values_fill = 0) |>
+    select(-nom_cien) |>
+    as.data.frame()
+
+# Si quisieran hacerlo por sitios
+# df_sitios <- df |>
+#     filter(TipoVeg %in% tipos_veg) |>
+#     select(ParcelaId, nom_cien) |>
+#     group_by(ParcelaId, nom_cien) |>
+#     count() |>
+#     ungroup() |>
+#     pivot_wider(id_cols = nom_cien,
+#                 names_from = ParcelaId,
+#                 values_from = n,
+#                 values_fill = 0) |>
+#     select(-nom_cien) |>
+#     as.data.frame()
+```
+
+### Números de Hill
+
+Estimar números de hill con cierto número de individuos muestreados por tipo de vegetación.
+
+- m: tamaño de muestra.
+- Method: método de cálculo.
+- valor de q: Exponente de número de Hill.
+- SC: sample coverage.
+- qD: valor de números de Hill
+- Intervalos de confianza.
+
+```{r}
+hills_tv <- estimateD(
+  x = df1,
+  q = c(0, 1, 2),
+  datatype = "abundance",
+  base = "size",
+  level = 9,
+  nboot = 50,
+  conf = 0.95
+)
+```
+
+### Curva de acumularción de especies: Interpolación y Extrapolación
+
+Primer prueba
+
+```{r}
+# No corre, por qué
+
+# iNEXT(x = df,
+#                q = c(0, 1, 2),
+#                datatype="abundance",
+#                endpoint = 120,
+#                nboot = 1)
+```
+
+¿Qué signifca el error?
+Ver los datos que están entrando.
+
+- endpoint: valor al que quieres interpolar o extrapolar todos los estimados. 
+- nboot: número de bootstraps.
+
+```{r}
+# Por si quisieran hacerlo por sitios
+# resul_s <- iNEXT(x = df_sitios,
+#                q = 0,
+#                datatype="abundance",
+#                endpoint = 120,
+#                nboot = 10)
+
+resul <- iNEXT(x = df1, 
+               q = 0,#c(0,1,2), 
+               datatype="abundance",
+               # endpoint = 2100,
+               nboot = 10)
+```
+
+Por comunidad
+
+```{r}
+# por sitios
+# plot(resul_s)
+plot(resul)
+```
+
+Resultados de iNext
+
+**Resultados básicos**
+
+Número de individuos muestrados, especies observadas, Sample Coverage estimada (qué tan completo fue el muestreo), y primeros conteos de frecuencias.
+
+```{r}
+resul$DataInfo
+```
+
+**Estimados de diversidad con muestras rarificadas y extrapoladas**
+
+Dos listas: 1) size_based, 2) coverage_based. Principales resultados: Order.q (número de Hill), qD (estimado del número de Hill), SC (Sample Coverage) e intervalos de confianza LCL y UCL.
+
+```{r}
+resul$iNextEst
+```
+
+**Estimados interpol y extrapol por tamaño**
+
+```{r}
+resul$iNextEst$size_based
+```
+
+**Estimados interpol y extrapol por coverage**
+
+```{r}
+resul$iNextEst$coverage_based
+```
+
+**Estimados asintóticos** resul\$AsyEst
+
+tipo 1: sample-size-based rarefaction/extrapolation curve.
+
+tipo 2: sample completeness curve.
+
+tipo 3: coverage-based rarefaction/extrapolation curve.
+
+```{r}
+ggiNEXT(resul, 
+        type=1, 
+        facet.var="None", 
+        color.var = "Assemblage")
+```
+
+```{r}
+ggiNEXT(resul, 
+        type=2, 
+        facet.var="None", 
+        color.var = "Assemblage")
+```
+
+```{r}
+ggiNEXT(resul, 
+        type=3, 
+        facet.var="None", 
+        color.var = "Assemblage")
+```
+
+Sacar la gráfica de la curva de acumulación de especies para editarla como cualquier gráfico generado con ggplot.
+
+```{r}
+resul[[2]][[1]] |>
+  mutate(ymin = qD.LCL,
+         ymax = qD.UCL) |>
+  ggplot(aes(x = m,
+             y = qD,
+             col = Assemblage,
+             fill = Assemblage,
+             group = Assemblage,
+             ymin = ymin,
+             ymax = ymax)) +
+  geom_line() + 
+  geom_ribbon(alpha=0.5) +
+  facet_wrap(~ Order.q, scales = "free_y") +
+  theme_bw()
+```
+
+

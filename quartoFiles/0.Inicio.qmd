@@ -1,0 +1,113 @@
+---
+title: "0.Inicio"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+# Curso de Introducción a R (enfocado en temas de biodiversidad y ciencia de datos)
+
+## Idea del curso
+
+-   Introducir a R y brindar herramientas para el manejo de datos enfocados en temas de biodiversidad.
+-   No requiere de conocimientos previos de programación.
+-   Enfocado a la ciencia de datos.
+-   Realizar varias prácticas.
+
+## Curso teórico-práctico
+
+- Teórico/Práctico: 
+  - 75% de las clases sincrónicas virtuales.
+  - Evaluaciones con un promedio mayor o igual a 70.
+-   2 horas por semana (16 horas en total).
+-   Horario: 18-20 hrs (GMT-6).
+-   Tareas semanales (aprox. una hora).
+-   Trabajo final (aprox 3 hrs).
+- Comunicación vía classroom, correo o telegram. Sugiero usar telegram para cosas muy puntuales o interactuar entre ustedes.
+
+# Evaluación
+
+| Actividad   | Porcentaje (%) |
+| ----------- | ----------- |
+| Clases presenciales | 40   |
+| Tareas   | 30        |
+| Proyecto final | 30        |
+| Total| 100 |
+
+El proyecto final consta de la aplicación de los conocimientos adquiridos en el curso a un problema de interés de cada estudiante. 
+
+Las tareas se dejarán después de cada clase y se podrán entregar hasta las 00:00 GMT-6 horas del día de la siguiente clase. 
+
+Tareas en forma de cuestionarios de google.
+
+## Instructor
+
+Jonathan Vidal Solórzano Villegas
+
+-   Biólogo y Geografo (UNAM).
+-   Actualmente trabajo en CONABIO, ENES-Morelia.
+-   Interés en estudiar los bosques tropicales mediante percepción remota (teledetección).
+-   Uso de software libre.
+-   Automatización de procesos.
+
+## Temario del curso
+
+* Introducción a R, Rstudio, programación.
+  + Bases de programación en R.
+  + Tipos de objetos.
+* Manejo de datos.
+  + Flujo de trabajo en Ciencia de Datos.
+  + Paquetes.
+  + I/O datos.
+* Acomodo de datos.
+  + Preprocesamiento con dplyr y tidyr.
+* Análisis estadísticos.
+  + Análisis paramétricos y no paramétricos con rstatix.
+* Gráficos.
+  + Gráficos personalizables con ggplot2.
+* Métricas de diversidad.
+  + Índices de diversidad y curvas de acumulación de especies.
+* Modelos. 
+  + Entrenamiento y Evaluación de modelos con tidymodels.
+* Cierre y descripción de trabajo final.
+  + Creación de reportes con Quarto.
+  + Recapitulación.
+
+## Materiales del curso
+
+Repositorio de Github con los materiales.
+
+[CursoR](https://github.com/JonathanVSV/CursoR)
+
+## Material de consulta
+
+* [R4DS](https://r4ds.hadley.nz/)
+
+* [Cheatsheets_html](https://rstudio.github.io/cheatsheets/)
+* [Cheatsheets_pdf](https://posit.co/resources/cheatsheets/)
+* [Rstudio Education](https://education.rstudio.com/)
+* [Posit Academy](https://posit.co/products/enterprise/academy/)
+* [Posit Recipes](https://posit.cloud/learn/recipes)
+* [Biodiversity Data Science](https://www.biodiversitydatascience.com/code/)
+
+# Referencias
+
+1. Wickham H., Çetinkaya-Rundel M., Grolemund G. 2023. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 2nd Edition. [link](https://r4ds.hadley.nz/)
+
+2. Wilke C.2019. Fundamentals of Data Visualization. 1st edition.[link](https://clauswilke.com/dataviz/)
+
+3. Kuhn M., Silge J. 2023. Tidy Modeling with R. [link](https://www.tmwr.org/)
+
+2. Roswell, M., Dushoff, J. and Winfree, R. (2021), A conceptual guide to measuring species diversity. Oikos, 130: 321-338. https://doi.org/10.1111/oik.07202
+
+# Contactos
+
+| Persona facilitadora  | correo electrónico |
+| ------- | ----------- |
+Instructor: Jonathan Solórzano Villegas | jonathanvsv@gmail.com
+María Auxiliadora Mora | maria.mora@itcr.ac.cr

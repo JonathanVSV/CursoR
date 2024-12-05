@@ -1,0 +1,180 @@
+---
+title: "8.CierreyQuarto"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Quarto
+
+Es como un paquete para automatizar la creación de reportes.
+
+-   Html.
+-   Pdf (requiere instalación de tinytex).
+-   Word (requiere paquetería ofimática).
+-   ePub.
+
+Quarto está pensado para trabajar con muchos lenguajes.
+
+-   R.
+-   Python.
+-   Julia.
+-   Observable.
+
+La idea es que un mismo texto sirva para generar el reporte en el formato que se quiera y estilo que se quiera. Por ejemplo, quarto también se puede usar para generar:
+
+-   Archivos de texto.
+-   Presentaciones.
+-   Páginas web.
+-   Libros.
+-   Manuscritos.
+
+El flujo de trabajo:
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/quartowf.png")
+```
+
+Permite el manejo de referencias con bib.
+
+Una alternativa muy similar es RMarkdown.
+
+0.  Cómo crear un nuevo archivo quarto en Rstudio [Crear archivo](https://quarto.org/docs/tools/rstudio.html)
+
+Veamos las partes básicas de un archivo Quarto.
+
+1.  Encabezado: YAML [Formato html](https://quarto.org/docs/reference/formats/html.html)
+
+2.  Cuerpo: Markdown [Básico de Markdown](https://quarto.org/docs/authoring/markdown-basics.html)
+
+3.  Chunk de código: [Escritura de chunks](https://quarto.org/docs/computations/r.html)
+
+Veamos el archivo Quarto de muestra.
+
+De hecho todo el librito de la clase está hecho en Quarto 😉.
+
+Ver algunos temas: [Temas](https://quarto.org/docs/output-formats/html-themes.html)
+
+# Trabajo final
+
+La idea es que apliquen los conocimientos adquiridos con un conjunto de datos que les interese. Este conjunto de datos puede ser uno suyo o uno públicamente disponible.
+
+Estructura de artículo, pero muy resumido todo. Piensen en 1-2 párrafos por sección y una extensión aproximada de 2 cuartillas.
+
+1. Objetivo del análisis (qué esperan probar o describir con los análisis a realizar).
+2. Método (descripción de los datos y los análisis realizados).
+3. Resultados (descripción de los principales resultados). Sugiero en resultados usar una gráfica que describa los resultados.
+4. Discusión (Discutir patrones observados en sus resultados, cuáles sitios son más ricos en especies, cuáles provincias tienen mayor incidencia de enfermedades, qué modelo mejor describe el comportamiento entre dos variables).
+5. Anexo. Código en R utilizado para: la importación de datos, el análisis, las figuras, etc.
+
+# Repaso del curso
+
+Recordemos lo que vimos en este curso.
+
+1.  Introducción a R.
+2.  Lectura, limpieza y análisis preliminares.
+3.  Acomodo de datos.
+4.  Análisis estadísticos.
+5.  Visualización.
+6.  Análisis diversidad.
+7.  Modelos.
+8.  Reportes automatizables.
+
+Vimos los pasos básicos para realizar ciencia de datos en R.
+
+Evidentemente no espero que sean expertos programando en R, pero mi idea fue mostrarles la mayor variedad de herramientas. Ya que se quedan con las grabaciones y el material escrito del curso, considero que pueden regresar muchas veces a él en el futuro.
+
+Recuerden: La práctica hace al maestro o a la maestra. Ahorita, aprendieron bastantes cosas sobre R, aunque quizás sientan lo contrario. Por ejemplo, aprendieron sobre tipos de objetos, cómo importar datos, algunos errores, diferentes paquetes (vimos por lo menos 10 paquetes), funciones para hacer gráficos, limpiar datos, hacer análisis estadísticos y de diversidad, modelación.
+
+Mi sugerencia para mejorar en sus habilidades en R: Ponerse de meta realizar algún análisis en R (aunque sufran al principio). La curva de aprendizaje es difícil, pero rinde frutos. Personalmente, cuando más he aprendido ha sido por mi cuenta, con datos que salen errores que no salen en los cursos.
+
+Recuerden que mucho de los proyectos de ciencia de datos radican en acomodar, limpiar y curar bases de datos. Ya también vimos cómo acomodar datos para ahcer ciertos análisis.
+
+Con tidymodels vimos ejemplos más complejos de modelación.
+
+# Otras cosas que no vimos
+
+Otros paquetes que no vimos por cuestiones de tiempo, pero que pueden ser útiles:
+
+-   Manejo de datos espaciales:
+    -   sf: información vectorial.
+    -   terra y stars: información ráster.
+-   Otros paquetes del tidyverse o relacionados:
+    -   purrr: ciclos.
+    -   stringr: manejo de cadenas de caracteres.
+    -   lubridate: fechas.
+    -   furrr: ciclos con procesamiento en paralelo.
+    -   tidyterra: Usar expresiones tidy con terra
+-   Modelación de nicho [Sillero et al., 2023](https://www.sciencedirect.com/science/article/pii/S0304380022003404):
+    -   ENMTools: Cálculo de modelos.
+    -   biomod2: Cálculo de modelos.
+    -   sdm: Cálculo de modelos.
+    -   ENMeval: Evaluación y validación.
+-   Datos GBIF:
+    -   rgbif: Conexión, búsqueda y descarga de datos del gbif.
+-   Creación de mapas
+    -   tmap: Creación de mapas para datos vectoriales y ráster.
+-   Manejo datos LiDAR:
+    -   lidR
+-   Métricas del paisaje
+    -   landscapemetrics
+    -   makurhini
+-   Googledrive
+    -   googledrive
+-   Manejo de entornos y control de versiones de paquetes
+    -   renv
+-   Metalenguaje
+    -   rlang
+-   Llamada de python
+    -   reticulate
+-   Aprendizaje profundo
+    -   yardstick: Métricas de evaluación.
+    -   keras: Interfaz para el uso de algún backend para hacer Aprendizaje profundo (Tensorflow, PyTorch, JAX).
+-   Mapas interactivos
+    -   mapview
+    -   leaflet
+-   Cálculo de biomasa
+    -   BIOMASS
+-   Web scraping y conexión a API
+    -   rvest
+    -   httr2
+-   Presentaciones
+    -   Xaringan
+-   Análisis de audios
+    -   tuneR
+    -   seewave
+    -   audio
+    -   phonTools
+    -   soundecology
+    -   warblR
+-   Cálculo de Textura de imágenes
+    -   glcm
+    -   GLCMTextures
+    -   FOTO
+
+Más muchos otros paquetes que yo no he utilizado. La gran ventaja, es que usando un lenguaje común, es fácil entender y utilizar funciones programadas por alguien más.
+
+La otra ventaja es que en el curso vimos dos aspectos básicos para usar nuevos paquetes y funciones: 1) consultar la ayuda y 2) los datos de ejemplo. Una tercera que no vimos, es que muchos paquetes traen una sección de **vignettes** que es como un mini blog de ejemplo para usar sus funciones. Por ejemplo: <https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html> o <https://cran.r-project.org/web/packages/sf/vignettes/sf1.html>
+
+# Últimos pasos
+
+- El 11 de diciembre debo tener todas las tareas entregadas y calificadas, así como su proyecto final entregado.
+- El 12 de diciembre debo entregar calificaciones finales.
+- Les voy a mandar una encuesta sobre el curso para tener retroalimentación sobre el curso y conocer las áreas de oportunidad donde se puede mejorar.
+- Tras contestar la encuesta y subir sus calificaciones les enviarán su constancia.
+- El libro del curso lo dejaré hospedad en mi github. Las grabaciones no estoy seguro si las subirán a algún sitio. Si quieren conservar los scripts de la clase, les sugiero descargarlos.
+
+# ¿Dudas?
+
+Espero que les haya gustado el curso y lo hayan encontrado útil.
+
+Mi correo por cualquier cosa en el futuro: jonathanvsv@gmail.com

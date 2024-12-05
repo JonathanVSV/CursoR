@@ -1,0 +1,675 @@
+---
+title: "7.Modelos"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+# Modelación
+
+-   Modelos matemáticos: simplificación de la realidad mediante un sistema de ecuaciones matemáticas.
+-   Los modelos permiten describir relaciones entre variables.
+-   Modelos permiten describir, entender y hacer predicciones.
+
+Los modelos parten de una hipótesis.
+
+Normalmente existen dos tipos de modelos:
+
+1.  Regresión. Describir la dependencia de una variable numérica en función de otra variable numérica. Por ejemplo, regresión logística.
+2.  Clasificación. Describir la dependencia una variable categórica en función de otras variables. Por ejemplo, regresión logística.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/regclas.jpg")
+```
+
+Diferencias entre modelos descriptivos y predictivos.
+
+-   Descriptivos: Describir una relación entre variables.
+-   Predictivos: A partir de un modelo descriptivo, generar predicciones en datos "no observados".
+
+Gran parte del interés de la ciencia de datos es generar modelos predictivos.
+
+Normalmente el crear modelos predictivos implica dos etapas:
+
+1.  Entrenamiento (training).
+2.  Verificación (verification).
+3.  Prueba (test).
+
+Este esquema permite usar parte de los datos para ajustar el modelo y otra parte para evaluar qué tan buenas son las predicciones en datos que no ha visto el modelo. Por ello, se utiliza un conjunto de datos de entrenamiento, verificación y prueba.
+
+La razón de este esquema radica en que el modelo puede memorizar los datos de entrenamiento (sobre todo al usar algoritmos de IA que pueden modelar relaciones no lineales complejas). En este escenario, al generar las predicciones sobre otro conjunto de datos, se ve que el modelo se sobreajustó, ya que obtenemos un desempeño mucho mucho menor. Normalmente los modelos van a desempeñarse un poco peor en los datos de verificación o de prueba.
+
+Normalmente el objetivo es obtener modelos con bueno poder de generalización.
+
+## Sesgo vs varianza
+
+Al hacer predicciones basadas en un modelo y compararlas con los valores observados pueden distinguirse dos componentes importantes del error.
+
+-   Sesgo: Desfase de los datos predichos entorno al valor objetivo.
+-   Varianza: Variabilidad de los datos predichos entorno al valor objetivo.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/biasvar2.png")
+```
+
+En modelos
+
+-   Subajuste (underfitting).
+-   Sobreajuste (overfitting).
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/biasvar.jpg")
+```
+
+Esquema para simplemente ajustar un modelo. Desventaja de este esquema: los resultados pueden depender mucho de una "buena" o "mala" selección de datos de entrenamiento o prueba.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/splits.svg")
+```
+
+Esquema recomendado para comparar modelos. Ya que permiten hacer evaluaciones promediadas sobre un conjunto de datos de entrenamiento y verificación. Ventaja de este esquema: los resultados se evalúan sobre varios conjuntos de entrenamiento y prueba, por lo que se diluye la imporatncia de la selección de un partículo conjunto de entrenamiento y prueba.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/splits2.svg")
+```
+
+## Métricas de error
+
+Usualmente los modelos cuentan con un mecanismo que permite evaluar qué tan bueno es el modelo. Esto normalmente corresponde a una medida de error o ajuste. Por ejemplo:
+
+-   R\^2: coeficiente de determinación. Ajuste del modelo a los datos
+-   RMSE: Error cuadrático medio (Root mean squared error). Error presente en las predicciones vs datos observados.
+-   Exactitud: Para clasificaciones. Medidas de aciertos sobre total de observaciones.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/regerr.png")
+```
+
+## Métodos para determinar el mejor ajuste
+
+Gran parte de los métodos de modelación tienen un método para obtener los coeficientes o parámetros de los modelos. Por ejemplo:
+
+-   Regresión lineal: mínimos cuadrados.
+-   Random forest: Out of the Bag (OOB).
+
+En la clase haremos modelos sencillos, pero veremos cómo es el flujo de trabajo.
+
+## Flujo de trabajo de modelos
+
+1.  Creación de datos de entrenamiento, validación y prueba.
+2.  Ingeniería de atributos o preprocesmiento. Creación de variables predictivas (por ejemplo, *scores* de análisis de componentes principales, conversión de datos a logaritmo, combinación de variables en nuevas variables, etc).
+3.  Ajuste de modelo.
+4.  Afinación de hiperparámetros. Algunos algoritmos de IA, requiren de la exploración de parámetros. Por ejemplo, random forest, número de árboles aleatorios, número de variables máximo utilizado por corte.
+5.  Evaluación del modelo.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/mlwf.png")
+```
+
+## Elección de modelos
+
+La elección de modelos puede basarse en la teoría. Por ejemplo, modelo de Michaelis-Menten basado en observaciones de velocidad de reacciones enzimáticos, o asumir un comportamiento simple (regresión lineal), o que incluya relaciones no lineales (random forest).
+
+La elección de modelo va a determinar el ajuste máximo posible. Por ello, es frecuente comparar entre modelos.
+
+La elección del modelo debe estar basado en la teoría.
+
+# Tidymodels
+
+Conjunto de paquetes para modelar dentro del tidyverse:
+
+-   Resamples: dividir datos en set de entrenamiento y verificación. Posibilidad de crear submuestras o implementar validación cruzada.
+-   Recipes: Recetas de preprocesamiento o creación de nuevas variables predictivas.
+-   Parsnip: Ajustar modelos.
+-   Tune y Dial: Afinación de hiperparámetros de modelos.
+-   Yardstick: Evaluación de los modelos.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/models.jpg")
+```
+
+## Leer mismos datos
+
+```{r setup, include=TRUE}
+library(readxl)
+library(tidyverse)
+library(tidymodels)
+library(readr)
+library(skimr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+
+# Preprocesamiento limpieza de datos
+datos <- datos |>
+  # Seleccionar columnas de interés
+  select(IdConglomerado, DESCRIP_S7_C3, AlturaTotal_C3, DiametroNormal_C3, biomasa_kg_C3, Anio_C3, CVEECON1_C3) |>
+  # Renombrar columnas
+  rename("ParcelaId" = "IdConglomerado",
+         "TipoVeg" = "DESCRIP_S7_C3",
+         "Altura" = "AlturaTotal_C3",
+         "DAP" = "DiametroNormal_C3",
+         "Biomasa" = "biomasa_kg_C3",
+         "Anio" = "Anio_C3",
+         "Ecorregion" = "CVEECON1_C3") |>
+  mutate(across(c(Altura, DAP), ~ifelse(.x >= 99999, NA, .x))) |>
+  # Eliminar NA
+  drop_na(Altura, DAP) 
+```
+
+## Modelos de altura en función de diámetro
+
+Modelos para modelar altura en función de diámetro:
+
+-   lineal: H = a + b \* D
+
+– log 1: (log(H) = a + b ∗ log(D)) (equivalent to a power model)
+
+– log 2: (log(H) = a + b ∗ log(D) + c ∗ log(D)
+
+-   weibull: H = a ∗ (1 − exp(−(D/b)
+
+-   michaelis: H = (A ∗ D)/(B + D)
+
+Ver tipos de vegetación con más parcelas de muestreo.
+
+```{r}
+datos |>
+  group_by(TipoVeg) |>
+  distinct(ParcelaId) |>
+  count()
+```
+
+Uno de los tipos de vegetación con mayor número de sitios de muestro es Bosque de Pino-Encino.
+
+Aunque podríamos hacer un modelo para todos los tipos de vegetación, seguramente un solo modelo sencillo no va a permitir describir la relación entre las variables con poco error. Por ejemplo, esperaríamos que los árboles de pino fueran más árboles que algunos de selva baja caducifolia.
+
+```{r}
+dfbpq <- datos |>
+  filter(TipoVeg == "BOSQUE DE PINO-ENCINO") |>
+  select(Altura, DAP)
+```
+
+# Lógica del flujo de procesos
+
+1.  Entrenamiento. Entrenar algoritmo. Generar modelo a partir de un subconjunto de observaciones.
+2.  Verificación. Probar modelos entrenados con nuevos datos para ver cuál es el mejor. Estos normalmente son una parte de los de entrenamiento. Dependiendo del flujo se pueden usar o no.
+3.  Prueba. Ya seleccionado el mejor modelos se corre sobre estos datos para reportar la métrica de ajuste (precisión, error, etc).
+
+## Modelo lineal
+
+Hacer modelo lineal.
+
+lineal: H = a + b \* D
+
+Esto es muy simlar a usar la función que ya vimos de `lm`.
+
+```{r}
+modAltDiam <- linear_reg() |> 
+  fit(Altura ~ DAP, data = dfbpq)
+modAltDiam
+```
+
+Aunque se podría usar `summary`, mejor usemos `tidy`
+
+```{r}
+tidy(modAltDiam)
+```
+
+Cómo se ve
+
+```{r}
+dfbpq |>
+  ggplot(aes(x = DAP, 
+             y = Altura)) + 
+  geom_point() + 
+  geom_smooth(method = lm, 
+              se = FALSE,
+              col = "firebrick2") +
+  cowplot::theme_cowplot()
+```
+
+Se ve más o menos. Empecemos a trabajar con datos de entrenamiento y verificación
+
+```{r}
+# Asegurar reproducibilidad con selección aleatoria
+set.seed(5)
+
+split_datos <- initial_split(dfbpq, prop = 0.75)
+
+# Create data frames for the two sets:
+train_data <- training(split_datos)
+test_data  <- testing(split_datos)
+```
+
+Crear receta. Define variables dependientes y variables independientes.
+
+```{r}
+receta <- recipe(Altura ~ DAP, 
+                 data = train_data) 
+```
+
+Tipo de modelo. Determina el paquete a usar para generar el modelo. Dependiendo del paquete a utilizar (`set_engine`) hay distintos tipos de modelos.
+
+[Ejemplos de modelos](https://www.tidymodels.org/find/parsnip/)
+
+La ventaja de tidymodels es que se sigue la misma sintáxis sin importar el tipo de modelo ajustado. Si no se usa tidymodels, cada paquete requiere de su propia sintáxis.
+
+Ejemplos de modelos:
+
+-   logistic_reg.
+-   linear_reg.
+-   decision_tree.
+-   rand_forest.
+-   svm_linear.
+-   mlp.
+
+```{r}
+mod_rl <- linear_reg() |> 
+  set_engine("glm")
+```
+
+Crear flujo de trabajo. Agregar modelo y receta a un flujo de trabajo.
+
+```{r}
+altdiam_wflow <- 
+  workflow() |> 
+  add_model(mod_rl) |> 
+  add_recipe(receta)
+```
+
+Ajustar modelo
+
+```{r}
+altdiam_fit <- 
+  altdiam_wflow |> 
+  fit(data = train_data)
+```
+
+Ver modelo
+
+```{r}
+altdiam_fit |> 
+  extract_fit_parsnip() |> 
+  tidy()
+```
+
+Probar modelo y sacar datos
+
+```{r}
+predict(altdiam_fit, test_data)
+```
+
+Predecir y comparar contra original usando los datos de test
+
+```{r}
+test_preds <- altdiam_fit |>
+  augment(test_data)
+test_preds
+```
+
+Hacerlo para datos de entrenamiento
+
+```{r}
+train_preds <- altdiam_fit |>
+  augment(train_data)
+train_preds
+```
+
+Seleccionar métricas de evaluación
+
+```{r}
+eval_metrics <- metric_set(rmse,rsq_trad)
+
+test_preds |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+Comparar para datos de entrenamiento
+
+```{r}
+train_preds |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+Casi siempre va a tener mejor ajuste en los datos de entrenamiento, que en los de verificación. Evaluar estos dos ajustes es buena práctica para evaluar el sobreajuste.
+
+## Modelo exponencial
+
+log 1: (log(H) = a + b ∗ log(D)) (equivalent to a power model)
+
+Empecemos a trabajar con datos de entrenamiento y verificación
+
+```{r}
+dfbpq |>
+  mutate(across(c(DAP, Altura), ~log(.x+3))) |>
+  ggplot(aes(x = DAP, 
+             y = Altura)) + 
+  geom_point() + 
+  geom_smooth(method = lm,
+              col = "firebrick1",
+              se = FALSE) +
+  cowplot::theme_cowplot()
+```
+
+Crear receta. En este caso, se agrega la transformación de las variables numéricas a log (base natural) + 3 (para evitar valores negativos y ceros en log).
+
+```{r}
+receta2 <- recipe(Altura ~ DAP, 
+                  data = train_data) |>
+  step_mutate_at(all_numeric(), 
+                 fn = ~log(.x+3)) 
+```
+
+Hay muchas funciones de `step`. Las principales familias son:
+
+-   step_impute. Rellenar datos faltantes con algún método.
+-   transformación individual. Por ejemplo, step_log, step_harmonic, step_mutate.
+-   Discretización. Pasar de una variable numérica a discreta.
+-   Variables dummy y codificación.
+-   Fechas.
+-   Interacciones.
+-   Funciones. step_normalize, step_scale.
+-   Transformaciones multivariadas. step_pca.
+-   Filtros. Seleccionar o quitar variables de acuerdo a ciertos criterios.
+-   Operaciones por filas.
+-   Otras. step_rename, step_intercept
+
+Ver los datos después de receta
+
+```{r}
+receta2 |>
+  prep(data = train_data) |>
+  bake(new_data = train_data)
+```
+
+Tipo de modelo
+
+```{r}
+show_engines("linear_reg")
+mod_rl2 <- linear_reg() |> 
+  set_engine("glm")
+```
+
+Crear flujo de trabajo
+
+```{r}
+altdiam_wflow2 <- workflow() |> 
+  add_model(mod_rl2) |> 
+  add_recipe(receta2)
+```
+
+Ajustar modelo
+
+```{r}
+altdiam_fit2 <- 
+  altdiam_wflow2 |> 
+  fit(data = train_data)
+```
+
+Ver modelo
+
+```{r}
+altdiam_fit2 |> 
+  extract_fit_parsnip() |> 
+  tidy()
+```
+
+Predecir y comparar contra original en datos de verificación
+
+```{r}
+test_preds2 <- altdiam_fit2 |>
+  augment(test_data)
+test_preds2
+```
+
+Predecir y comparar contra original en datos de entrenamiento
+
+```{r}
+train_preds2 <- altdiam_fit2 |>
+  augment(train_data)
+train_preds2
+```
+
+Seleccionar métricas de evaluación
+
+```{r}
+eval_metrics <- metric_set(rmse,rsq_trad)
+
+test_preds2 |>
+  mutate(across(.pred, ~exp(.x)-3)) |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+```{r}
+train_preds2 |>
+  mutate(across(.pred, ~exp(.x)-3)) |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+# Comparacion de los dos modelos
+
+Ver los resultados anteriores para recordar.
+
+```{r}
+test_preds |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+
+test_preds2 |>
+  mutate(across(.pred, ~exp(.x)-3)) |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+Comparación de los gráficos
+
+```{r}
+coeficientes <- altdiam_fit |> 
+  extract_fit_parsnip() |> 
+  tidy()
+
+coeficientes2 <- altdiam_fit2 |> 
+  extract_fit_parsnip() |> 
+  tidy()
+
+test_preds |>
+  ggplot(aes(x = DAP,
+             y = Altura)) +
+  geom_point() +
+  geom_abline(intercept = coeficientes$estimate[1],
+              slope = coeficientes$estimate[2],
+              col = "red",
+              lwd = 2)
+
+test_preds2 |>
+  # .pred ya está con la transformación de log
+  # mutate(across(.pred, ~exp(.x)-3)) |>
+  mutate(across(c(DAP,Altura), ~log(.x+3))) |>
+  ggplot(aes(x = DAP,
+             y = Altura)) +
+  geom_point() +
+  geom_abline(intercept = coeficientes2$estimate[1],
+              slope = coeficientes2$estimate[2],
+              col = "red",
+              lwd = 2)
+```
+
+Observados vs predichos
+
+```{r}
+test_preds |>
+  ggplot(aes(x = Altura,
+             y = .pred)) +
+  geom_point() +
+  geom_abline(intercept = 0,
+              slope = 1,
+              col = "red",
+              lwd = 2) +
+  labs(x = "Altura obs", y = "Altura pred")
+
+test_preds2 |>
+  ggplot(aes(x = Altura,
+             y = exp(.pred)-3)) +
+  geom_point() +
+  geom_abline(intercept = 0,
+              slope = 1,
+              col = "red",
+              lwd = 2)+
+  labs(x = "Altura obs", y = "Altura pred")
+```
+
+Hasta aquí creamos cada modelo por separado con un solo conjunto de datos entrenamiento y prueba. Sin embargo, para poder tener más confianza sobre qué modelo es mejor vamos a usar un proceso de validación cruzada para evaluar el desempeño de los dos modelos con distintos conjuntos de datos de entrenamiento y verificación. Aquí sí se va a usar un conjunto de datos de verificación.
+
+# Validación cruzada: Comparación de modelos
+
+La validación cruzada es similar a los procedimientos de remuestreo que vimos en la clase anterior. Varias formas de hacer validación cruzada:
+
+-   vfold. Alta varianza. Rápido. Cada set se usa como prueba una sola vez.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/vfold.png")
+```
+
+-   leave-one-out. Lento. Baja varianza, puede tener alto sesgo.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/loo.jpg")
+```
+
+-   Montecarlo. Lento. Baja varianza, puede tener alto sesgo.
+
+```{r echo=F,out.width = "50%"}
+knitr::include_graphics("imgs/montecarlo.png")
+```
+
+Al usar `collect_metrics` se obtienen las de verificacin´.
+
+```{r}
+# Asegurar reproducilidad
+set.seed(10)
+df3 <- dfbpq |>
+  dplyr::select(Altura, DAP) 
+
+df_split <- initial_split(df3, prop = 0.6)
+df_train <- training(df_split)
+df_test <- testing(df_split)
+df_r <- vfold_cv(df_train, 
+  v = 10)
+
+df_r$splits
+```
+
+Ver resultados por fold.
+
+```{r}
+resuls <- workflow_set(preproc = list(simple = receta,
+                            log = receta2), 
+             models = list(lm = mod_rl)) |>
+  workflow_map(fn = "fit_resamples", 
+               # Options to `workflow_map()`: 
+               seed = 1101, 
+               verbose = TRUE,
+               # Options to `fit_resamples()`: 
+               resamples = df_r)
+resuls
+
+# Ver resultados desagregados
+resuls |>
+  filter(wflow_id == "simple_lm") |>
+  select(result) |>
+  unnest(result)
+```
+
+Ver métricas de splits
+
+```{r}
+resuls |>
+  filter(wflow_id == "simple_lm") |>
+  select(result) |> 
+  unnest(result) |>
+  unnest(.metrics)
+```
+
+Ver resultados resumidos, calcula el promedio y error estándar.
+
+```{r}
+mfits <- resuls |>
+  collect_metrics() 
+mfits
+```
+
+Sacar mejor modelo de regresión simple. Finalizar el flujo de trabajo y ajustar a datos de entrenamiento (ya sin la validación cruzada)y evaluar sobre datos de entrenamiento.
+
+```{r}
+mejor <- resuls |>
+ extract_workflow_set_result("simple_lm") %>%
+  select_best(metric = "rmse")
+
+mod <- resuls |> 
+  extract_workflow("simple_lm") %>% 
+  finalize_workflow(mejor) %>% 
+  fit(data = df_train)
+
+mod |>
+  augment(df_train) |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+Ver el modelo lineal
+
+Last_fit entrena sobre entrenamiento y evalua sobre test.
+
+```{r}
+mejor <- resuls |>
+ extract_workflow_set_result("simple_lm") %>%
+  select_best(metric = "rmse")
+
+mod <- resuls |> 
+  extract_workflow("simple_lm") %>% 
+  finalize_workflow(mejor) %>% 
+  last_fit(split = df_split)
+
+test_preds <- mod  %>%
+  collect_predictions()
+
+test_preds |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+Ver el modelo log
+
+```{r}
+mejor <- resuls |>
+ extract_workflow_set_result("log_lm") %>%
+  select_best(metric = "rmse")
+
+mod <- resuls |> 
+  extract_workflow("log_lm") %>% 
+  finalize_workflow(mejor) %>% 
+  last_fit(split = df_split)
+
+test_preds <- mod  %>%
+  collect_predictions()
+
+test_preds |>
+  mutate(across(c(Altura, .pred), ~ exp(.x)-3)) |>
+  eval_metrics(truth = Altura, 
+                estimate = .pred)
+```
+
+Es mejor una simple regresión lineal

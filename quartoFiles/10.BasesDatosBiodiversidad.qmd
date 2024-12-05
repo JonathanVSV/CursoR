@@ -1,0 +1,182 @@
+---
+title: "10.Bases de datos de Biodiversidad"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+# Bases de datos de biodiversidad
+
+A continuación les pongo algunas bases de datos que pueden usar para sus trabajos finales.
+
+## Vegan
+
+1. Árboles en la isla de Barro Colorado
+
+```{r}
+library(vegan)
+data(BCI)
+data(BCI.env)
+```
+
+2. Vegetación de pastizales. 
+```{r}
+library(vegan)
+data(dune)
+data(dune.env)
+```
+
+3. Ácaros
+```{r}
+library(vegan)
+data(mite)
+data(mite.env)
+```
+
+4. Aves en archipiélago Sipoo.
+```{r}
+library(vegan)
+data(sipoo)
+data(sipoo.map)
+```
+
+5. Vegetación en pasturas de líquenes.
+```{r}
+library(vegan)
+data(varespec)
+data(varechem)
+```
+
+## Palmerpenguins
+
+6. Pingüinos
+Aquí el único requisito es que no hagan lo mismo que les voy a pedir en una tarea.
+
+```{r}
+library(palmerpenguins)
+data(penguins)
+penguins
+penguins_raw
+```
+
+## Datasets
+
+7. Plantas del género Iris
+```{r}
+library(datasets)
+data(iris)
+iris
+```
+
+8. Árboles de naranja
+```{r}
+library(datasets)
+data(Orange)
+Orange
+```
+
+9. Crecimiento de plantas
+```{r}
+library(datasets)
+data(PlantGrowth)
+PlantGrowth
+```
+
+10. Capturas de lince
+```{r}
+library(datasets)
+data(lynx)
+lynx
+```
+
+11. Anillos de árboles
+
+```{r}
+library(datasets)
+data(treering)
+```
+
+## Biodiversity
+12. Abundancia de Faramea en Panamá
+
+```{r}
+library(BiodiversityR)
+data(faramea)
+```
+
+13. Muestreos árboles de IFRI
+```{r}
+library(BiodiversityR)
+data(ifri)
+```
+
+14. Composición de especies hipotética en gradiente
+```{r}
+library(BiodiversityR)
+data(transfgradient)
+```
+
+15. Composición de especies hipotética
+```{r}
+library(BiodiversityR)
+data(transfspecies)
+```
+
+## iNEXT
+
+16. Hormigas
+```{r}
+library(iNEXT)
+data(ant)
+```
+
+17. Aves
+```{r}
+library(iNEXT)
+data(bird)
+```
+
+18. Ciliados
+```{r}
+library(iNEXT)
+data(ciliates)
+```
+
+18. Arañas
+```{r}
+library(iNEXT)
+data(spider)
+```
+
+## fossil
+
+19. Fósiles
+```{r}
+library(fossil)
+data(fdata.list)
+data(fdata.mat)
+```
+
+## Inventario Nacional Forestal y de Suelos de México
+
+20. INFyS
+
+Aquí el único requisito es que no usen el del estado de Michoacán porque es el que vimos en la clase: [https://snmf.cnf.gob.mx/datos-del-inventario/](https://snmf.cnf.gob.mx/datos-del-inventario/)
+
+## Inventarion Nacional Forestal de EUA
+
+21. [https://apps.fs.usda.gov/fia/datamart/datamart.html](https://apps.fs.usda.gov/fia/datamart/datamart.html)
+
+## IIASA Global Forest Database
+
+22. Datos de biomasa descargables de: [https://iiasa.ac.at/models-tools-data/global-forest-database](https://iiasa.ac.at/models-tools-data/global-forest-database)
+
+## Datos de REDD+
+
+23. Hay que registrarse en su portal para poder descargar los archivos: [https://www.reddprojectsdatabase.org/download-the-the-id-recco-database/](https://www.reddprojectsdatabase.org/download-the-the-id-recco-database/)
+

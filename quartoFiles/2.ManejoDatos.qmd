@@ -1,0 +1,501 @@
+---
+title: "2.ManejoDatos"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(jpeg)
+library(knitr)
+library(kableExtra)
+library(pander)
+library(vegan)
+library(cluster)
+```
+
+# Flujo de trabajo en proyectos de ciencia de datos
+
+1. Lectura de datos
+2. Revisión y análisis descriptivo.
+3. Preprocesamiento
+4. Análisis estadísticos o ajuste de modelos
+5. Exportación y presentación de resultados.
+
+# Paquetes
+
+Un paso más allá: uso de paquetes
+
+* Los paquetes son conjuntos de funciones que vienen en un paquete.
+* Para usar las funciones contenidas en un paquete hay que descargarlas 
+* Y luego cargarlas en el espacio de trabajo
+* ¿Cómo?: 
+    + Instala el paquete en el disco local (TX mirror recomendado)
+        + `install.packages(“nombre del paquete”)`
+    + Una vez instalado
+        + `library(“nombre del paquete”)`
+    + Así queda cargado en el espacio de trabajo y ya podemos usar las funciones
+
+Recordar: cada vez que se abre R de nuevo, hay que cargar los paquetes deseados.
+
+Instalar paquetes
+
+```{r echo=T, error=T}
+# install.packages("vegan")
+library("vegan")
+```
+
+Instalar vegan
+
+Cargar vegan
+
+`help(cca)` para sacar la ayuda y ver qué hace la función cca en el paquete vegan.
+
+Paquetes personalizados
+
+* Uno puede crear su propio paquete de funciones.
+* Distribuirlo para otros usuarios.
+* Sólo se requiere seguir una documentación para informar sobre lo que hace el paquete, cada función, el desarrollador, el tipo de licencia, etc.
+* Estos paquetes se pueden subir en github.com.
+* De este sitio también se pueden descargar otros paquetes desarrollados por usuarios.
+
+Revisar documentación del paquete vegan [vegan](https://cran.r-project.org/web/packages/vegan/vegan.pdf)
+
+Otros paquetes
+
+* vegan: Community Ecology Package.
+* terra. 
+* ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics.
+* sf .
+* tidyverse.
+* landscapemetrics.
+* iNext.
+* tidymodels.
+
+consultar: [https://cran.r-project.org/web/packages/available_packages_by_name.html](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+
+Muchos paquetes traen algunos datos de ejemplo que pueden servir para saber cómo se tienen que meter los datos a ciertas funciones.
+
+Por ejemplo:
+
+```{r}
+data("dune")
+data("dun.env")
+data("BCI")
+data("BCI.env")
+```
+
+# Proyectos
+
+Crear nuevo proyecto
+
+Ventajas:
+
+- Definen la ruta de raíz como el directorio del proyecto.
+
+- LLevar mejor organización de datos y carpetas.
+
+- Permiten guardar entorno de trabajo para ese proyecto.
+
+- Permite mantener un historial separado por proyecto.
+
+- Sustituir \\ con / en las rutas.
+
+Mi sugerencia:
+
+- Carpeta de 1) datos, 2) resultados y 3) scripts.
+
+# Lectura y escritura
+
+## Funciones base
+Hasta ahora todo ha sido dentro de Rs
+
+* Importar tablas de Excel
+    + Guardar la tabla como csv
+    + Importarlo mediante el comando read.csv(“Ruta del archivo.csv”)
+    + Las rutas deben de contener únicamente / y no \\ (default de Windows).
+    + Meter la tabla a un objeto
+
+*  Exportar tablas de Excel
+    + Guardar la tabla en un objeto
+    + Exportar objeto mediante el comando write.csv(obj_resul,”Ruta del archivo.csv”)
+
+Normalmente las variables se acomodan en las columnas, mientras que en los renglones cada observación.
+
+### Lectura
+
+- Revisar el directorio de trabajo utilizando `getwd()`
+
+- Escribir el nombre del archivo con todo y extensión
+
+- Descargar archivos en la siguiente liga: [https://github.com/JonathanVSV/CursoR/tree/main/Data](https://github.com/JonathanVSV/CursoR/tree/main/Data)
+
+Al entrar a la página dar clic en cada archivo y descargar (download raw file).
+
+```{r echo=T, error=T}
+datos <- read.csv("Individuos_InFys.csv",
+                  header=T,
+                  encoding = "utf-8",
+                  stringsAsFactors= FALSE)
+#Mostrar la parte superior de los datos
+head(datos)
+
+#Mostrar su estructura
+str(datos)
+```
+
+Recomendación para leer archivos
+
+* A veces R lee las columnas con caracteres como factores.
+* Recuerden el problema de hacer conversión de factores a números.
+* Recomendación: añadan stringsAsFactors = FALSE como último argumento de read.csv.
+
+### Escritura
+
+Escribir el nombre del archivo con todo y extensión.
+
+Escribir en csv
+
+```{r echo=T, error=T}
+write.csv(datos,"Resul/Individuos_InFys_proc.csv",
+          row.names = F,
+          fileEncoding = "utf-8")
+```
+
+Otra opción guardarlo en objeto de tipo rds.
+
+```{r echo=T, error=T}
+saveRDS(datos,"Resul/Individuos_InFys_proc.rds")
+```
+
+Leer RDS
+
+```{r echo=T, error=T}
+readRDS("Resul/Individuos_InFys_proc.rds")
+```
+
+### Problemas comunes: encoding
+
+Problemas comunes con la importación y exportación de datos: encoding.
+R suele usar utf-8, a veces excel tiene otra codificación
+A veces al abrir los datos en excel y guardarlos, se cambia el encoding de los archivos o el formato de la información (p.ej., fechas).
+
+Recomendación: Revisar el encoding nativo de su R con `Sys.getlocale()` y si existe la opción de guardar desde excel con codificación utf-8, usarla.
+
+Ver los acentos
+
+```{r echo=T, error=T}
+datos <- read.csv("Individuos_InFys_latin1.csv",
+                  header=T,
+                  encoding = "utf-8")
+#Mostrar la parte superior de los datos
+head(datos)
+
+#Mostrar su estructura
+str(datos)
+
+datos <- read.csv("Individuos_InFys_latin1.csv",
+                  header=T,
+                  encoding = "latin1")
+```
+
+## Paquete readr
+
+Paquete para importar y exportar datos más fácilmente
+
+```{r echo=T, error=T}
+library(readr)
+datos <- read_csv("Individuos_InFys.csv", 
+                  na = "")
+#Mostrar la parte superior de los datos
+head(datos)
+
+#Mostrar su estructura
+str(datos)
+```
+
+## Paquete readxl
+
+Para importar datos directamente desde un archivo de excel
+
+De los datos que descargaron
+
+```{r echo=T, error=T}
+library(readxl)
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+#Mostrar la parte superior de los datos
+head(datos)
+
+#Mostrar su estructura
+str(datos)
+```
+
+```{r echo=T, error=T}
+library(readxl)
+df <- read_excel("DivBosqInund_long.xlsx")
+
+```
+
+### Problemas comunes: líneas espurio
+
+A veces vienen tablas con líneas en las que no estamos interesados.
+
+```{r echo=T, error=T}
+library(readxl)
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_skip.xlsx",
+                  sheet = "Arbolado",
+                  skip = 2)
+
+```
+
+# Manejo de un data frame (hoja de datos)
+
+Leer datos completos desde excel: 
+
+```{r echo=T, error=T}
+library(readxl)
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+#Mostrar la parte superior de los datos
+head(datos)
+
+#Mostrar su estructura
+str(datos)
+```
+
+Consultar datos del INFyS
+
+- Ver archivos y ver de qué se trata
+- ¿Qué nos interesa? Seleccionar por lo menos 3 variables.
+
+Para ello podemos usar el paquete skimr
+
+```{r}
+library(skimr)
+skim(datos)
+```
+
+Ver tabla completa en RStudio
+
+```{r, eval = FALSE}
+View(datos)
+```
+
+¿Qué fijarse?
+
+- Tipos de variables.
+- Valores faltantes se codifican como NA. No es un cero, si no, es que no hay observación.
+- Valores máx y min (errores de dedo).
+- Niveles disponibles.
+- Homogeneización de nombres (Especies, tipos de vegetación, sitios de muestreo, etc).
+
+Hagámoslo con R base
+
+Estructura de datos y tipo de variables
+
+```{r}
+str(datos)
+```
+
+Ver muestras de datos
+
+```{r}
+head(datos)
+tail(datos)
+```
+
+Hacer algunas pruebas:
+
+Valores min/max
+
+```{r}
+range(datos$biomasa_kg_C3)
+range(datos$biomasa_kg_C3, na.rm = TRUE)
+```
+
+Ver los valores con NA
+
+```{r}
+indices <- which(is.na(datos$biomasa_kg_C3))
+datos$biomasa_kg_C3[indices]
+```
+
+Valores faltantes
+
+```{r}
+datos[which(is.na(datos$biomasa_kg_C3)),]
+```
+
+Valores extremos
+
+```{r}
+range(datos$DiametroNormal_C3, na.rm = TRUE)
+```
+
+Valores demasiado altos. Algunas veces en lugar de poner NA se usan valores como 99999 o -99999.
+
+```{r}
+datos[datos$DiametroNormal_C3 >= 99999,]
+```
+
+Sustituir por NA
+
+```{r}
+datos$DiametroNormal_C3[datos$DiametroNormal_C3 >= 99999] <- NA
+```
+
+
+```{r}
+range(datos$DiametroNormal_C3, na.rm = TRUE)
+```
+
+Ya más lógico. Habría que hacer lo mismo con varias variables, pero lo dejaremos para después.
+
+Seleccinoar parte de los datos
+
+```{r echo=T, error=T}
+sbc <- subset(datos,
+       datos$CVE_S7_C3=="SBC")
+sbc
+```
+
+Ver los valores únicos hay en una variable
+
+```{r echo=T, error=T}
+unique(datos$CVE_S7_C3)
+length(unique(datos$CVE_S7_C3))
+mean(datos$DiametroNormal_C3, na.rm = TRUE)
+mean(datos$AlturaTotal_C3)
+sd(datos$AlturaTotal_C3)
+
+t(datos$CVE_S7_C3)[1:10]
+```
+
+Hay algo mal. Altura total tiene el mismo problema de los NA codificados como números muy altos.
+
+```{r echo=T, error=T}
+unique(datos$CVE_S7_C3)
+length(unique(datos$CVE_S7_C3))
+mean(datos$DiametroNormal_C3, na.rm = TRUE)
+datos$AlturaTotal_C3[datos$AlturaTotal_C3 >= 99999] <- NA
+mean(datos$AlturaTotal_C3)
+mean(datos$AlturaTotal_C3, na.rm = TRUE)
+sd(datos$AlturaTotal_C3, na.rm = TRUE)
+
+t(datos$CVE_S7_C3)[1:10]
+```
+
+Ordenar
+
+glimpse sirve para echar un vistazo a los datos.
+
+```{r echo=T, error=T}
+temp2<-order(datos$AlturaTotal_C3)
+dplyr::glimpse(temp2)
+
+dplyr::glimpse(datos$AlturaTotal_C3[temp2])
+```
+
+# Gráficas básicas
+
+Gráficas básicas 
+
+* plot(variable de eje x, variable de eje y)
+* Type
+* Col
+* Xlim
+* Ylim
+
+```{r echo=T, error=T, fig.align = "center"}
+plot(datos$DiametroNormal_C3,datos$biomasa_kg_C3)
+```
+
+```{r echo=T, error=T, fig.align = "center"}
+plot(datos$AlturaTotal_C3,datos$biomasa_kg_C3)
+```
+
+```{r echo=T, error=T, fig.align = "center"}
+plot(datos$DiametroNormal_C3,datos$biomasa_kg_C3,
+     xlim = c(0,50),
+     ylim = c(0,1000))
+```
+
+Ayuda a ver posibles patrones y comportamientos entre variables.
+
+Histograma
+
+```{r echo=T, error=T, fig.align = "center"}
+hist(datos$DiametroNormal_C3)
+```
+
+Barplot
+
+```{r}
+sitios <- by(datos$IdConglomerado, 
+              datos$CVE_S7_C3, 
+              FUN = function(x) length(unique(x)))
+sitios <- as.data.frame(sitios)
+barplot(sitios$x,
+        names.arg=rownames(sitios))
+```
+
+Pie
+
+By permite corre funciones por un factor. Luego vamos a ver la versión del tidyverse.
+
+```{r}
+arboles <- by(datos, datos$CVE_S7_C3, FUN = function(x){
+  return(nrow(x))
+})
+arboles <- as.data.frame(arboles)
+pie(arboles$x,labels=rownames(arboles))
+```
+Boxplot
+
+```{r echo=T, error=T, fig.align = "center"}
+subdf <- datos[!is.na(datos$biomasa_kg_C3),]
+boxplot(subdf$biomasa_kg_C3 ~ subdf$CVE_S7_C3,
+        ylim = c(0,1000))
+```
+
+# Manejo de errores comunes
+
+No existe la función o el objeto
+Error: object 'X' not found
+
+* Revisar que el objeto o función esté bien escrita, con mayúsculas, minúsculas, _, etc. 
+* Revisar que el objeto o la función haya sido declarada en el espacio de trabajo.
+* Revisar que se haya cargado el paquete en el que viene la función a utilizar, en el espacio de trabajo.
+
+
+Warnings
+
+* Escribir warnings() para ver de qué se tratan las advertencias. 
+* Normalmente no se tratan de errores críticos, pero pueden avisar sobre detalles importantes a considerar en el análisis (pueden sugerir cambios en el análisis).
+
+* No existe el archivo
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+cannot open file 'X': No such file or directory
+
+* Revisar que la ruta esté escrita correctamente, utilizando: 
+    + Extensión del archivo (.csv)
+    + / en lugar de \\.
+    + Algunas veces hay problemas con caracteres especiales (acentos o espacios). Sugerencia: utilizar _ para espacios y evitar acentos.
+
+* Error de asignación de dimensiones   
+Error in X : subscript out of bounds
+
+* Revisar que el objeto sea del tipo y dimensiones que se piensa (p.ej. data frame y con x renglones y columnas)
+* Revisar la estructura del objeto.
+
+* Error de asignación de dimensiones.
+  

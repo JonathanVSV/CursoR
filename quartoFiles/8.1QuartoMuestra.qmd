@@ -1,0 +1,218 @@
+---
+# Título del documento
+title: "QuartoBasico"
+# Autor del documento
+author: "JVS"
+# Fecha de creación del documento
+date: "10/03/2024"
+# Formato de archivo resultante, html, pdf, word
+format: html
+# editor
+editor: visual
+# Table of contents: índice
+toc: true
+toc-location: left
+# Tipo de página
+page-layout: full
+# Lenguaje
+lang: es-MX
+# Archivo de referencias, se puede crear desde zotero
+bibliography: references.bib
+# Formato de referencias de acuerdo con archivo csl
+csl: remote-sensing-applications-society-and-environment.csl
+# Tipo de fuente a usar en texto normal
+mainfont: "Times New Roman"
+# Fuente a usar en cuadros de código 
+monofont: "Lucida Console"
+# Tamaño de fuente
+fontsize: "12"
+theme: "lux"
+
+# Títulos automáticos para figuras
+figureTitle: "Figure"
+# Títulos de tablas
+tableTitle: "Table"
+# Títulos de ecuaciones
+equationTitle: "Eq. "
+# Prefijo para ecuaciones y figuras
+eqnPrefix: "Eq. "
+figPrefix: 
+  - "fig."
+  - "figs."
+---
+
+Ver modos Source y Visual
+
+Algunos aspectos básicos de markdown
+
+# Encabezado 1
+
+## Encabezado 2
+
+### Encabezado 3
+
+**negritas**, *itálicas*, ***itálicas negritas***, superíndice^2^, subíndice~2.~
+
+```{r}
+df <- tibble::tibble(a = c(1,3), b = c(3,4))
+```
+
+Cómo poner código en línea, por ejemplo, el número de parcelas sale automático de la base de datos.
+
+El muestreo consto de `{r} nrow(df)` parcelas, el valor de la primera parcela fue `{r} df[1,1]`
+
+Listas:
+
+1.  a
+
+2.  b
+
+-   1
+-   2
+
+```{r}
+a <- "Interior del objeto a"
+```
+
+Citas De acuerdo con @knuth84, el método est tal y cual. Los índices de diversidad son muy útiles [@knuth84].
+
+# Imágenes externas
+
+![Mi imagen tomada con un dron](imgs/dron20nov.png)
+
+# Tablas desde cero
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+|      |      |      |
+|      |      |      |
+
+: Mi primera tabla
+
+| columna | sad | promedio | sd  |
+|--------:|:----|----------|:---:|
+|      12 | 12  | 12       | 12  |
+|     123 | 123 | 123      | 123 |
+|       1 | 1   | 1        |  1  |
+
+# Ecuaciones
+
+\$\$
+
+\$\$
+
+$a = b$ esto quiere decir algo
+
+la ecuación para calcular esto sereía:
+
+$$
+b = c*n
+$$
+
+Ecuaciones en línea \$ a = b\$ Ecuaciones en línea aparte
+
+$$
+D = (\sum_{i=1}^S p_i^q)^{1/1-q}
+$$
+
+# Chunks
+
+Nombres de chunk no se pueden repetir. Normalmente se pone uno al principio para cargar los paquetes necesarios.
+
+```{r setup}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(flextable)
+
+# Cambiar unidades de figuras a cm
+chunkhooks::hook_figure_unit("cm")
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Opciones por chunk
+
+echo muestra el código (true) o no (false). output modifica si se muestra tal cual o formateado. fig-cap es el subtítulo de la figura. fig-alt es el nombre alternativo que se muestra si no se encuentra la imagen.
+
+Este no muestra nada, sirve para crear variables dentro del entorno de trabajo del documento.
+
+```{r}
+#| echo: false
+
+a <- 1
+```
+
+Este sí muestra el código.
+
+```{r}
+#| echo: true
+
+a <- 1
+```
+
+Ejemplo de gráfica con código
+
+```{r}
+#| echo: true
+
+df <- tibble(a = 1:10,
+             b = 11:20)
+
+df |>
+  ggplot(aes(x = a,
+             y = b)) +
+  geom_point() +
+  theme_bw()
+```
+
+Ejemplo de gráfica sin código
+
+```{r}
+#| echo: false
+
+df <- tibble(a = 1:10,
+             b = 11:20)
+
+df |>
+  ggplot(aes(x = a,
+             y = b)) +
+  geom_point() +
+  cowplot::theme_cowplot()
+```
+
+Figura con más parámetros y personalización.
+
+```{r, fig.width=16, fig.height=8, fig.cap = "Figura de prueba."}
+#| echo: false
+
+
+df <- tibble(a = 1:10,
+             b = 11:20)
+
+df |>
+  ggplot(aes(x = a,
+             y = b)) +
+  geom_point() +
+  theme_bw()
+```
+
+# Tablas dentro de R con flextable
+
+```{r}
+#| echo: false
+
+df <- tibble(a = 1:10,
+             b = 11:20)
+
+df |>   
+  flextable() |>
+  colformat_double() |>   
+  set_caption(
+    as_paragraph(
+      as_chunk("Mi título de Tabla")), 
+    word_stylename = "Table Caption"
+    ) %>%   
+  set_table_properties(layout = "autofit")
+```

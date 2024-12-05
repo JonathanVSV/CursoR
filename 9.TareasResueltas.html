@@ -214,6 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tarea-4" id="toc-tarea-4" class="nav-link" data-scroll-target="#tarea-4">Tarea 4</a></li>
   <li><a href="#tarea-5" id="toc-tarea-5" class="nav-link" data-scroll-target="#tarea-5">Tarea 5</a></li>
   <li><a href="#tarea-6" id="toc-tarea-6" class="nav-link" data-scroll-target="#tarea-6">Tarea 6</a></li>
+  <li><a href="#tarea-7" id="toc-tarea-7" class="nav-link" data-scroll-target="#tarea-7">Tarea 7</a></li>
   </ul>
 </nav>
 </nav>
@@ -1148,6 +1149,71 @@ attr(,"Subsample")
 3 0.94633
 4 0.95550</code></pre>
 </div>
+</div>
+</section>
+<section id="tarea-7" class="level1">
+<h1>Tarea 7</h1>
+<p>Modelos con tidymodels</p>
+<ol type="1">
+<li>Qué tipo de modelo trata de describir la relación de dependencia entre dos variables numéricas.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>Regresión</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Al crear predicciones basadas en un modelo predictivo cuáles son los dos componentes del error.</li>
+</ol>
+<p>con vegan</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb138"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>Varianza y sesgo</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Cuál paquete dentro de tidymodels sirve para evaluar los modelos ajustados mediante métricas de error o de ajuste.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>yardstick</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Qué función permite dividir los datos en un set de entrenamiento y prueba (Pista: es el paso anterior a correr las funciones training y testing).</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">initial_split</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Qué función permite definir una receta y los datos a usar por ésta, para un generar un modelo</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>Qué función permite ajustar un modelo, definido mediante un flujo de trabajo (donde ya se incluye la receta y el tipo de modelo a ajustar).</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fit</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="7" type="1">
+<li>Qué función permite “sembrar una semilla” para que cualquier proceso aleatorio siempre de el mismo resultado (lo cual asegura la reproducibilidad). Esto se usa por ejemplo, para asegurarse que las mismas observaciones siempre se vayan para datos de entrenamiento y otras siempre a datos de prueba.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="8" type="1">
+<li>Qué función permite agregar las predicciones como una columna al lado de los datos originales. Esto normalmente se hace con los datos de prueba</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb144"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="9" type="1">
+<li>Qué función te permite definir las métricas a utilizar para evaluar el desempeño de un modelo ajustado. Pueden ser métricas de error o métrias de ajuste.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">metric_set</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="10" type="1">
+<li>Menciona un método de validación cruzada que vimos en clase</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>vfold, Montecarlo, leave<span class="sc">-</span>one<span class="sc">-</span>out</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

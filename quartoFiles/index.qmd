@@ -1,0 +1,9 @@
+# Ciencia de datos con R {.unnumbered}
+
+Curso introductorio para el manejo de datos de biodiversidad.
+
+Jonathan Vidal Solórzano Villegas
+
+```{r echo=F,out.width = "100%"}
+knitr::include_graphics("imgs/dron20nov.png")
+```

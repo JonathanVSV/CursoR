@@ -1,0 +1,1143 @@
+---
+title: "5.Ggplot"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: 
+  html:
+    code-overflow: wrap
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+```{r setup, include = FALSE}
+library(BiodiversityR)
+library(readxl)
+library(tidyverse)
+library(readr)
+library(skimr)
+library(iNEXT)
+library(dplyr)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# GGplot2: Paquete para hacer gráficos
+
+Este paquete está enfocado en programar gráficas.
+
+-   Basado en el ["Grammar of graphics"](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl).
+-   La idea general es poder editar cada componente de un gráfico.
+-   Cada componente tiene su nombre y argumentos.
+-   "Mapear" significa usar cierta variable como un componente del gráfico.
+-   Parte del tidyverse así que funciona con la misma sintáxis.
+
+Ventajas:
+
+-   100 % editable.
+-   Visualmente más estética que los gráficos de R base.
+-   Permite crear prácticamente cualquier tipo de gráfica.
+-   Varios paquetes usan como base ggplot2 para generar sus propios gráficos.
+
+Ejemplos de algunos tipos de gráficos
+
+```{r echo=F,out.width = "100%"}
+knitr::include_graphics("imgs/ggplotejem.png")
+```
+
+Los gráficos de ggplot normalmente siguen la siguiente estructura:
+
+1.  Datos.
+2.  Mapeo de variables estéticas `aes`.
+3.  Adición de capas.
+
+Como funciona ggplot2 es como si fueran capas similares a como se manejan imágenes en Photoshop o GIMP.
+
+Esquema de cómo se crean las gráficas de ggplot.
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/ggplotscheme.jpg")
+```
+
+Guía para saber qué parámetros modificar de un gráfico en ggplot: <https://ggplot2tor.com/theme/>.
+
+## Tipos de gráficos
+
+```{r echo=F,out.width = "80%"}
+knitr::include_graphics("imgs/tiposplots.png")
+```
+
+## Leer mismos datos
+
+```{r}
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+
+# Preprocesamiento limpieza de datos
+datos <- datos |>
+  mutate(across(c(AlturaTotal_C3, DiametroNormal_C3), ~ifelse(.x >= 99999, NA, .x))) |>
+  # Eliminar NA
+  drop_na(AlturaTotal_C3, DiametroNormal_C3) |>
+  # Seleccionar columnas de interés
+  select(IdConglomerado,DESCRIP_S7_C3,AlturaTotal_C3, DiametroNormal_C3, biomasa_kg_C3, Anio_C3, CVEECON1_C3) |>
+  # Renombrar columnas
+  rename("ParcelaId" = "IdConglomerado",
+         "TipoVeg" = "DESCRIP_S7_C3",
+         "Altura" = "AlturaTotal_C3",
+         "DAP" = "DiametroNormal_C3",
+         "Biomasa" = "biomasa_kg_C3",
+         "Anio" = "Anio_C3",
+         "Ecorregion" = "CVEECON1_C3") 
+```
+
+## Generar base del gráfico
+
+La primera parte genera el espacio o la base del gráfico.
+
+```{r}
+datos |>
+  ggplot(aes(x = DAP,
+             y = Biomasa)) 
+```
+
+Después se define el estilo de gráfico que se desea.
+
+Para agregar más capas a nuestro gráfico, dentro de ggplot siempre se usa `+` para agregar alguna capa o modificar el tema.
+
+Todos los tipos de gráficas empiezan con `geom_`.
+
+### Scatterplot
+
+```{r}
+datos |>
+  ggplot(aes(x = DAP,
+             y = Biomasa)) +
+  geom_point()
+```
+
+Las opciones básicas de tipos de gráficos son:
+
+-   geom_point.
+-   geom_area.
+-   geom_bar (frecuencias).
+-   geom_col (alguna otra variable).
+-   geom_boxplot.
+-   geom_errorbar
+-   geom_density.
+-   geom_histogram.
+-   geom_line.
+-   geom_smooth.
+-   geom_line.
+
+Aunque hay muchas más, veamos algunos ejemplos.
+
+### Line
+
+```{r}
+datos |>
+  ggplot(aes(x = DAP,
+             y = Biomasa)) +
+  geom_line()
+```
+
+### Bar
+
+La variable del eje Y corresponde a la frecuencia de la variable indicada como x.
+
+```{r}
+datos |>
+  ggplot(aes(x = TipoVeg)) +
+  geom_bar()
+```
+
+### Column
+
+La variable del eje Y corresponde a otra variable, distinta de la del eje X.
+
+```{r}
+datos |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col()
+```
+
+### Boxplot
+
+```{r}
+datos |>
+  ggplot(aes(x = TipoVeg,
+             y = DAP)) +
+  geom_boxplot()
+```
+
+### Histograma
+
+```{r}
+datos |>
+  ggplot(aes(x = DAP)) +
+  geom_histogram()
+```
+
+Se pueden combinar varios.
+
+```{r}
+datos |>
+  ggplot(aes(x = DAP,
+             y = Biomasa)) +
+  geom_point() +
+  geom_line()
+```
+
+## Valores estéticos (aes)
+
+Guía para definir parámetros de `aes`:
+
+-   x: valores en eje x.
+-   y: valores en eje y.
+-   color: color de bordes o líneas.
+-   fill: relleno de barras, áreas, etc.
+-   group: Grupos, p.ej., para series de puntos y líneas, unir las de un mismo grupo
+
+Otros menos usados: - size: tamaño del ícono. - linetype: tipo de línea. - alpha: transparencia. - width: ancho de la barra o columna.
+
+Algunos tienen: - xmin, xmax - ymin, ymax.
+
+Ahorita ya usamos x y y, veamos col y fill.
+
+### Color
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg)) +
+  geom_point()
+```
+
+```{r}
+datos |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             color = Anio)) +
+  geom_col()
+```
+
+### Relleno: Fill
+
+```{r}
+datos |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = Anio)) +
+  geom_col()
+```
+
+Diferencia entre numérico y factor
+
+```{r}
+datos |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col()
+```
+
+### Grupos: Group
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg,
+             group = TipoVeg)) +
+  geom_line()
+```
+
+### Otros
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg,
+             group = TipoVeg,
+             linetype = TipoVeg)) +
+  geom_line()
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg,
+             group = TipoVeg,
+             alpha = Biomasa)) +
+  geom_point()
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg,
+             group = TipoVeg,
+             size = Biomasa)) +
+  geom_point()
+```
+
+### Posiciones para columnas
+
+```{r}
+datos |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col(position = "dodge")
+```
+
+```{r}
+datos |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col(position = "stack")
+```
+
+## Personalización
+
+### Títulos de ejes y leyenda: labs
+
+Aquí el truco es poner el nombre del elemento indicado en la sección de `aes` como título de leyenda. En el caso de varias leyendas, se pueden indicar por separado.
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg,
+             group = TipoVeg)) +
+  geom_line() +
+  labs(x = "Diámetro", 
+       y = "Biomasa (kg)", 
+       color = "Tipo de Vegetación")
+```
+
+### Modificar escalas de ejes: scales
+
+-   Scale_x
+    -   \_continuous: cuando la variable es numérica.
+    -   \_discrete: cuando la variable es discreta (factor).
+-   Scale_y
+    -   \_continuous: cuando la variable es numérica.
+    -   \_discrete: cuando la variable es discreta (factor).
+
+Parámetros importantes:
+
+-   breaks: intervalos con etiqueta.
+-   limits: límites del gráfico.
+-   expand: qué tanto espacio se deja entre los ejes y la primera observación.
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg,
+             group = TipoVeg)) +
+  geom_line() +
+  scale_x_continuous(breaks = seq(0,250,25),
+                     limits = c(0,250),
+                     expand = c(0,0))+
+  scale_y_continuous(breaks = seq(0,10000,1250),
+                     limits = c(0,10000),
+                     expand = c(0,0))
+  
+```
+
+Ejes discretos
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  mutate(across(TipoVeg, ~as.factor(.x))) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() 
+```
+
+Por default ejes discretos los pone en orden alfabético. Para cambiar el orden.
+
+Ejes discretos
+
+Opción 1: Cambiar orden de factores
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  mutate(across(TipoVeg, ~factor(.x, levels = c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")))) |>
+ group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() + 
+  scale_x_discrete(labels = c( "Selva Baja Caducifolia", "Bosque de Pino", "Bosque de Encino", "Bosque de Oyamel", "Manglar"))
+```
+
+Opción 2: Poner límites
+
+```{r}
+datos_sub <- datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  mutate(across(TipoVeg, ~as.factor(.x))) 
+datos_sub |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() + 
+  scale_x_discrete(limits = rev(levels(datos_sub$TipoVeg)))
+```
+
+### Cambiar colores por default: Scale_fill/col
+
+-   scale_fill
+    -   \_manual
+    -   \_continuous: continuos.
+    -   \_discrete: discretos.
+    -   \_brewer: discretos.
+    -   \_distiller: continuos.
+-   scale_color
+    -   \_manual
+    -   \_continuous: continuos.
+    -   \_discrete: discretos.
+    -   \_brewer: discretos.
+    -   \_distiller: continuos.
+
+Revisar paletas de colores de ggplot2 y colores hexadecimales:
+
+-   [ggplot2 colors](https://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+-   [html colors](https://htmlcolorcodes.com/)
+
+Otro paquete muy útil para crear paletas: RColorBrewer.
+
+-   [RColorBrewer palettes](https://clojure2d.github.io/clojure2d/docs/static/palettes/RColorBrewer.html)
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+ group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  scale_fill_brewer(palette = "PuBuGn")
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  scale_fill_manual(values = c("forestgreen","yellow2", "orange1", "red1", "royalblue"))
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  scale_fill_manual(values = RColorBrewer::brewer.pal(5, "Accent"))
+```
+
+## Facets
+
+### Facet_wrap
+
+Hacer gráficos de varios paneles. Los argumentos más relevantes son:
+
+-   Fórmula que indica los paneles.
+-   Número de columnas o filas.
+-   Si las escalas varían en x ("free_y"), y ("free_y"), ambas ("both") o ninguna.
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  facet_wrap(~ as.factor(Anio),
+             ncol = 3,
+             scales = "free_y")
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |> 
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  facet_wrap(~ as.factor(Anio),
+             ncol = 3,
+             scales = "free_x")
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  facet_wrap(~ as.factor(Anio),
+             ncol = 3,
+             scales = "free")
+```
+
+### Facet_grid
+
+Hacer gráficos de varios paneles, con una cuadrícula de dos factores
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(Ecorregion, TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(Ecorregion, TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  facet_grid(as.factor(Ecorregion) ~ as.factor(Anio),
+             scales = "free_y")
+```
+
+Comparado con facet_wrap que genera títulos de paneles combinados.
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(Ecorregion, TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(Ecorregion, TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = as.factor(Anio))) +
+  geom_col() +
+  facet_wrap(as.factor(Ecorregion) ~ as.factor(Anio),
+             scales = "free_y")
+```
+
+## Modificar tema
+
+### Temas prediseñados
+
+-   theme_bw
+-   theme_gray
+-   theme_dark
+-   theme_void
+-   theme_minimal
+-   cowplot::theme_cowplot
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  theme_bw()
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  theme_gray()
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  theme_dark()
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  theme_minimal()
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  theme_void()
+```
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  cowplot::theme_cowplot()
+```
+
+### Personalizar tema
+
+Opciones de tema tenemos opciones sobre:
+
+-   Ejes.
+    -   Títulos de ejes.
+    -   Texto de ejes.
+    -   Marcas de ejes.
+-   Leyenda.
+    -   Texto.
+    -   Fondo.
+    -   Borde.
+-   Panel.
+    -   Fondo.
+    -   Divisiones menores y mayores.
+-   Área de gráfica.
+    -   Título.
+    -   Fondo.
+-   Tiras (Strip)
+    -   Texto.
+    -   Fondo.
+
+Ejemplo
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  theme(plot.title = element_text(size=18,hjust = 0.5),
+        text = element_text(size=14,colour="black"),
+        axis.text.x = element_text(size=10,
+                                   colour="black",
+                                   angle = 90, 
+                                   hjust = 1,
+                                   vjust = 0.5),
+        axis.text.y = element_text(size=10,
+                                   colour="black",
+                                   angle = 0, 
+                                   vjust = 0.5,
+                                   hjust = 1),
+        axis.title = element_text(size=16,
+                                  colour="black",
+                                  face = "bold"), 
+        axis.line = element_line(colour = "black"),
+        legend.title = element_text(size=18),
+        legend.text = element_text(size=18),
+        axis.line.x = element_line(colour="black"),
+        axis.line.y = element_line(colour="black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_rect(fill="gray90",
+                                       colour = "black"),
+        strip.text = element_text(size=18,
+                                  colour="black",
+                                  face = "bold"),
+        plot.margin = unit(c(0.01,0.01,0.01,0.01), "cm"))
+```
+
+Opciones para elementos de theme
+
+-   element_blank. Elemento en blanco.
+-   element_line. Elemento de tipo línea.
+-   element_rect. Elemento de tipo rectángulo.
+-   element_text. Elemento de tipo texto.
+
+Cambiar color de fondo
+
+```{r}
+datos |>
+    filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+ group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90,
+                                   hjust = 1),
+        panel.background = element_rect(fill = "#156047"))
+```
+
+### Modificaciones sin mapeo
+
+Se pueden colocar valores únicos para cada aspecto estético de las gráficas.
+
+Por ejemplo:
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col(fill = "#A45321",
+           alpha = 0.8,
+           width = 0.6) +
+  theme(plot.title = element_text(size=18,hjust = 0.5),
+        text = element_text(size=14,colour="black"),
+        axis.text.x = element_text(size=10,
+                                   colour="black",
+                                   angle = 90, 
+                                   hjust = 1,
+                                   vjust = 0.5),
+        axis.text.y = element_text(size=10,
+                                   colour="black",
+                                   angle = 0, 
+                                   vjust = 0.5,
+                                   hjust = 1),
+        axis.title = element_text(size=16,
+                                  colour="black",
+                                  face = "bold"), 
+        axis.line = element_line(colour = "black"),
+        legend.title = element_text(size=18),
+        legend.text = element_text(size=18),
+        axis.line.x = element_line(colour="black"),
+        axis.line.y = element_line(colour="black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_rect(fill="gray90",
+                                       colour = "black"),
+        strip.text = element_text(size=18,
+                                  colour="black",
+                                  face = "bold"),
+        plot.margin = unit(c(0.01,0.01,0.01,0.01), "cm"))
+```
+
+Cuando se modifican los aspectos estéticos sin mapear a una variable estos tienen que ser: 1) todos iguales, es decir, poner un solo color, valor, etc, 2) o tener la misma longitud de los niveles de la variable que se está mapeando. Por ejemplo:
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  ggplot(aes(x = TipoVeg,
+             y = mean)) +
+  geom_col(fill = RColorBrewer::brewer.pal(5, "Dark2"),
+           alpha = 0.8,
+           width = 0.6) +
+  theme(plot.title = element_text(size=18,hjust = 0.5),
+        text = element_text(size=14,colour="black"),
+        axis.text.x = element_text(size=10,
+                                   colour="black",
+                                   angle = 90, 
+                                   hjust = 1,
+                                   vjust = 0.5),
+        axis.text.y = element_text(size=10,
+                                   colour="black",
+                                   angle = 0, 
+                                   vjust = 0.5,
+                                   hjust = 1),
+        axis.title = element_text(size=16,
+                                  colour="black",
+                                  face = "bold"), 
+        axis.line = element_line(colour = "black"),
+        legend.title = element_text(size=18),
+        legend.text = element_text(size=18),
+        axis.line.x = element_line(colour="black"),
+        axis.line.y = element_line(colour="black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_rect(fill="gray90",
+                                       colour = "black"),
+        strip.text = element_text(size=18,
+                                  colour="black",
+                                  face = "bold"),
+        plot.margin = unit(c(0.01,0.01,0.01,0.01), "cm"))
+```
+
+Si esto no ocurre, va a marcar un error. La alternativa puede ser generar nuevas variables para mapear cierto aspecto a esa variable.
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  mutate(coloreado = ifelse(TipoVeg %in% c("BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL"), "Templado", "Tropical")) |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = coloreado)) +
+  geom_col(alpha = 0.8,
+           width = 0.6) +
+  scale_fill_manual(values = c("forestgreen", "purple2")) +
+  theme(plot.title = element_text(size=18,hjust = 0.5),
+        text = element_text(size=14,colour="black"),
+        axis.text.x = element_text(size=10,
+                                   colour="black",
+                                   angle = 90, 
+                                   hjust = 1,
+                                   vjust = 0.5),
+        axis.text.y = element_text(size=10,
+                                   colour="black",
+                                   angle = 0, 
+                                   vjust = 0.5,
+                                   hjust = 1),
+        axis.title = element_text(size=16,
+                                  colour="black",
+                                  face = "bold"), 
+        axis.line = element_line(colour = "black"),
+        legend.title = element_text(size=18),
+        legend.text = element_text(size=18),
+        axis.line.x = element_line(colour="black"),
+        axis.line.y = element_line(colour="black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_rect(fill="gray90",
+                                       colour = "black"),
+        strip.text = element_text(size=18,
+                                  colour="black",
+                                  face = "bold"),
+        plot.margin = unit(c(0.01,0.01,0.01,0.01), "cm"))
+```
+
+## Ejemplo completo
+
+```{r}
+datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  group_by(TipoVeg, Anio, ParcelaId) |>
+  summarise(AGB = (sum(Biomasa)/1000)*10000/1600,
+            .groups = "drop") |>
+  group_by(TipoVeg, Anio) |>
+  summarise(mean = mean(AGB),
+            .groups = "drop") |>
+  mutate(coloreado = ifelse(TipoVeg %in% c("BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL"), "Templado", "Tropical")) |>
+  ggplot(aes(x = TipoVeg,
+             y = mean,
+             fill = coloreado)) +
+  geom_col(alpha = 0.8,
+           width = 0.6) +
+  scale_fill_manual(values = c("forestgreen", "purple2"))+
+  labs(x = "Tipo de vegetación", y = "Biomasa (Mg/ha)", fill = "Tipo de bosque") +
+  theme(plot.title = element_text(size=18,hjust = 0.5),
+        text = element_text(size=14,colour="black"),
+        axis.text.x = element_text(size=10,
+                                   colour="black",
+                                   angle = 90, 
+                                   hjust = 1,
+                                   vjust = 0.5),
+        axis.text.y = element_text(size=10,
+                                   colour="black",
+                                   angle = 0, 
+                                   vjust = 0.5,
+                                   hjust = 1),
+        axis.title = element_text(size=16,
+                                  colour="black",
+                                  face = "bold"), 
+        axis.line = element_line(colour = "black"),
+        legend.title = element_text(size=18),
+        legend.text = element_text(size=18),
+        axis.line.x = element_line(colour="black"),
+        axis.line.y = element_line(colour="black"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_blank(),
+        strip.background = element_rect(fill="gray90",
+                                       colour = "black"),
+        strip.text = element_text(size=18,
+                                  colour="black",
+                                  face = "bold"),
+        plot.margin = unit(c(0.01,0.01,0.01,0.01), "cm"))
+```
+
+## Exportar gráfico
+
+ggsave
+
+Guarda por default la última gráfica agregada en el panel de gráficos.
+
+Permite guardar imágenes en formato: png, eps, ps, tex, pdatos, jpeg, tiff, bmp, svg. Si no se le indica lo toma del nombre del archivo.
+
+```{r echo = T, error = T,fig.height=3,fig.width=4,fig.align = "center"}
+ggsave(filename = "Gráfica_ggplot.jpeg",
+       width = 18,
+       height = 12,
+       units = "cm",
+       dpi = 300)
+```
+
+## Combinar más de una gráfica
+
+Paquetes cowplot y patchwork
+
+### Cowplot
+
+```{r}
+library(cowplot)
+```
+
+```{r}
+p1 <- datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa)) +
+  geom_point()
+```
+
+```{r}
+p2 <- datos |>
+  filter(TipoVeg %in% c("SELVA BAJA CADUCIFOLIA", "BOSQUE DE PINO", "BOSQUE DE ENCINO", "BOSQUE DE OYAMEL", "MANGLAR")) |>
+  ggplot(aes(x = DAP,
+             y = Biomasa,
+             color = TipoVeg)) +
+  geom_line()
+```
+
+```{r}
+p3 <- plot_grid(p1, 
+          p2, 
+          labels = c("A", "B"),
+          label_size = 14)
+p3
+```
+
+Exportar
+
+```{r}
+save_plot(filename = "Gráfica_ggplot.jpeg",
+          plot = p3,
+          base_width = 18,
+          base_height = 12,
+          units = "cm",
+          dpi = 300)
+```
+
+### Patchwork
+
+```{r}
+library(patchwork)
+```
+
+```{r}
+p1 + p2
+```
+
+```{r}
+p3 <- p1 + p2
+```
+
+```{r}
+p1 / p2
+```
+
+Exportar
+
+```{r}
+ggsave(filename = "Gráfica_ggplot.jpeg",
+       plot = p3,
+       width = 18,
+       height = 12,
+       units = "cm",
+       dpi = 300)
+```
+
+## Otros paquetes para expander las capacidades de ggplot
+
+-   Animar gráficas: gganimate.
+-   Agregar datos estadísticos: ggstatsplot.
+-   Resalta componentes: gghighlight.
+-   Crear "fills" con patrones (p.ej. achurado): ggpattern.
+-   Evitar etiquetas sobrelapadas: ggrepel.
+-   Agregar texto en líneas: geomtextpath.
+-   Temas prehechos: ggthemes, hrbrthemes.
+-   Generar gráficas de nodos, treemaps, árboles: ggraph.
+-   Generar gráficas interactivas html: ggiraph.
+-   Agregar etiquetas y texto: ggtext.
+-   Crear gráficas de manera interactiva (minimiza el uso de código): esquisse.
+-   Treemaps: treemap.
+-   Mapas interactivos: leaflet.
+
+## Otros paquetes para hacer gráficas en R
+
+-   [plotly](https://plotly.com/r/).
+-   [seaborn](https://github.com/amrrs/seaborn_in_r).

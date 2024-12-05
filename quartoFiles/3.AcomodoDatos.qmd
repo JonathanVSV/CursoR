@@ -1,0 +1,672 @@
+---
+title: "3.AcomodoDatos"
+author: "Jonathan V. Solórzano"
+date: "10/03/2024"
+format: html
+editor: visual
+toc: true
+toc-location: left
+page-layout: full
+lang: es-MX
+---
+
+Instalar paquetes de tidyverse y cargar tidyverse y readxl
+
+```{r echo=F,error=TRUE, results='hide', eval = FALSE}
+install.packages("tidyverse")
+```
+
+```{r setup, include=TRUE}
+library(tidyverse)
+library(readxl)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tidyverse
+
+Conjunto de paquetes con sintáxis similar para facilitar el uso conjunto de funciones.
+
+Ventajas:
+
+- Permiten encadenar una serie de procesos sin necesidad de ir guardando productos intermedios en objetos basura.
+- Código más fácil de leer.
+- Bastante amigable para principiantes.
+- Muchas funciones permiten hacer lo mismo que R base.
+- Casi todas las operaciones se realizan de manera vectorizada (evita usar tiempo de cómputo en ciclos no necesarios).
+- Sin embargo, no a todo mundo le gusta porque dice que cambia mucho la sintáxis de R base.
+
+```{r echo=F,out.width = "100%"}
+knitr::include_graphics("imgs/tidyverse.png")
+```
+
+En inglés conocido como data wrangling.
+
+```{r echo=T, error=T}
+datos <- read_excel("INFyS_2015_2020_Michoacan_de_Ocampo_lHwLKIM.xlsx",
+                  sheet = "Arbolado")
+#Mostrar la parte superior de los datos
+head(datos)
+
+#Mostrar su estructura
+str(datos)
+```
+
+Tres paquetes esenciales para el _data wrangling_ o acomodo de datos: tibble, dplyr y tidyr.
+
+- Tibble: paquete con un nuevo tipo de objeto similar a data.frame, pero con ciertas mejoras. Los tibbles son la base de trabajo del tidyverse.
+
+- Dplyr: Es un paquete que permite modificar y agregar variables, y hacer resumenes. 
+
+- Tidyr: Es un paquete que permite acomodar datos y
+eliminar/rellenar datos faltantes.
+
+
+# El pipe
+
+La base del tidyverse. Primero inventado en el paquete "magrittr" (`%>%`). A partir de R 4.0 ya tiene una implementación base (`|>`).
+
+El pipe es equivalente a decir que lo que va antes del pipe es el primer argumento de la función. 
+
+```{r}
+mean(datos$UPMID)
+datos$UPMID |>
+  mean()
+```
+
+# Tibble
+
+Es como un data.frame pero hace menos cosas:
+
+- No cambia el tipo de las entradas (p.ej., caracter a factor).
+- No cambia el nombre de las variables.
+- Nunca crea nombres de filas.
+
+Además, tiene una versión mejorada de print para facilitar revisar los datos.
+
+```{r}
+datos2 <- datos |>
+  as_tibble()
+datos2
+class(datos2)
+```
+
+Aquí vemos que la clase de los datos es tibble (abreviado como tibble: `tbl` y tibble_dataframe: `tbl_df`).
+
+```{r}
+class(datos2)
+```
+
+Si quieres nombrar columnas con caracteres especiales (p.ej., espacios, acentos, comenzar con números) se puede poner el nombre entre \` \` (backticks).
+
+Hay dos formas básicas de crear tibbles a partir de datos.
+
+-   tibble. Como data.frame, i.e., vector por atributo.
+-   tribble. tibble transpuesto, i.e., vectores por filas.
+
+```{r}
+tibble(a = 1:5,
+       b = letters[1:5])
+tribble(~a, ~b,
+        1,"a",
+        2, "b",
+        3, "c",
+        4, "d",
+        5, "e")
+```
+
+# Dplyr
+
+Notar que los nombres de las variables se escriben sin comillas. Si tienen caracteres especiales, con \` \`.
+
+Ver algunas características de nuestros datos.
+
+Ver niveles de Tipos de vegetación. Recuerden que CVE_S7_C3 contiene la clave de tipos de vegetación.
+
+## Seleccionar columnas
+
+Seleccionar ciertos atributos.
+
+```{r}
+datos |>
+  distinct(CVE_S7_C3)
+datos |>
+  select(UPMID, CVE_S7_C3) 
+```
+
+Select es similar a seleccionar por número de columnas, pero haciendo referencia al nombre de la columna. Los nombres de las columnas se ponen sin concatenarlos en un vector (es decir, sin `c`).
+
+## Obtener valores distintos o únicos
+
+Principal diferencia de `distinct` con `unique` es que retorna un tibble, en lugar de vector. Si se quiere obtener un vector se puede usar `pull`.
+
+```{r}
+datos |>
+  distinct(CVE_S7_C3) |>
+  pull(CVE_S7_C3)
+```
+
+Ver número de valores por columna.
+
+```{r}
+datos |>
+  select(CVE_S7_C3) |>
+  n_distinct()
+```
+
+## Agregar nuevas columnas
+
+Agregar nuevas columnas se hace con `mutate`. Primero se pone el nuevo nombre de la columna y luego a lo que equivale.
+
+```{r}
+datos |>
+  select(DiametroNormal_C3) |>
+  mutate(DiametroNormal_C3_m = DiametroNormal_C3/100)
+```
+
+## Renombrar columnas.
+
+Renombrar se hace con `rename`. Primero se pone nuevo nombre y luego el viejo.
+
+```{r}
+datos |>
+  select(DiametroNormal_C3) |>
+  rename("DAP" = "DiametroNormal_C3")
+```
+
+## Ordenar datos
+
+Se usa `arrange`. Por default los ordena de menor a mayor (ascendente). Si no se quiere esto, se usa `desc` para ponerlos en orden descendente.
+
+```{r}
+datos |>
+  select(DiametroNormal_C3) |>
+  arrange(DiametroNormal_C3)
+datos |>
+  select(DiametroNormal_C3) |>
+  arrange(desc(DiametroNormal_C3))
+```
+
+## Filtrar
+
+Quedarse con una parte de los datos en función de algún criterio en particular.
+
+```{r}
+datos |>
+  select(DiametroNormal_C3) |>
+  filter(DiametroNormal_C3 >= 99999)
+```
+
+Si queremos más de una condición (i.e., y) se usa `&`, operador ó es `|`.
+
+```{r}
+datos |>
+  select(DiametroNormal_C3) |>
+  filter(DiametroNormal_C3 <= 99999 & DiametroNormal_C3 >= 20)
+
+datos |>
+  select(DiametroNormal_C3) |>
+  filter(DiametroNormal_C3 <= 5 | DiametroNormal_C3 >= 20)
+```
+
+## Sobreescribir valores o modificar un columna en su lugar
+
+Esto se hace con `mutate(across())`.
+
+Quitar valores de 99999 como NA
+
+```{r}
+datos |>
+  filter(DiametroNormal_C3 >= 99999)
+
+datos2 <- datos |>
+  mutate(across(DiametroNormal_C3, ~ifelse(.x >= 99999, NA, .x)))
+```
+
+Across usa la sintáxis de `~` para determinar una función que le aplicas a lo que le pases, referenciado como `.x`. El usar la notación `~(.x)` es similar a usar `function(x)` con procesos más simples.
+
+
+```{r}
+datos2 |>
+  filter(DiametroNormal_C3 >= 99999)
+
+datos2 <- datos |>
+  mutate(across(DiametroNormal_C3, function(x) {
+    resul <- ifelse(x >= 99999, NA, x)
+    return(resul)
+    }))
+
+datos2 |>
+  filter(DiametroNormal_C3 >= 99999)
+```
+
+Lo mismo en R base
+
+```{r}
+datos2 <- datos
+datos2$DiametroNormal_C3[datos2$DiametroNormal_C3 >= 99999] <- NA
+
+datos2 |>
+  filter(DiametroNormal_C3 >= 99999)
+```
+
+Hacer lo mismo para Altura.
+
+```{r}
+datos2 <- datos |>
+  mutate(across(AlturaTotal_C3, ~ifelse(.x >= 99999, NA, .x)))
+
+datos2 |>
+  filter(AlturaTotal_C3 >= 99999)
+```
+
+Varias transformaciones a la vez.
+
+```{r}
+datos2 <- datos |>
+  mutate(across(c(AlturaTotal_C3, DiametroNormal_C3), ~ifelse(.x >= 99999, NA, .x)))
+
+datos2 |>
+  filter(AlturaTotal_C3 >= 99999 | DiametroNormal_C3 >= 99999)
+```
+
+Seleccionar varios tipos de variables por tipo o por nombre para modificarlas en su lugar. Eso se puede hacer con `mutate(across())` y la ayuda de algunas de las siguientes funciones.
+
+- starts_with
+- ends_with
+- everything
+- where + is.numeric | is.character
+
+```{r}
+datos2 <- datos |>
+  mutate(across(starts_with("Diametro"), ~ifelse(.x >= 99999, NA, .x)))
+
+datos2 |>
+  filter(DiametroNormal_C3 >= 99999 | DiametroCopaNS_C3 >= 99999 | DiametroCopaEO_C3 >= 99999 | DiametroCopa_C3 >= 99999)
+
+datos2 <- datos |>
+  mutate(across(where(is.numeric), ~ifelse(.x >= 99999, NA, .x)))
+
+datos2 |>
+  select(UPMID, DiametroNormal_C3, AlturaTotal_C3) |>
+  mutate(across(everything(), ~ifelse(.x >= 99999, NA, .x)))
+```
+
+## Selección de columnas con vectores.
+
+Este caso se usa cuando los nombres de las columnas no los sabes de antemano, pero los quieres pasar como un vector. En este caso se usa `all_of`.
+Noten que cuando se usa `all_of`, los nombres de las variables van entre comillas (como caracter). En cambio, si se ponen directamente en across, van sin comillas.
+
+```{r}
+datos2 <- datos |>
+  mutate(across(all_of(c("AlturaTotal_C3", "DiametroNormal_C3")), ~ifelse(.x >= 99999, NA, .x)))
+
+datos2 <- datos |>
+  mutate(across(c(AlturaTotal_C3, DiametroNormal_C3), ~ifelse(.x >= 99999, NA, .x)))
+
+datos2 |>
+  filter(AlturaTotal_C3 >= 99999 | DiametroNormal_C3 >= 99999)
+```
+
+Ya tenemos nuestros datos un poco más limpios. Veamos algunas estadísticas por grupo.
+
+## Agrupar y resumir
+
+Para agrupar datos por algún nivel se usa `group_by`. Al imprimir un `tibble` con `group_by` nos indica que está agrupado y nos dice el número de grupos.
+
+```{r}
+datos <- datos |>
+  mutate(across(where(is.numeric), ~ifelse(.x >= 99999, NA, .x)))
+
+datos |>
+  group_by(CVE_S7_C3)
+```
+
+Para calcular nuevos valores se usa `summarise` si se quiere resumir varias filas en una sola. `summarise` quita todas las columnas que no sean grupos.
+
+Para hacer conteos se puede usar `count` o `summarise(n = n())`
+En este ejemplo `n()` calcula el número de filas por grupo.
+
+```{r}
+datos |>
+  group_by(CVE_S7_C3) |>
+  count()
+
+datos |>
+  group_by(CVE_S7_C3) |>
+  summarise(n = n())
+
+datos |>
+  group_by(CVE_S7_C3) |>
+  summarise(mean = mean(biomasa_kg_C3),
+            sd = sd(biomasa_kg_C3))
+```
+
+Por default se quedan los datos agrupados a excepción del último nivel. Para quitarlos. Sugiero siempre poner `.groups = "drop"` para que no se queden los datos agrupados. El que se queden los datos agrupados puede tener repercusiones no deseadas más abajo en la cadena de procesos. Revisar que el resultado no dice "groups" para asegurarnos que no se quedan agrupados. Mi recomendación es antes de hacer una operación agrupen para que esté muy claro la definición de grupos. También para desagrupar existe la función `ungroup`.
+
+Se puede agrupar los datos por el número de factores que se quieran.
+
+Por ejemplo, veamos como cambian los resultados dejando los datos agrupados o no. En el primer caso se agrupan los datos por CVE_S7_C3, DESECON3_C3, mientras que en el segundo por ninguna variable.
+
+```{r}
+datos |>
+  group_by(CVE_S7_C3, DESECON3_C3,DESECON4_C3) |>
+  summarise(mean = mean(biomasa_kg_C3),
+            sd = sd(biomasa_kg_C3)) |>
+  count()
+
+datos |>
+  group_by(CVE_S7_C3, DESECON3_C3, DESECON4_C3) |>
+  summarise(mean = mean(biomasa_kg_C3),
+            sd = sd(biomasa_kg_C3),
+            .groups = "drop") |>
+  count()
+```
+
+```{r}
+datos |>
+  group_by(CVE_S7_C3, DESECON3_C3,DESECON4_C3) |>
+  summarise(mean = mean(biomasa_kg_C3),
+            sd = sd(biomasa_kg_C3)) |>
+  ungroup() |>
+  count()
+
+datos |>
+  group_by(CVE_S7_C3, DESECON3_C3, DESECON4_C3) |>
+  summarise(mean = mean(biomasa_kg_C3),
+            sd = sd(biomasa_kg_C3),
+            .groups = "drop") |>
+  count()
+```
+
+Esto es biomasa promedio por árbol.
+
+Para hacerlo por parcela:
+
+```{r}
+datos |>
+  group_by(IdConglomerado) |>
+  summarise(AGB = sum(biomasa_kg_C3),
+            .groups = "drop")
+```
+
+Biomasa total por parcela (1600 m^2)
+Pasarlo a Mg/ha. Primero extrapolar de 1600 m^2 a 10 000 m^2 y luego de kg a Mg. Generar nueva columna con la biomasa por ha.
+
+```{r}
+df_agb_sit <- datos |>
+  group_by(CVE_S7_C3, UPMID) |>
+  # Resumir por parcela
+  summarise(AGB = sum(biomasa_kg_C3),
+            .groups = "drop") |>
+  # Escalar a 1 ha. Parcelas son 1600 m2 de muestreo
+  mutate(scale = 10000 / 1600) |>
+  # Multiplicar por el factor de escalamiento
+  mutate(AGB.ha = AGB * scale) |>
+  # Transformar de kg a Mg.
+  mutate(across(AGB.ha, ~.x/1000))
+```
+
+Ahora sí calcular el AGB promedio pr tipo de vegetación.
+
+Alternativa para desagrupar: `ungroup`
+
+```{r}
+df_agb_sit |>
+  group_by(CVE_S7_C3) |>
+  summarise(mean = mean(AGB.ha),
+            sd = sd(AGB.ha)) |>
+  ungroup()
+```
+
+Hay algunas que salen NA, seguramente porque hay NA en esas parcelas.
+No usarlas para los calculos
+
+```{r}
+df_agb_sit |>
+  group_by(CVE_S7_C3) |>
+  summarise(mean = mean(AGB.ha, na.rm = TRUE),
+            sd = sd(AGB.ha, na.rm = TRUE)) |>
+  ungroup()
+```
+
+Algunas tienen sd = NA, seguramente tienen un solo sitio de muestreo (no hay variación). Veamos con `count` para contar
+
+```{r}
+df_agb_sit |>
+  group_by(CVE_S7_C3) |>
+  count()
+```
+
+## Rebanar o sacar ciertas filas
+
+Sacar valores más altos o más bajos por grupo se puede hacer con `arrange` y `slice`. O también existen las versiones `slice_head` y `slice_tail`.
+
+```{r}
+df_agb_sit |>
+  group_by(CVE_S7_C3) |>
+  arrange(desc(AGB.ha)) |>
+  slice(1)
+```
+
+Lo mismo, pero con `slice_head`.
+
+```{r}
+df_agb_sit |>
+  group_by(CVE_S7_C3) |>
+  arrange(desc(AGB.ha)) |>
+  slice_head(n = 1)
+```
+
+Para pasar de un objeto tipo tibble a uno de tipo vector se puede hacer con `pull`.
+
+```{r}
+df_agb_sit |>
+  group_by(CVE_S7_C3) |>
+  arrange(desc(AGB.ha)) |>
+  slice_head(n = 1) |>
+  pull(AGB.ha)
+```
+
+## Otras funciones útiles :
+
+Algunas otras funciones de `dplyr`.
+
+-   rowwise. Hacer operaciones por cada fila.
+-   bind_rows, bind_cols. Pegar listas por filas o por columnas. Función bastante útil para cuando tienes múltiples entradas con read.csv o algo similar.
+-   any_of. Como `all_of` pero para cuando quieres evaluar una condición sobre alguna en lugar de todas las variables.
+-   left_join, right_join, full_join, anti_join. Útiles para unir dos tablas que comparten un campo en común. Diferentes formas de hacer estas uniones.
+-   lag, lead. Para hacer operaciones "rolling", por ejemplo, restar a cada valor el anterior o sumar. Usados para hacer sumas acumulativas.
+
+# Tidyr
+
+Dos formatos principales en datos tabulados: largo (long) y ancho (wide). Hay dos funciones para cambiar rápida y fácilmente de un formato a otro:
+
+## Pasar de formato largo a ancho o viceversa
+
+Para pasar de formato ancho a largo: `pivot_longer`, para pasar de largo a ancho: `pivot_wider`.
+
+Esto es formato largo
+
+```{r}
+datos |>
+  select(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) |>
+  pivot_longer(cols = -IdConglomerado,
+              names_to = "Variable",
+               values_to = "Valor")
+```
+
+Para generar exactamente el mismo formato necesitamos un id por planta para que cada árbol tenga su propio altura y diámetro. Para regresar a los datos como los teníamos en original (formato ancho).
+
+```{r}
+datos |>
+  select(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) |>
+  # Agregar un identificador único para volver a generar bien los datos en formato ancho
+  mutate(id = row_number()) |>
+  pivot_longer(cols = -c(IdConglomerado, id),
+              names_to = "Variable",
+               values_to = "Valor") |>
+  pivot_wider(id_cols = c(IdConglomerado, id),
+              names_from = "Variable",
+              values_from = "Valor")
+```
+
+¿Qué pasa si no ponemos el id?
+
+```{r}
+datos |>
+  select(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) |>
+  pivot_longer(cols = -c(IdConglomerado),
+              names_to = "Variable",
+               values_to = "Valor") |>
+  pivot_wider(id_cols = c(IdConglomerado),
+              names_from = "Variable",
+              values_from = "Valor")
+```
+
+En automático cuando no tenemos una entrada única por los niveles de la columna marcada como `id_cols` va a meter los datos en una lista. Vean el aviso. Las listas se van a ver como `< tipo de variable y cuántos datos tiene>`. En este caso el tipo de variable es "double" `dbl`.
+
+Para evitar el aviso podemos indicarle que esperamos que no haya entradas únicas por los niveles de `id_cols` y que si esto pasa lo meta dentro de una lista.
+
+```{r}
+datos |>
+  select(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) |>
+  pivot_longer(cols = -c(IdConglomerado),
+              names_to = "Variable",
+               values_to = "Valor") |>
+  pivot_wider(id_cols = c(IdConglomerado),
+              names_from = "Variable",
+              values_from = "Valor",
+              values_fn = list)
+```
+
+Ahora, ¿cómo sacamos las entradas de una lista sin perder el formato tabular? Esto lo hacemos con `unnest`. Hay dos versiones: `unnest_longer` y `unnest_wider`. `unnest_wider` hace algo similar a `unnest_longer` pero en formato ancho, para usarlo hay que indicar los nombres de las nuevas columnas.
+
+```{r}
+datos |>
+  select(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) |>
+  pivot_longer(cols = -c(IdConglomerado),
+              names_to = "Variable",
+               values_to = "Valor") |>
+  pivot_wider(id_cols = c(IdConglomerado),
+              names_from = "Variable",
+              values_from = "Valor",
+              values_fn = list) |>
+  unnest_longer(c(biomasa_kg_C3, DiametroNormal_C3))
+```
+
+Este ejemplo sirve para ver que los tibbles pueden guardar listas en sus celdas.
+
+Ya quedó como antes.
+Los dos pivots son muy útiles para acomodar datos para hacer ciertas operaciones o acomodos. Por ejemplo, en formato ancho es muy fácil calcular el porcentaje para cada valor, mientras que usualmente el formato largo es el más apropiado para hacer gráficas con ggplot.
+
+## Anidar y desanidar
+
+Ahora si queremos meter datos dentro de una lista en un tibble se puede usar `nest`.
+
+```{r}
+datos |>
+  select(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) |>
+  pivot_longer(cols = -c(IdConglomerado),
+              names_to = "Variable",
+               values_to = "Valor") |>
+  pivot_wider(id_cols = c(IdConglomerado),
+              names_from = "Variable",
+              values_from = "Valor",
+              values_fn = list) |>
+  unnest_longer(c(biomasa_kg_C3, DiametroNormal_C3)) |>
+  group_by(IdConglomerado) |>
+  nest(data = biomasa_kg_C3) 
+```
+
+Y ahora veamos como podemos sacar los datos de una lista.
+
+```{r}
+datos |>
+  select(IdConglomerado,biomasa_kg_C3,DiametroNormal_C3) |>
+  pivot_longer(cols = -c(IdConglomerado),
+              names_to = "Variable",
+               values_to = "Valor") |>
+  pivot_wider(id_cols = c(IdConglomerado),
+              names_from = "Variable",
+              values_from = "Valor",
+              values_fn = list) |>
+  unnest_longer(c(biomasa_kg_C3, DiametroNormal_C3)) |>
+  group_by(IdConglomerado) |>
+  nest(data = biomasa_kg_C3) |>
+  unnest(data)
+```
+
+`Nest` y `unnest` son útiles para hacer distintos modelos con diferentes grupos de datos o también para manejar casos no únicos al hacer pivot_wider.
+
+## Quitar NA
+
+Hay otras funciones útiles en dplyr/tidyr para manejar datos con NA.
+
+Quitar NA se hace con `drop_na`
+
+```{r}
+datos |>
+  mutate(across(DiametroNormal_C3, ~ifelse(.x >= 99999, NA, .x))) |>
+  drop_na(DiametroNormal_C3)
+```
+
+## Sustituir NA
+
+A veces se desea sustituir los NA con algún valor. Eso se puede hacer con `replace_na`.
+
+```{r}
+datos |>
+  mutate(across(DiametroNormal_C3, ~ifelse(.x >= 99999, NA, .x))) |>
+  replace_na(list(DiametroNormal_C3 = 0)) |>
+  filter(DiametroNormal_C3 == 0)
+```
+
+## Rellenar datos vacíos 
+
+Rellenar datos vación en función de las entradas que tienen próximas.
+
+Veamos otros datos:
+- [Recuento de especies conocidas de fauna por grupo de vertebrados y según categoría de riesgo de acuerdo con la NOM-059-ECOL-1994](http://dgeiawf.semarnat.gob.mx:8080/ibi_apps/WFServlet?IBIF_ex=D3_BIODIV02_02&IBIC_user=dgeia_mce&IBIC_pass=dgeia_mce)
+
+Si no lo pueden descargar directamente de la página, bájenlo de mi repositorio de github: [spNOM](https://github.com/JonathanVSV/CursoR/blob/main/Data/spNOM.xlsx).
+
+Trae unos signos extraños como nombre de columna.
+
+Los datos muestran el número de especies por estado de riesgo de diferentes grupos de animales.
+
+```{r}
+datos2 <- read_excel("Data/spNOM.xlsx",
+                     skip = 3,
+                     na = "-")
+colnames(datos2)
+```
+
+Vamos a usar un truco para quitar esos signos con `str_replace_all` de los nombre de columnas de los datos.
+
+Usaremos una función de otro paquete que no veremos a profundidad: stringr. Como `\` es un caracter especial hay que usar doble ``\\` para escaparlo.
+
+```{r}
+nuevosnoms <- datos2 |> 
+  colnames() |>
+  stringr::str_replace_all("\\r\\n\\r\\n|\\r\\n", "")
+colnames(datos2) <- nuevosnoms
+```
+
+Ahora si podemos usar `fill` para rellenar datos de una columna en particular y en el sentido indicado en `.direction`.
+
+```{r}
+datos2 |> 
+  fill(all_of("Categoría"), 
+       .direction = ("down"))
+```
+
+## Otras funciones útiles 
+
+Otras funciones útiles que ya no da tiempo de ver:
+
+- unite: unir dos columnas en una sol
+- separate: Separar una columna en dos o más usando un separador.
+- expand: Expandir a usar todas las combinacinoes posibles. Esto muchas veces es similar a usar pivot_wider
+- complete. Completa observaciones que no aparecen en los datos y los rellena con NA.
+- hoist: Es como un unnest para ciertas variables
+- rowwise: Aplicar una operación para cada fila.
